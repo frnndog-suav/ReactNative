@@ -17,6 +17,8 @@ export const styles = StyleSheet.create({
     fontSize: 16,
   },
   input: {
+    flex: 1,
+    marginRight: 12,
     backgroundColor: "#1f1e25",
     height: 56,
     borderRadius: 5,
@@ -35,5 +37,11 @@ export const styles = StyleSheet.create({
     backgroundColor: "#31cf67",
     alignItems: "center",
     justifyContent: "center",
+  },
+  form: {
+    width: "100%",
+    flexDirection: "row",
+    marginTop: 36,
+    marginBottom: 42,
   },
 });
