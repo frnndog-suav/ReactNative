@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Alert,
   FlatList,
@@ -11,7 +11,7 @@ import { Participant } from "../../components/Participant";
 import { styles } from "./styles";
 
 export function Home() {
-  const participants = [
+  const [participants, setParticipants] = useState([
     "Teste",
     "Goia",
     "Rocketseat",
@@ -23,7 +23,7 @@ export function Home() {
     "Native",
     "Android",
     "IOS",
-  ];
+  ]);
 
   function handleParticipantAdd() {
     if (participants.includes("Teste")) {
@@ -33,6 +33,8 @@ export function Home() {
       );
       return;
     }
+
+    setParticipants((current) => [...current, ])
   }
 
   function handleParticipantOnRemove(name: string) {
