@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Alert,
   FlatList,
   Text,
   TextInput,
@@ -25,11 +26,27 @@ export function Home() {
   ];
 
   function handleParticipantAdd() {
-    console.log("Teste");
+    if (participants.includes("Teste")) {
+      Alert.alert(
+        "Participante já existe",
+        `Já existe um participante na lista com esse nome.`
+      );
+      return;
+    }
   }
 
   function handleParticipantOnRemove(name: string) {
-    console.log("remover", name);
+    Alert.alert("Remover", `Remover o participante ${name}?`, [
+      {
+        text: "Sim",
+        onPress: () => {},
+      },
+      {
+        text: "Não",
+        style: "cancel",
+        onPress: () => {},
+      },
+    ]);
   }
 
   return (
