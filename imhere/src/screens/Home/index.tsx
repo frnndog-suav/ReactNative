@@ -11,22 +11,11 @@ import { Participant } from "../../components/Participant";
 import { styles } from "./styles";
 
 export function Home() {
-  const [participants, setParticipants] = useState([
-    "Teste",
-    "Goia",
-    "Rocketseat",
-    "Tobias",
-    "Tebas",
-    "Hello",
-    "World",
-    "React",
-    "Native",
-    "Android",
-    "IOS",
-  ]);
+  const [participantName, setParticipantName] = useState("");
+  const [participants, setParticipants] = useState<string[]>([]);
 
-  function handleParticipantAdd() {
-    if (participants.includes("Teste")) {
+  function handleParticipantAdd(participantName: string) {
+    if (participants.includes(participantName)) {
       Alert.alert(
         "Participante já existe",
         `Já existe um participante na lista com esse nome.`
@@ -34,14 +23,21 @@ export function Home() {
       return;
     }
 
-    setParticipants((current) => [...current, ])
+    setParticipants((current) => [...current, participantName]);
+    setParticipantName("");
   }
 
   function handleParticipantOnRemove(name: string) {
     Alert.alert("Remover", `Remover o participante ${name}?`, [
       {
         text: "Sim",
-        onPress: () => {},
+        onPress: () => {
+          const remainingParticipants = participants.filter(
+            (participant) => participant !== name
+          );
+
+          setParticipants(remainingParticipants);
+        },
       },
       {
         text: "Não",
@@ -59,11 +55,16 @@ export function Home() {
       <View style={styles.form}>
         <TextInput
           style={styles.input}
+          value={participantName}
           placeholder="Nome do participante"
           placeholderTextColor={"#6b6b6b"}
+          onChangeText={(text) => setParticipantName(text)}
         />
 
-        <TouchableOpacity style={styles.button} onPress={handleParticipantAdd}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleParticipantAdd(participantName)}
+        >
           <Text style={styles.buttonText}>+</Text>
         </TouchableOpacity>
       </View>
