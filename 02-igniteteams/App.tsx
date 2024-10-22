@@ -1,3 +1,4 @@
+import { Loading } from "@components/Loading";
 import {
   Roboto_400Regular,
   Roboto_700Bold,
@@ -5,7 +6,6 @@ import {
 } from "@expo-google-fonts/roboto";
 import { Groups } from "@screens/Groups";
 import theme from "@theme/index";
-import { ActivityIndicator } from "react-native";
 import { ThemeProvider } from "styled-components";
 
 // Instalar fontes customizadas: npx expo install @expo-google-fonts/roboto expo-font -- --legacy-peer-deps
@@ -19,7 +19,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       {fontsLoaded && <Groups />}
-      {!fontsLoaded && <ActivityIndicator />}
+      {!fontsLoaded && <Loading />}
     </ThemeProvider>
   );
 }
