@@ -6,6 +6,7 @@ import {
 } from "@expo-google-fonts/roboto";
 import { Groups } from "@screens/Groups";
 import theme from "@theme/index";
+import { StatusBar } from "react-native";
 import { ThemeProvider } from "styled-components";
 
 // Instalar fontes customizadas: npx expo install @expo-google-fonts/roboto expo-font -- --legacy-peer-deps
@@ -18,6 +19,11 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent
+      />
       {fontsLoaded && <Groups />}
       {!fontsLoaded && <Loading />}
     </ThemeProvider>
