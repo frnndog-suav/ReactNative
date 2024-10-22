@@ -1,12 +1,20 @@
-import { TouchableOpacity } from "react-native";
-import { Container, Icon } from "./styles";
+import { MaterialIcons } from "@expo/vector-icons";
+import { TouchableOpacityProps } from "react-native";
+import { Container, Icon, TButtonIconStyle } from "./styles";
 
-type TButtonIconProps = {} & TouchableOpacity;
+type TButtonIconProps = {
+  icon: keyof typeof MaterialIcons.glyphMap;
+  type?: TButtonIconStyle;
+} & TouchableOpacityProps;
 
-export function ButtonIcon() {
+export function ButtonIcon({
+  icon,
+  type = "PRIMARY",
+  ...rest
+}: TButtonIconProps) {
   return (
-    <Container>
-      <Icon name="home" type="SECONDARY" />
+    <Container {...rest}>
+      <Icon name={icon} type={type} />
     </Container>
   );
 }
