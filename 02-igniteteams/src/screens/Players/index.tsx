@@ -6,26 +6,25 @@ import { Highlight } from "@components/Highlight";
 import { Input } from "@components/Input";
 import { ListEmpty } from "@components/ListEmpty";
 import { PlayerCard } from "@components/PlayerCard";
+import { useRoute } from "@react-navigation/native";
 import { useState } from "react";
 import { FlatList } from "react-native";
 import { Container, Form, HeaderList, NumberOfPlayers } from "./styles";
 
+type TRouteParams = {
+  group: string;
+};
+
 export function Players() {
+  const route = useRoute();
+  const { group } = route.params as TRouteParams;
   const [team, setTeam] = useState("Time A");
-  const [players, setPlayers] = useState([
-    "Teste",
-    "Goia",
-    "Barcelona",
-    "PLanet Coaster",
-  ]);
+  const [players, setPlayers] = useState([]);
 
   return (
     <Container>
       <Header showBackButton />
-      <Highlight
-        title="Nome da turma"
-        subtitle="adicione a galera e separe os times"
-      />
+      <Highlight title={group} subtitle="adicione a galera e separe os times" />
 
       <Form>
         <Input placeholder="Nome da pessoa" autoCorrect={false} />
