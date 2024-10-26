@@ -10,10 +10,7 @@ import { Container } from "./styles";
 
 export function Groups() {
   const navigation = useNavigation();
-  const [groups, setGroups] = useState<string[]>([
-    "Galera da Rocketseat",
-    "Amigos",
-  ]);
+  const [groups, setGroups] = useState<string[]>([]);
 
   function handleNewGroup() {
     navigation.navigate("new");
