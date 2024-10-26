@@ -7,8 +7,11 @@ import { Input } from "@components/Input";
 import { ListEmpty } from "@components/ListEmpty";
 import { PlayerCard } from "@components/PlayerCard";
 import { useRoute } from "@react-navigation/native";
+import { playerAddByGroup_AS } from "@storage/player/playerAddByGroup";
+import { playersGetByGroup_AS } from "@storage/player/playersGetByGroup";
+import { AppError } from "@utils/AppError";
 import { useState } from "react";
-import { FlatList } from "react-native";
+import { Alert, FlatList } from "react-native";
 import { Container, Form, HeaderList, NumberOfPlayers } from "./styles";
 
 type TRouteParams = {
@@ -20,6 +23,34 @@ export function Players() {
   const { group } = route.params as TRouteParams;
   const [team, setTeam] = useState("Time A");
   const [players, setPlayers] = useState([]);
+  const [newPlayerName, setNewPlayerName] = useState("");
+
+  async function handleAddPlayer() {
+    if (newPlayerName.trim().length === 0)
+      return Alert.alert(
+        "Nova pessoa",
+        "Informe o nome da pessoa para adicionar."
+      );
+
+    const newPlayer = {
+      name: newPlayerName,
+      team,
+    };
+
+    try {
+      await playerAddByGroup_AS(newPlayer, group);
+
+      const players = await playersGetByGroup_AS(group);
+
+      console.log("players", players);
+    } catch (error) {
+      if (error instanceof AppError)
+        return Alert.alert("Nova pessoa", error.message);
+
+      Alert.alert("Novo pessoa", "Não foi possível adicionar o jogador.");
+      console.log("GENERIC error: ", error);
+    }
+  }
 
   return (
     <Container>
@@ -27,8 +58,12 @@ export function Players() {
       <Highlight title={group} subtitle="adicione a galera e separe os times" />
 
       <Form>
-        <Input placeholder="Nome da pessoa" autoCorrect={false} />
-        <ButtonIcon icon="add" />
+        <Input
+          placeholder="Nome da pessoa"
+          autoCorrect={false}
+          onChangeText={setNewPlayerName}
+        />
+        <ButtonIcon icon="add" onPress={handleAddPlayer} />
       </Form>
 
       <HeaderList>
