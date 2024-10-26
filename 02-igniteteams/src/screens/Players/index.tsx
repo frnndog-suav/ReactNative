@@ -11,7 +11,7 @@ import { playerAddByGroup_AS } from "@storage/player/playerAddByGroup";
 import { playerGetByGroupAndTeam_AS } from "@storage/player/playerGetByGroupAndTeam";
 import { TPlayerStorageDTO } from "@storage/player/PlayerStorageDTO";
 import { AppError } from "@utils/AppError";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, FlatList } from "react-native";
 import { Container, Form, HeaderList, NumberOfPlayers } from "./styles";
 
@@ -40,6 +40,8 @@ export function Players() {
 
     try {
       await playerAddByGroup_AS(newPlayer, group);
+
+      await fetchPlayersByTeam();
     } catch (error) {
       if (error instanceof AppError)
         return Alert.alert("Nova pessoa", error.message);
@@ -62,6 +64,10 @@ export function Players() {
       console.log("GENERIC error: ", error);
     }
   }
+
+  useEffect(() => {
+    fetchPlayersByTeam();
+  }, [team]);
 
   return (
     <Container>
@@ -95,11 +101,11 @@ export function Players() {
 
       <FlatList
         data={players}
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item.name}
         ListEmptyComponent={<ListEmpty message="Não há pessoas nesse time." />}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
-          <PlayerCard name={item} onRemove={() => {}} />
+          <PlayerCard name={item.name} onRemove={() => {}} />
         )}
         contentContainerStyle={[
           // { paddingBottom: 100 },
