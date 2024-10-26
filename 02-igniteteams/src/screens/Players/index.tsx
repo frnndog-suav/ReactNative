@@ -57,7 +57,7 @@ export function Players() {
           <PlayerCard name={item} onRemove={() => {}} />
         )}
         contentContainerStyle={[
-          { paddingBottom: 100 },
+          // { paddingBottom: 100 },
           players.length === 0 && { flex: 1 },
         ]}
       />
