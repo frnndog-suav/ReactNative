@@ -11,8 +11,8 @@ import { playerAddByGroup_AS } from "@storage/player/playerAddByGroup";
 import { playerGetByGroupAndTeam_AS } from "@storage/player/playerGetByGroupAndTeam";
 import { TPlayerStorageDTO } from "@storage/player/PlayerStorageDTO";
 import { AppError } from "@utils/AppError";
-import { useEffect, useState } from "react";
-import { Alert, FlatList } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { Alert, FlatList, TextInput } from "react-native";
 import { Container, Form, HeaderList, NumberOfPlayers } from "./styles";
 
 type TRouteParams = {
@@ -25,6 +25,8 @@ export function Players() {
   const [team, setTeam] = useState("Time A");
   const [players, setPlayers] = useState<TPlayerStorageDTO[]>([]);
   const [newPlayerName, setNewPlayerName] = useState("");
+
+  const newPlayerNameInputRef = useRef<TextInput>(null);
 
   async function handleAddPlayer() {
     if (newPlayerName.trim().length === 0)
@@ -40,7 +42,8 @@ export function Players() {
 
     try {
       await playerAddByGroup_AS(newPlayer, group);
-
+      newPlayerNameInputRef.current?.blur();
+      setNewPlayerName("");
       await fetchPlayersByTeam();
     } catch (error) {
       if (error instanceof AppError)
@@ -76,9 +79,13 @@ export function Players() {
 
       <Form>
         <Input
+          inputRef={newPlayerNameInputRef}
           placeholder="Nome da pessoa"
           autoCorrect={false}
+          value={newPlayerName}
           onChangeText={setNewPlayerName}
+          onSubmitEditing={handleAddPlayer}
+          returnKeyType="done"
         />
         <ButtonIcon icon="add" onPress={handleAddPlayer} />
       </Form>
