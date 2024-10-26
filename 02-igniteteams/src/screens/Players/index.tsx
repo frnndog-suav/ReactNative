@@ -8,7 +8,8 @@ import { ListEmpty } from "@components/ListEmpty";
 import { PlayerCard } from "@components/PlayerCard";
 import { useRoute } from "@react-navigation/native";
 import { playerAddByGroup_AS } from "@storage/player/playerAddByGroup";
-import { playersGetByGroup_AS } from "@storage/player/playersGetByGroup";
+import { playerGetByGroupAndTeam_AS } from "@storage/player/playerGetByGroupAndTeam";
+import { TPlayerStorageDTO } from "@storage/player/PlayerStorageDTO";
 import { AppError } from "@utils/AppError";
 import { useState } from "react";
 import { Alert, FlatList } from "react-native";
@@ -22,7 +23,7 @@ export function Players() {
   const route = useRoute();
   const { group } = route.params as TRouteParams;
   const [team, setTeam] = useState("Time A");
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState<TPlayerStorageDTO[]>([]);
   const [newPlayerName, setNewPlayerName] = useState("");
 
   async function handleAddPlayer() {
@@ -39,15 +40,25 @@ export function Players() {
 
     try {
       await playerAddByGroup_AS(newPlayer, group);
-
-      const players = await playersGetByGroup_AS(group);
-
-      console.log("players", players);
     } catch (error) {
       if (error instanceof AppError)
         return Alert.alert("Nova pessoa", error.message);
 
-      Alert.alert("Novo pessoa", "Não foi possível adicionar o jogador.");
+      Alert.alert("Novo pessoa", "Não foi possível adicionar a pessoa.");
+      console.log("GENERIC error: ", error);
+    }
+  }
+
+  async function fetchPlayersByTeam() {
+    try {
+      const playersByTeam = await playerGetByGroupAndTeam_AS(group, team);
+
+      setPlayers(playersByTeam);
+    } catch (error) {
+      Alert.alert(
+        "Novo pessoa",
+        "Não foi possível carregar as pessoas filtradas do time selecionado."
+      );
       console.log("GENERIC error: ", error);
     }
   }
