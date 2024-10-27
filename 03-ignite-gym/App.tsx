@@ -1,6 +1,7 @@
 import { Loading } from "@components/Loading";
 import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
-import { Center, GluestackUIProvider, Text } from "@gluestack-ui/themed";
+import { Center, GluestackUIProvider } from "@gluestack-ui/themed";
+import { SignIn } from "@screens/SignIn";
 import { useFonts } from "expo-font";
 import { StatusBar } from "react-native";
 
@@ -24,9 +25,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      <Center flex={1} backgroundColor="#121214">
-        <Text color="white">Open up App.tsx to start working on your app!</Text>
-      </Center>
+      <SignIn />
     </GluestackUIProvider>
   );
 }
