@@ -4,7 +4,8 @@ import {
   Roboto_700Bold,
   useFonts,
 } from "@expo-google-fonts/roboto";
-import { StatusBar, StyleSheet, View } from "react-native";
+import { StatusBar, View } from "react-native";
+import { Center } from "./components/ui/center";
 import { GluestackUIProvider } from "./components/ui/gluestack-ui-provider";
 
 export default function App() {
@@ -20,23 +21,14 @@ export default function App() {
 
   return (
     <GluestackUIProvider>
-      <View style={styles.container}>
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor="transparent"
-          translucent
-        />
-        <Text style={{color: '#1234dd'}}>Open up App.tsx to start working on your app!</Text>
-      </View>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent
+      />
+      <Center className="bg-primary-500 h-[200px] w-[300px]">
+        <Text>Open up App.tsx to start working on your app!</Text>
+      </Center>
     </GluestackUIProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
