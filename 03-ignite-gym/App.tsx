@@ -1,3 +1,4 @@
+import { Loading } from "@components/Loading";
 import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import { Center, GluestackUIProvider, Text } from "@gluestack-ui/themed";
 import { useFonts } from "expo-font";
@@ -9,7 +10,9 @@ export default function App() {
   if (!isFontsLoaded) {
     return (
       <GluestackUIProvider>
-        <Text>Carregando...</Text>
+        <Center flex={1} backgroundColor="#121214">
+          <Loading />
+        </Center>
       </GluestackUIProvider>
     );
   }
@@ -21,8 +24,8 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      <Center flex={1}>
-        <Text>Open up App.tsx to start working on your app!</Text>
+      <Center flex={1} backgroundColor="#121214">
+        <Text color="white">Open up App.tsx to start working on your app!</Text>
       </Center>
     </GluestackUIProvider>
   );
