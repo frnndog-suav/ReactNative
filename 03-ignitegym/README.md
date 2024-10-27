@@ -1,0 +1,1 @@
+1 - configurando os "paths" no "tsconfig.json"
