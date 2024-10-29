@@ -23,8 +23,12 @@ export function SignIn() {
 
       <Center gap={16}>
         <Heading color="#E1E1E6">Acesse a conta</Heading>
-        <Input placeholder="E-mail" />
-        <Input placeholder="Senha" />
+        <Input
+          placeholder="E-mail"
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+        <Input placeholder="Senha" secureTextEntry />
       </Center>
     </VStack>
   );
