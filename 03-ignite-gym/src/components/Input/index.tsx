@@ -6,12 +6,15 @@ type Props = ComponentProps<typeof InputField>;
 export function Input({ ...rest }: Props) {
   return (
     <GluestackInput
+      $focus={{
+        borderWidth: 1,
+        borderColor: '#00B37E'
+      }}
       style={{
         backgroundColor: "#121214",
-        height: 40,
+        height: 50,
         width: 300,
         paddingHorizontal: 32,
-        borderWidth: 0,
         borderRadius: 16,
         justifyContent: "center",
       }}
