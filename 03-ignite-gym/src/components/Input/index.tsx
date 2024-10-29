@@ -1,9 +1,9 @@
 import { Input as GluestackInput, InputField } from "@gluestack-ui/themed";
 import { ComponentProps } from "react";
 
-type Props = ComponentProps<typeof InputField>;
+type TProps = ComponentProps<typeof InputField>;
 
-export function Input({ ...rest }: Props) {
+export function Input({ ...rest }: TProps) {
   return (
     <GluestackInput
       $focus={{
@@ -15,7 +15,7 @@ export function Input({ ...rest }: Props) {
         height: 50,
         width: 300,
         paddingHorizontal: 32,
-        borderRadius: 16,
+        borderRadius: 8,
         justifyContent: "center",
       }}
     >

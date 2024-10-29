@@ -1,5 +1,6 @@
 import BackgroundImg from "@assets/background.png";
 import Logo from "@assets/logo.svg";
+import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import { Center, Heading, Image, Text, VStack } from "@gluestack-ui/themed";
 
@@ -14,7 +15,7 @@ export function SignIn() {
         position="absolute"
       />
 
-      <Center marginTop={154} marginBottom={80}>
+      <Center marginTop={154} marginBottom={60}>
         <Logo />
         <Text color="#E1E1E6" fontSize={16}>
           Treine sua mente e seu corpo
@@ -29,6 +30,13 @@ export function SignIn() {
           autoCapitalize="none"
         />
         <Input placeholder="Senha" secureTextEntry />
+
+        <Button
+          title="Acessar"
+          onPress={() => {
+            console.log("teste");
+          }}
+        />
       </Center>
     </VStack>
   );
