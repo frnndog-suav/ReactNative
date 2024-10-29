@@ -22,8 +22,10 @@ export function SignIn() {
         </Text>
       </Center>
 
-      <Center gap={16}>
-        <Heading color="#E1E1E6">Acesse a conta</Heading>
+      <Center gap={16} justifyContent="center">
+        <Heading color="#E1E1E6" alignSelf="center">
+          Acesse a conta
+        </Heading>
         <Input
           placeholder="E-mail"
           keyboardType="email-address"
@@ -31,12 +33,14 @@ export function SignIn() {
         />
         <Input placeholder="Senha" secureTextEntry />
 
-        <Button
-          title="Acessar"
-          onPress={() => {
-            console.log("teste");
-          }}
-        />
+        <Button title="Acessar" />
+      </Center>
+
+      <Center flex={1} justifyContent="flex-end" marginBottom={40}>
+        <Text color="#E1E1E6" fontSize={14} marginBottom={16} >
+          Ainda não tem acesso?
+        </Text>
+        <Button title="Criar conta" variant="outlined" />
       </Center>
     </VStack>
   );

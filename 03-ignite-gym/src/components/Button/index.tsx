@@ -8,14 +8,20 @@ import { ComponentProps } from "react";
 type TProps = ComponentProps<typeof GluestackButton> & {
   title: string;
   isLoading?: boolean;
+  variant?: "solid" | "outlined";
 };
 
-export function Button({ title, isLoading = true, ...rest }: TProps) {
+export function Button({
+  title,
+  isLoading = false,
+  variant = "solid",
+  ...rest
+}: TProps) {
   return (
     <GluestackButton
       style={{
-        backgroundColor: "#00875F",
-        borderWidth: 1,
+        backgroundColor: variant === "outlined" ? "transparent" : "#00875F",
+        borderWidth: variant === "outlined" ? 1 : 0,
         borderColor: "#00B37E",
         borderRadius: 8,
         height: 50,
@@ -30,7 +36,8 @@ export function Button({ title, isLoading = true, ...rest }: TProps) {
           style={{
             textAlign: "center",
             lineHeight: 45,
-            color: "white",
+            color: variant === "outlined" ? "#00875F" : "white",
+            fontWeight: variant === "outlined" ? 700 : 500
           }}
         >
           {title}
