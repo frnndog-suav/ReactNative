@@ -8,12 +8,12 @@ export function Input({ ...rest }: TProps) {
     <GluestackInput
       $focus={{
         borderWidth: 1,
-        borderColor: '#00B37E'
+        borderColor: "#00B37E",
       }}
       style={{
         backgroundColor: "#121214",
         height: 50,
-        width: 300,
+        width: "100%",
         paddingHorizontal: 32,
         borderRadius: 8,
         justifyContent: "center",
