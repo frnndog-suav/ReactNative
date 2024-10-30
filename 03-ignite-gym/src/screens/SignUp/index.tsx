@@ -10,8 +10,16 @@ import {
   Text,
   VStack,
 } from "@gluestack-ui/themed";
+import { useNavigation } from "@react-navigation/native";
+import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
 
 export function SignUp() {
+  const navigator = useNavigation<AuthNavigatorRoutesProps>();
+
+  function handleLogin() {
+    navigator.navigate("signIn");
+  }
+
   return (
     <ScrollView flex={1}>
       <VStack flex={1} minHeight={"100%"} alignItems="center">
@@ -43,7 +51,12 @@ export function SignUp() {
           <Input placeholder="Senha" secureTextEntry />
 
           <Button title="Criar e acessar" />
-          <Button title="Voltar para login" variant="outlined" width={"100%"} />
+          <Button
+            title="Voltar para login"
+            variant="outlined"
+            width={"100%"}
+            onPress={handleLogin}
+          />
         </Center>
       </VStack>
     </ScrollView>
