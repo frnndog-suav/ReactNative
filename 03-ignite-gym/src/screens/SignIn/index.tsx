@@ -34,7 +34,7 @@ export function SignIn() {
           </Text>
         </Center>
 
-        <Center gap={16} justifyContent="center">
+        <Center gap={16} width="100%" paddingHorizontal={32}>
           <Heading color="#E1E1E6" alignSelf="center">
             Acesse a conta
           </Heading>

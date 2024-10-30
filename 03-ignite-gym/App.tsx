@@ -1,8 +1,7 @@
 import { Loading } from "@components/Loading";
 import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import { Center, GluestackUIProvider } from "@gluestack-ui/themed";
-import { SignIn } from "@screens/SignIn";
-import { SignUp } from "@screens/SignUp";
+import { Routes } from "@routes/index";
 import { useFonts } from "expo-font";
 import { StatusBar } from "react-native";
 
@@ -26,7 +25,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      <SignUp />
+      <Routes />
     </GluestackUIProvider>
   );
 }
