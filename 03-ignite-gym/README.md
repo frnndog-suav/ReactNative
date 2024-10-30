@@ -7,3 +7,5 @@
 4 - Instalar `npm install --save-dev react-native-svg-transformer` para carregar/usar imagens svg
 
 5 - Criar arquivo "metro.config.js" para usar o "react-native-svg-transformer"
+
+6 - Para navegação, instale `npm install @react-navigation/native` e `npx expo install react-native-screens react-native-safe-area-context` (mais informações em "React Navigation")
