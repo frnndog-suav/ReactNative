@@ -13,7 +13,7 @@ import {
 
 export function SignUp() {
   return (
-    <ScrollView flex={1} backgroundColor="#121214">
+    <ScrollView flex={1}>
       <VStack flex={1} minHeight={"100%"} alignItems="center">
         <Image
           alt="Pessoas treinando"

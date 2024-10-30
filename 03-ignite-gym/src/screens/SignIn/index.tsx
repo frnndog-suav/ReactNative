@@ -13,7 +13,7 @@ import {
 
 export function SignIn() {
   return (
-    <ScrollView flex={1} backgroundColor="#121214">
+    <ScrollView flex={1}>
       <VStack
         minHeight={"100%"}
         alignItems="center"
