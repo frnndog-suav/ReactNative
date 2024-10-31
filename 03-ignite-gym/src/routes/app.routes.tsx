@@ -7,9 +7,10 @@ import { History } from "@screens/History";
 import { Home } from "@screens/Home";
 import { Profile } from "@screens/Profile";
 
-import HomeSvg from "@assets/home.svg";
 import HistorySvg from "@assets/history.svg";
+import HomeSvg from "@assets/home.svg";
 import ProfileSvg from "@assets/profile.svg";
+import { Platform } from "react-native";
 
 type AppRoutes = {
   home: undefined;
@@ -31,7 +32,14 @@ export function AppRoutes() {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarActiveTintColor: "#00B37E",
-        tabBarInactiveBackgroundColor: "#C4C4CC",
+        tabBarInactiveTintColor: "#C4C4CC",
+        tabBarStyle: {
+          backgroundColor: "#202024",
+          borderTopWidth: 0,
+          height: Platform.OS === "android" ? "auto" : 96,
+          paddingBottom: 60,
+          paddingTop: 30,
+        },
       }}
     >
       <Screen
@@ -61,7 +69,13 @@ export function AppRoutes() {
           ),
         }}
       />
-      <Screen name="exercise" component={Exercise} />
+      <Screen
+        name="exercise"
+        component={Exercise}
+        options={{
+          tabBarButton: () => null,
+        }}
+      />
     </Navigator>
   );
 }
