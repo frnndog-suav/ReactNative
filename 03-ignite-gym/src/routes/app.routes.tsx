@@ -30,6 +30,8 @@ export function AppRoutes() {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
+        tabBarActiveTintColor: "#00B37E",
+        tabBarInactiveBackgroundColor: "#C4C4CC",
       }}
     >
       <Screen
