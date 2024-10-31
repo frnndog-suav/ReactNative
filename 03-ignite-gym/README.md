@@ -11,3 +11,5 @@
 6 - Para navegação, instale `npm install @react-navigation/native` e `npx expo install react-native-screens react-native-safe-area-context` (mais informações em "React Navigation")
 
 7 - Instalar o stack navigation com `npm install @react-navigation/native-stack`
+
+8 - Instalar navegação por tabs `npm install @react-navigation/bottom-tabs`
