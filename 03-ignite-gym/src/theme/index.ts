@@ -16,8 +16,8 @@ export const MY_THEME_CONTROLLER = {
     RED_500: "#F75A68",
   },
   FONTS: {
-    HEADING: 700,
-    BODY: 400,
+    HEADING: "700",
+    BODY: "400",
   },
   FONT_SIZE: {
     XS: 12,
