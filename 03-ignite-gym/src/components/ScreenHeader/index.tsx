@@ -8,6 +8,7 @@ type Props = {
 export function ScreenHeader({ title }: Props) {
   return (
     <Center
+      alignItems="center"
       backgroundColor={MY_THEME_CONTROLLER.COLORS.GRAY_600}
       paddingBottom={24}
       paddingTop={64}
