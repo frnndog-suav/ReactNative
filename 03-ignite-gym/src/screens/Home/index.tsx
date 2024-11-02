@@ -1,5 +1,5 @@
 import { Group } from "@components/Group";
-import { VStack } from "@gluestack-ui/themed";
+import { Heading, HStack, Text, VStack } from "@gluestack-ui/themed";
 import { useState } from "react";
 import { FlatList } from "react-native";
 import { HomeHeader } from "./components/HomeHeader";
@@ -34,6 +34,23 @@ export function Home() {
           />
         )}
       />
+
+      <VStack paddingHorizontal={16}>
+        <HStack
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between"
+          marginBottom={10}
+          alignItems="center"
+        >
+          <Heading marginBottom={0} marginTop={0} color="#C4C4CC" fontSize={16}>
+            Exercícios
+          </Heading>
+          <Text color="#C4C4CC" fontSize={12}>
+            4
+          </Text>
+        </HStack>
+      </VStack>
     </VStack>
   );
 }
