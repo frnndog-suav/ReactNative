@@ -1,3 +1,4 @@
+import { Input } from "@components/Input";
 import { ScreenHeader } from "@components/ScreenHeader";
 import { Center, Text, VStack } from "@gluestack-ui/themed";
 import { UserPhoto } from "@screens/Home/components/UserPhoto";
@@ -28,6 +29,16 @@ export function Profile() {
               Alterar foto
             </Text>
           </TouchableOpacity>
+          <Center width="100%" gap={8}>
+            <Input
+              placeholder="Nome"
+              style={{ backgroundColor: MY_THEME_CONTROLLER.COLORS.GRAY_600 }}
+            />
+            <Input
+              value="test.teste@gmail.com"
+              style={{ backgroundColor: MY_THEME_CONTROLLER.COLORS.GRAY_600 }}
+            />
+          </Center>
         </Center>
       </ScrollView>
     </VStack>
