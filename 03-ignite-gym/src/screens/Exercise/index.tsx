@@ -1,5 +1,9 @@
 import BodySvg from "@assets/body.svg";
+import RepetitionSvg from "@assets/repetitions.svg";
+import SeriesSvg from "@assets/series.svg";
+import { Button } from "@components/Button";
 import {
+  Box,
   Heading,
   HStack,
   Icon,
@@ -10,7 +14,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { AppNavigatorRoutesProps } from "@routes/app.routes";
 import { ArrowLeft } from "lucide-react-native";
-import { TouchableOpacity } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native";
 import { MY_THEME_CONTROLLER } from "../../theme";
 
 export function Exercise() {
@@ -65,21 +69,63 @@ export function Exercise() {
         </HStack>
       </VStack>
 
-      <VStack padding={32}>
-        <Image
-          marginBottom={12}
-          borderRadius={8}
-          resizeMode="cover"
-          alt="Exercício"
-          sx={{
-            width: "100%",
-            height: 320,
-          }}
-          source={{
-            uri: "https://static.wixstatic.com/media/2edbed_eacddcd1f6384878a3c11ec40d478509~mv2.webp/v1/fill/w_584,h_676,al_c,lg_1,q_85,enc_auto/2edbed_eacddcd1f6384878a3c11ec40d478509~mv2.webp",
-          }}
-        />
-      </VStack>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 32 }}
+      >
+        <VStack padding={32}>
+          <Image
+            marginBottom={12}
+            borderRadius={8}
+            resizeMode="cover"
+            alt="Exercício"
+            sx={{
+              width: "100%",
+              height: 320,
+            }}
+            source={{
+              uri: "https://static.wixstatic.com/media/2edbed_eacddcd1f6384878a3c11ec40d478509~mv2.webp/v1/fill/w_584,h_676,al_c,lg_1,q_85,enc_auto/2edbed_eacddcd1f6384878a3c11ec40d478509~mv2.webp",
+            }}
+          />
+
+          <Box
+            backgroundColor={MY_THEME_CONTROLLER.COLORS.GRAY_600}
+            borderRadius={8}
+            paddingBottom={32}
+            paddingHorizontal={32}
+          >
+            <HStack
+              display="flex"
+              flexDirection="row"
+              alignItems="center"
+              justifyContent="space-around"
+              marginBottom={24}
+              marginTop={20}
+            >
+              <HStack display="flex" flexDirection="row" alignItems="center">
+                <SeriesSvg />
+                <Text
+                  color={MY_THEME_CONTROLLER.COLORS.GRAY_200}
+                  marginLeft={8}
+                >
+                  3 séries
+                </Text>
+              </HStack>
+              <HStack display="flex" flexDirection="row" alignItems="center">
+                <RepetitionSvg />
+                <Text
+                  color={MY_THEME_CONTROLLER.COLORS.GRAY_200}
+                  marginLeft={8}
+                >
+                  12 repetições
+                </Text>
+              </HStack>
+            </HStack>
+
+            <Button title="Marcar como realizado" />
+          </Box>
+        </VStack>
+      </ScrollView>
     </VStack>
   );
 }
