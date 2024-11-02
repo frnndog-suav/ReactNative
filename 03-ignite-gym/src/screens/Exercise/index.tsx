@@ -1,5 +1,12 @@
 import BodySvg from "@assets/body.svg";
-import { Heading, HStack, Icon, Text, VStack } from "@gluestack-ui/themed";
+import {
+  Heading,
+  HStack,
+  Icon,
+  Image,
+  Text,
+  VStack,
+} from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
 import { AppNavigatorRoutesProps } from "@routes/app.routes";
 import { ArrowLeft } from "lucide-react-native";
@@ -56,6 +63,22 @@ export function Exercise() {
             </Text>
           </HStack>
         </HStack>
+      </VStack>
+
+      <VStack padding={32}>
+        <Image
+          marginBottom={12}
+          borderRadius={8}
+          resizeMode="cover"
+          alt="Exercício"
+          sx={{
+            width: "100%",
+            height: 320,
+          }}
+          source={{
+            uri: "https://static.wixstatic.com/media/2edbed_eacddcd1f6384878a3c11ec40d478509~mv2.webp/v1/fill/w_584,h_676,al_c,lg_1,q_85,enc_auto/2edbed_eacddcd1f6384878a3c11ec40d478509~mv2.webp",
+          }}
+        />
       </VStack>
     </VStack>
   );
