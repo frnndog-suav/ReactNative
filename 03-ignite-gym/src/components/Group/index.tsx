@@ -17,7 +17,9 @@ export function Group({ isActive, name, ...rest }: TProps) {
       alignItems="center"
       borderColor="#00B37E"
       borderWidth={isActive ? 1 : 0}
+      marginRight={6}
       sx={{
+        paddingHorizontal: 16,
         ":active": {
           borderWidth: 1,
         },
