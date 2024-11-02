@@ -13,3 +13,5 @@
 7 - Instalar o stack navigation com `npm install @react-navigation/native-stack`
 
 8 - Instalar navegação por tabs `npm install @react-navigation/bottom-tabs`
+
+9 - Instalar pack de ícones com `npm install lucide`
