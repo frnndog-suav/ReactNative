@@ -46,6 +46,7 @@ export function Profile() {
               />
               <Input
                 value="test.teste@gmail.com"
+                isReadOnly
                 style={{ backgroundColor: MY_THEME_CONTROLLER.COLORS.GRAY_600 }}
               />
             </Center>
