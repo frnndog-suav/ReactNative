@@ -22,7 +22,7 @@ export function ExerciseCard({ ...rest }: Props) {
         paddingRight={20}
         padding={12}
         borderRadius={4}
-        marginBottom={6}
+        marginBottom={18}
         gap={8}
       >
         <Image
