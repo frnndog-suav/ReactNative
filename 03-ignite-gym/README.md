@@ -17,3 +17,5 @@
 9 - Instalar pack de ícones com `npm install lucide`
 
 10 - Para acessar a galeria de fotos no celular do usuário `npx expo install expo-image-picker`
+
+11 - Para verificar detalhes de um arquivo `npx expo install expo-file-system`
