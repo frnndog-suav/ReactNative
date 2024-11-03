@@ -3,15 +3,20 @@ import { Input } from "@components/Input";
 import { ScreenHeader } from "@components/ScreenHeader";
 import { Center, Heading, Text, VStack } from "@gluestack-ui/themed";
 import { UserPhoto } from "@screens/Home/components/UserPhoto";
+import * as ImagePicker from "expo-image-picker";
 import {
   KeyboardAvoidingView,
+  Platform,
   ScrollView,
   TouchableOpacity,
 } from "react-native";
 import { MY_THEME_CONTROLLER } from "../../theme";
-import { Platform } from "react-native";
 
 export function Profile() {
+  async function handleUserPhotoSelect() {
+    await ImagePicker.launchImageLibraryAsync();
+  }
+
   return (
     <VStack flex={1}>
       <ScreenHeader title="Perfil" />
@@ -28,7 +33,7 @@ export function Profile() {
               width={108}
               height={108}
             />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleUserPhotoSelect}>
               <Text
                 color={MY_THEME_CONTROLLER.COLORS.GREEN_500}
                 fontFamily={MY_THEME_CONTROLLER.FONTS.HEADING}
