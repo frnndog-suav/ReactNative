@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { MY_THEME_CONTROLLER } from "../../theme";
+import { ToastMessage } from "@components/ToastMessage";
 
 export function Profile() {
   const [userPhoto, setUserPhoto] = useState(
@@ -56,6 +57,14 @@ export function Profile() {
   return (
     <VStack flex={1}>
       <ScreenHeader title="Perfil" />
+
+      <ToastMessage
+        id={"123"}
+        title="teste"
+        description="Testestestestes"
+        action="error"
+        onClose={() => {}}
+      />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
