@@ -14,7 +14,12 @@ import { MY_THEME_CONTROLLER } from "../../theme";
 
 export function Profile() {
   async function handleUserPhotoSelect() {
-    await ImagePicker.launchImageLibraryAsync();
+    await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 1,
+      aspect: [4, 4],
+      allowsEditing: true,
+    });
   }
 
   return (
