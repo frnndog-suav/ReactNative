@@ -36,7 +36,7 @@ export function ToastMessage({
           : MY_THEME_CONTROLLER.COLORS.RED_500
       }
     >
-      <VStack width="100%" gap={8} padding={12}>
+      <VStack gap={8} padding={12} sx={{ width: "100%" }}>
         <Pressable alignSelf="flex-end" onPress={onClose}>
           <Icon as={X} color={MY_THEME_CONTROLLER.COLORS.GRAY_100} />
         </Pressable>

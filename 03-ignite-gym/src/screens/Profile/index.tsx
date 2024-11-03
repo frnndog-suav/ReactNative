@@ -1,22 +1,22 @@
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import { ScreenHeader } from "@components/ScreenHeader";
-import { Center, Heading, Text, VStack } from "@gluestack-ui/themed";
+import { ToastMessage } from "@components/ToastMessage";
+import { Center, Heading, Text, useToast, VStack } from "@gluestack-ui/themed";
 import { UserPhoto } from "@screens/Home/components/UserPhoto";
 import * as FileSystem from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import {
-  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
   TouchableOpacity,
 } from "react-native";
 import { MY_THEME_CONTROLLER } from "../../theme";
-import { ToastMessage } from "@components/ToastMessage";
 
 export function Profile() {
+  const toast = useToast();
   const [userPhoto, setUserPhoto] = useState(
     "https://github.com/frnndog-suav.png"
   );
@@ -41,10 +41,19 @@ export function Profile() {
           size: number;
         };
 
-        if (photoInfo.size && photoInfo.size / 1024 / 1024 > 5) {
-          return Alert.alert(
-            "Essa imagem é muito grande. Escolha uma de até 5MB."
-          );
+        if (photoInfo.size && photoInfo.size / 1024 / 1024 > 0.01) {
+          return toast.show({
+            placement: "top",
+            render: ({ id }) => (
+              <ToastMessage
+                id={id}
+                title="Imagem muito grande."
+                description="Escolha uma de até 5MB."
+                action="error"
+                onClose={() => toast.close(id)}
+              />
+            ),
+          });
         }
 
         setUserPhoto(photoUri);
@@ -57,14 +66,6 @@ export function Profile() {
   return (
     <VStack flex={1}>
       <ScreenHeader title="Perfil" />
-
-      <ToastMessage
-        id={"123"}
-        title="teste"
-        description="Testestestestes"
-        action="error"
-        onClose={() => {}}
-      />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
