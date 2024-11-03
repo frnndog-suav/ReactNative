@@ -11,15 +11,26 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { MY_THEME_CONTROLLER } from "../../theme";
+import { useState } from "react";
 
 export function Profile() {
+  const [userPhoto, setUserPhoto] = useState(
+    "https://github.com/frnndog-suav.png"
+  );
+
   async function handleUserPhotoSelect() {
-    await ImagePicker.launchImageLibraryAsync({
+    const photoSelected = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
       aspect: [4, 4],
       allowsEditing: true,
     });
+
+    if (photoSelected.canceled) {
+      return;
+    }
+
+    setUserPhoto(photoSelected.assets[0].uri);
   }
 
   return (
@@ -33,7 +44,7 @@ export function Profile() {
         <ScrollView contentContainerStyle={{ paddingBottom: 50 }}>
           <Center marginTop={24} paddingHorizontal={40} alignItems="center">
             <UserPhoto
-              source={{ uri: "https://github.com/frnndog-suav.png" }}
+              source={{ uri: userPhoto }}
               alt="Foto do usuário"
               width={108}
               height={108}
