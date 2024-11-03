@@ -15,7 +15,7 @@ export function HistoryCard() {
       alignItems="center"
       justifyContent="space-between"
     >
-      <VStack marginRight={20} gap={8}>
+      <VStack flex={1} marginRight={20} gap={8}>
         <Heading
           marginBottom={0}
           marginTop={0}
@@ -23,6 +23,7 @@ export function HistoryCard() {
           fontSize={MY_THEME_CONTROLLER.FONT_SIZE.MD}
           textTransform="capitalize"
           fontFamily={MY_THEME_CONTROLLER.FONTS.HEADING}
+          numberOfLines={1}
         >
           Costas
         </Heading>

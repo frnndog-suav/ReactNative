@@ -15,3 +15,5 @@
 8 - Instalar navegação por tabs `npm install @react-navigation/bottom-tabs`
 
 9 - Instalar pack de ícones com `npm install lucide`
+
+10 - Para acessar a galeria de fotos no celular do usuário `npx expo install expo-image-picker`
