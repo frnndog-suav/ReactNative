@@ -101,6 +101,13 @@ export function SignUp() {
             <Controller
               control={control}
               name="email"
+              rules={{
+                required: "Informe o email",
+                pattern: {
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
+                  message: "Email inválido",
+                },
+              }}
               render={({ field: { onChange, value } }) => (
                 <Input
                   onChangeText={(e) => onChange(e)}
@@ -111,6 +118,16 @@ export function SignUp() {
                 />
               )}
             />
+
+            {errors.email?.message && (
+              <Text
+                color={MY_THEME_CONTROLLER.COLORS.RED_500}
+                fontWeight={MY_THEME_CONTROLLER.FONTS.HEADING}
+              >
+                {errors.email.message}
+              </Text>
+            )}
+
             <Controller
               control={control}
               name="password"
