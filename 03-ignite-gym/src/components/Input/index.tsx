@@ -1,39 +1,61 @@
-import { Input as GluestackInput, InputField } from "@gluestack-ui/themed";
+import {
+  FormControl,
+  FormControlError,
+  FormControlErrorText,
+  Input as GluestackInput,
+  InputField,
+} from "@gluestack-ui/themed";
 import { ComponentProps } from "react";
+import { MY_THEME_CONTROLLER } from "../../theme";
 
 type TProps = ComponentProps<typeof InputField> & {
   isReadOnly?: boolean;
+  errorMessage?: string | null;
+  isInvalid?: boolean;
 };
 
-export function Input({ isReadOnly = false, ...rest }: TProps) {
+export function Input({
+  isReadOnly = false,
+  errorMessage = null,
+  isInvalid = false,
+  ...rest
+}: TProps) {
+  const invalid = !!errorMessage || isInvalid;
+
   return (
-    <GluestackInput
-      borderWidth={1}
-      borderColor="transparent"
-      isReadOnly={isReadOnly}
-      opacity={isReadOnly ? 0.5 : 1}
-      $focus={{
-        borderColor: "#00B37E",
-        borderRadius: 8,
-      }}
-      style={{
-        height: 50,
-        width: "100%",
-        justifyContent: "center",
-      }}
-    >
-      <InputField
-        borderRadius={8}
-        placeholderTextColor="#7C7C8A"
-        color="white"
-        $active-color="#FFF"
-        sx={{
-          backgroundColor: "#121214",
-          paddingVertical: 24,
-          paddingHorizontal: 16,
+    <FormControl isInvalid={invalid} sx={{ width: "100%" }} marginBottom={8}>
+      <GluestackInput
+        borderWidth={1}
+        borderColor="transparent"
+        isReadOnly={isReadOnly}
+        opacity={isReadOnly ? 0.5 : 1}
+        $focus={{
+          borderColor: "#00B37E",
+          borderRadius: 8,
         }}
-        {...rest}
-      />
-    </GluestackInput>
+        style={{
+          height: 50,
+          width: "100%",
+          justifyContent: "center",
+        }}
+      >
+        <InputField
+          borderRadius={8}
+          placeholderTextColor="#7C7C8A"
+          color="white"
+          sx={{
+            backgroundColor: "#121214",
+            paddingVertical: 24,
+            paddingHorizontal: 16,
+          }}
+          {...rest}
+        />
+      </GluestackInput>
+      <FormControlError>
+        <FormControlErrorText color={MY_THEME_CONTROLLER.COLORS.RED_500}>
+          {errorMessage}
+        </FormControlErrorText>
+      </FormControlError>
+    </FormControl>
   );
 }

@@ -13,7 +13,6 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
 import { Controller, useForm } from "react-hook-form";
-import { MY_THEME_CONTROLLER } from "../../theme";
 
 type TFormDataProps = {
   name: string;
@@ -85,18 +84,10 @@ export function SignUp() {
                   placeholder="Nome"
                   onChangeText={(e) => onChange(e)}
                   value={value}
+                  errorMessage={errors.name?.message}
                 />
               )}
             />
-
-            {errors.name?.message && (
-              <Text
-                color={MY_THEME_CONTROLLER.COLORS.RED_500}
-                fontWeight={MY_THEME_CONTROLLER.FONTS.HEADING}
-              >
-                {errors.name.message}
-              </Text>
-            )}
 
             <Controller
               control={control}
@@ -115,18 +106,10 @@ export function SignUp() {
                   placeholder="E-mail"
                   keyboardType="email-address"
                   autoCapitalize="none"
+                  errorMessage={errors.email?.message}
                 />
               )}
             />
-
-            {errors.email?.message && (
-              <Text
-                color={MY_THEME_CONTROLLER.COLORS.RED_500}
-                fontWeight={MY_THEME_CONTROLLER.FONTS.HEADING}
-              >
-                {errors.email.message}
-              </Text>
-            )}
 
             <Controller
               control={control}
