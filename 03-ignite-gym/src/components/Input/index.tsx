@@ -25,12 +25,19 @@ export function Input({
   return (
     <FormControl isInvalid={invalid} sx={{ width: "100%" }} marginBottom={8}>
       <GluestackInput
+        isInvalid={invalid}
         borderWidth={1}
         borderColor="transparent"
         isReadOnly={isReadOnly}
         opacity={isReadOnly ? 0.5 : 1}
         $focus={{
-          borderColor: "#00B37E",
+          borderColor: invalid
+            ? MY_THEME_CONTROLLER.COLORS.RED_500
+            : MY_THEME_CONTROLLER.COLORS.GREEN_500,
+          borderRadius: 8,
+        }}
+        $invalid={{
+          borderColor: MY_THEME_CONTROLLER.COLORS.RED_500,
           borderRadius: 8,
         }}
         style={{
