@@ -24,7 +24,14 @@ type TFormDataProps = {
 export function SignUp() {
   const navigator = useNavigation<AuthNavigatorRoutesProps>();
 
-  const { control, handleSubmit } = useForm<TFormDataProps>();
+  const { control, handleSubmit } = useForm<TFormDataProps>({
+    defaultValues: {
+      email: "",
+      name: "",
+      password: "",
+      passwordConfirm: "",
+    },
+  });
 
   function handleLogin() {
     navigator.navigate("signIn");
@@ -37,7 +44,12 @@ export function SignUp() {
   return (
     <>
       <ScrollView flex={1}>
-        <VStack flex={1} minHeight={"100%"} alignItems="center">
+        <VStack
+          flex={1}
+          minHeight={"100%"}
+          alignItems="center"
+          paddingBottom={200}
+        >
           <Image
             alt="Pessoas treinando"
             source={BackgroundImg}
