@@ -13,6 +13,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
 import { Controller, useForm } from "react-hook-form";
+import { MY_THEME_CONTROLLER } from "../../theme";
 
 type TFormDataProps = {
   name: string;
@@ -24,7 +25,11 @@ type TFormDataProps = {
 export function SignUp() {
   const navigator = useNavigation<AuthNavigatorRoutesProps>();
 
-  const { control, handleSubmit } = useForm<TFormDataProps>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TFormDataProps>({
     defaultValues: {
       email: "",
       name: "",
@@ -48,7 +53,7 @@ export function SignUp() {
           flex={1}
           minHeight={"100%"}
           alignItems="center"
-          paddingBottom={200}
+          paddingBottom={100}
         >
           <Image
             alt="Pessoas treinando"
@@ -72,6 +77,9 @@ export function SignUp() {
             <Controller
               control={control}
               name="name"
+              rules={{
+                required: "teste",
+              }}
               render={({ field: { onChange, value } }) => (
                 <Input
                   placeholder="Nome"
@@ -80,6 +88,16 @@ export function SignUp() {
                 />
               )}
             />
+
+            {errors.name?.message && (
+              <Text
+                color={MY_THEME_CONTROLLER.COLORS.RED_500}
+                fontWeight={MY_THEME_CONTROLLER.FONTS.HEADING}
+              >
+                {errors.name.message}
+              </Text>
+            )}
+
             <Controller
               control={control}
               name="email"

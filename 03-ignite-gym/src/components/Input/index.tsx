@@ -26,6 +26,7 @@ export function Input({ isReadOnly = false, ...rest }: TProps) {
         borderRadius={8}
         placeholderTextColor="#7C7C8A"
         color="white"
+        $active-color="#FFF"
         sx={{
           backgroundColor: "#121214",
           paddingVertical: 24,
