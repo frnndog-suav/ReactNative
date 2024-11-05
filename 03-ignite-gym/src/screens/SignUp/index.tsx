@@ -14,16 +14,23 @@ import { useNavigation } from "@react-navigation/native";
 import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
 import { Controller, useForm } from "react-hook-form";
 
+type TFormDataProps = {
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+};
+
 export function SignUp() {
   const navigator = useNavigation<AuthNavigatorRoutesProps>();
 
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit } = useForm<TFormDataProps>();
 
   function handleLogin() {
     navigator.navigate("signIn");
   }
 
-  function handleCreateAccount(data: any) {
+  function handleCreateAccount(data: TFormDataProps) {
     console.log("data", data);
   }
 
@@ -53,14 +60,21 @@ export function SignUp() {
             <Controller
               control={control}
               name="name"
-              render={({ field }) => <Input {...field} placeholder="Nome" />}
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  placeholder="Nome"
+                  onChangeText={(e) => onChange(e)}
+                  value={value}
+                />
+              )}
             />
             <Controller
               control={control}
               name="email"
-              render={({ field }) => (
+              render={({ field: { onChange, value } }) => (
                 <Input
-                  {...field}
+                  onChangeText={(e) => onChange(e)}
+                  value={value}
                   placeholder="E-mail"
                   keyboardType="email-address"
                   autoCapitalize="none"
@@ -70,16 +84,22 @@ export function SignUp() {
             <Controller
               control={control}
               name="password"
-              render={({ field }) => (
-                <Input {...field} placeholder="Senha" secureTextEntry />
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  onChangeText={(e) => onChange(e)}
+                  value={value}
+                  placeholder="Senha"
+                  secureTextEntry
+                />
               )}
             />
             <Controller
               control={control}
-              name="confirmPassword"
-              render={({ field }) => (
+              name="passwordConfirm"
+              render={({ field: { onChange, value } }) => (
                 <Input
-                  {...field}
+                  onChangeText={(e) => onChange(e)}
+                  value={value}
                   placeholder="Confirmar senha"
                   secureTextEntry
                   onSubmitEditing={handleSubmit(handleCreateAccount)}
