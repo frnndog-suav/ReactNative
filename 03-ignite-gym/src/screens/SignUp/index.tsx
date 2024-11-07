@@ -10,9 +10,18 @@ import {
   Text,
   VStack,
 } from "@gluestack-ui/themed";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigation } from "@react-navigation/native";
 import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
 import { Controller, useForm } from "react-hook-form";
+import * as yup from "yup";
+
+const signUpSchema = yup.object({
+  name: yup.string().required("Informe o nome"),
+  email: yup.string().required("Informe o email").email("Email inválido"),
+  password: yup.string().required("Senha inválida"),
+  passwordConfirm: yup.string().required("Senha inválida"),
+});
 
 type TFormDataProps = {
   name: string;
@@ -29,6 +38,7 @@ export function SignUp() {
     handleSubmit,
     formState: { errors },
   } = useForm<TFormDataProps>({
+    resolver: yupResolver(signUpSchema),
     defaultValues: {
       email: "",
       name: "",
@@ -76,9 +86,6 @@ export function SignUp() {
             <Controller
               control={control}
               name="name"
-              rules={{
-                required: "teste",
-              }}
               render={({ field: { onChange, value } }) => (
                 <Input
                   placeholder="Nome"
@@ -92,13 +99,6 @@ export function SignUp() {
             <Controller
               control={control}
               name="email"
-              rules={{
-                required: "Informe o email",
-                pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
-                  message: "Email inválido",
-                },
-              }}
               render={({ field: { onChange, value } }) => (
                 <Input
                   onChangeText={(e) => onChange(e)}
