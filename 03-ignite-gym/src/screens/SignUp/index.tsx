@@ -23,7 +23,10 @@ const signUpSchema = yup.object({
     .string()
     .required("Informe a senha.")
     .min(6, "Senha deve ter pelo menos 6 digitos."),
-  passwordConfirm: yup.string().required("Senha inválida."),
+  passwordConfirm: yup
+    .string()
+    .required("Confirme a senha.")
+    .oneOf([yup.ref("password"), ""], "A confirmação da senha não confere."),
 });
 
 type TFormDataProps = {
