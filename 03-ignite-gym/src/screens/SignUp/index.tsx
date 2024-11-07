@@ -17,10 +17,13 @@ import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 const signUpSchema = yup.object({
-  name: yup.string().required("Informe o nome"),
-  email: yup.string().required("Informe o email").email("Email inválido"),
-  password: yup.string().required("Senha inválida"),
-  passwordConfirm: yup.string().required("Senha inválida"),
+  name: yup.string().required("Informe o nome."),
+  email: yup.string().required("Informe o email.").email("Email inválido."),
+  password: yup
+    .string()
+    .required("Informe a senha.")
+    .min(6, "Senha deve ter pelo menos 6 digitos."),
+  passwordConfirm: yup.string().required("Senha inválida."),
 });
 
 type TFormDataProps = {
@@ -120,6 +123,7 @@ export function SignUp() {
                   value={value}
                   placeholder="Senha"
                   secureTextEntry
+                  errorMessage={errors.password?.message}
                 />
               )}
             />
@@ -134,6 +138,7 @@ export function SignUp() {
                   secureTextEntry
                   onSubmitEditing={handleSubmit(handleCreateAccount)}
                   returnKeyType="send"
+                  errorMessage={errors.passwordConfirm?.message}
                 />
               )}
             />
