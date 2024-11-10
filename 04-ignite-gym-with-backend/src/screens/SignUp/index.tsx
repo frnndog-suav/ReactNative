@@ -14,7 +14,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigation } from "@react-navigation/native";
 import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
 import { api } from "@services/api";
+import { isAxiosError } from "axios";
 import { Controller, useForm } from "react-hook-form";
+import { Alert } from "react-native";
 import * as yup from "yup";
 
 const signUpSchema = yup.object({
@@ -63,19 +65,13 @@ export function SignUp() {
     name,
     password,
   }: TFormDataProps) {
-    // await fetch("http://192.168.15.105:3333/users", {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ name, email, password }),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => console.log(data));
-
-    const response = await api.post("/users", { name, email, password });
-    console.log("response", response.data);
+    try {
+      const response = await api.post("/users", { name, email, password });
+    } catch (error) {
+      if (isAxiosError(error)) {
+        Alert.alert(error.response?.data.message);
+      }
+    }
   }
 
   return (
