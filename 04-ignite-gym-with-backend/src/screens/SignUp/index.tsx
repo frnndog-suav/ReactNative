@@ -57,8 +57,15 @@ export function SignUp() {
     navigator.navigate("signIn");
   }
 
-  function handleCreateAccount(data: TFormDataProps) {
-    console.log("data", data);
+  function handleCreateAccount({ email, name, password }: TFormDataProps) {
+    fetch("http://192.168.15.105:3333/users", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, password }),
+    });
   }
 
   return (
