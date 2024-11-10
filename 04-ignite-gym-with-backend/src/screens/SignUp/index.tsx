@@ -13,6 +13,7 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigation } from "@react-navigation/native";
 import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
+import { api } from "@services/api";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 
@@ -62,16 +63,19 @@ export function SignUp() {
     name,
     password,
   }: TFormDataProps) {
-    await fetch("http://192.168.15.105:3333/users", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, email, password }),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+    // await fetch("http://192.168.15.105:3333/users", {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ name, email, password }),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => console.log(data));
+
+    const response = await api.post("/users", { name, email, password });
+    console.log("response", response.data);
   }
 
   return (
