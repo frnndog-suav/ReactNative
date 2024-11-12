@@ -1,5 +1,6 @@
 import { TUserDTO } from "@dtos/UserDTO";
 import { api } from "@services/api";
+import { storageUserSave } from "@storage/storageUser";
 import { createContext, useState } from "react";
 
 export type TAuthContextDataProps = {
@@ -27,10 +28,9 @@ export function AuthContextProvider({ children }: TAuthContextProviderProps) {
     try {
       const { data } = await api.post("/sessions", { email, password });
 
-      console.log("signIn", data);
-
       if (data.user) {
         setUser(data.user);
+        storageUserSave(data.user);
       }
     } catch (error) {
       throw error;
