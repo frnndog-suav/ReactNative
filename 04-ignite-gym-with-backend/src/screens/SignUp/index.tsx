@@ -68,7 +68,7 @@ export function SignUp() {
     password,
   }: TFormDataProps) {
     try {
-      const response = await api.post("/users", { name, email, password });
+      await api.post("/users", { name, email, password });
     } catch (error) {
       const isAppError = error instanceof AppError;
       const title = isAppError
