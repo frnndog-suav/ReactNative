@@ -30,6 +30,7 @@ export function AuthContextProvider({ children }: TAuthContextProviderProps) {
       console.log("signIn", data);
 
       if (data.user) {
+        setUser(data.user);
       }
     } catch (error) {
       throw error;

@@ -1,11 +1,10 @@
 import { useAuth } from "@hooks/useAuth";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
+import { AppRoutes } from "./app.routes";
 import { AuthRoutes } from "./auth.routes";
 
 export function Routes() {
   const { user } = useAuth();
-
-  console.log("user", user);
 
   const theme = DefaultTheme;
 
@@ -13,7 +12,7 @@ export function Routes() {
 
   return (
     <NavigationContainer theme={theme}>
-      <AuthRoutes />
+      {!user.id ? <AuthRoutes /> : <AppRoutes />}
     </NavigationContainer>
   );
 }
