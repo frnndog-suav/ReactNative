@@ -1,10 +1,11 @@
 import { TUserDTO } from "@dtos/UserDTO";
+import { api } from "@services/api";
 import { createContext, useState } from "react";
 
 export type TAuthContextDataProps = {
   user: TUserDTO;
   setNewUser(value: TUserDTO): void;
-  signIn(email: string, password: string): void;
+  signIn(email: string, password: string): Promise<void>;
 };
 
 export const AuthContext = createContext<TAuthContextDataProps>(
@@ -16,18 +17,24 @@ type TAuthContextProviderProps = {
 };
 
 export function AuthContextProvider({ children }: TAuthContextProviderProps) {
-  const [user, setUser] = useState<TUserDTO>({
-    avatar: "",
-    email: "",
-    id: "",
-    name: "",
-  });
+  const [user, setUser] = useState<TUserDTO>({} as TUserDTO);
 
   function setNewUser(value: TUserDTO) {
     setUser(value);
   }
 
-  function signIn(email: string, password: string) {
+  async function signIn(email: string, password: string) {
+    try {
+      const { data } = await api.post("/sessions", { email, password });
+
+      console.log("signIn", data);
+
+      if (data.user) {
+      }
+    } catch (error) {
+      throw error;
+    }
+
     setUser((current) => {
       return {
         ...current,
