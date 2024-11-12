@@ -34,6 +34,7 @@ type TFormDataProps = {
 };
 
 export function SignIn() {
+  const [isLoading, setIsLoading] = useState(false);
   const { signIn } = useAuth();
   const toast = useToast();
   const navigator = useNavigation<AuthNavigatorRoutesProps>();
@@ -56,6 +57,7 @@ export function SignIn() {
 
   async function handleSignIn({ email, password }: TFormDataProps) {
     try {
+      setIsLoading(true);
       await signIn(email, password);
     } catch (error) {
       const isAppError = error instanceof AppError;
@@ -75,6 +77,8 @@ export function SignIn() {
           />
         ),
       });
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -134,7 +138,11 @@ export function SignIn() {
             )}
           />
 
-          <Button title="Acessar" onPress={handleSubmit(handleSignIn)} />
+          <Button
+            title="Acessar"
+            onPress={handleSubmit(handleSignIn)}
+            isLoading={isLoading}
+          />
         </Center>
 
         <Center flex={1} justifyContent="flex-end" marginBottom={40}>
