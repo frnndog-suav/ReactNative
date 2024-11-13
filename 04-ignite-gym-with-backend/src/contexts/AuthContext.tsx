@@ -1,6 +1,10 @@
 import { TUserDTO } from "@dtos/UserDTO";
 import { api } from "@services/api";
-import { storageUserGet, storageUserSave } from "@storage/storageUser";
+import {
+  storageUserGet,
+  storageUserRemove,
+  storageUserSave,
+} from "@storage/storageUser";
 import { createContext, useEffect, useState } from "react";
 
 export type TAuthContextDataProps = {
@@ -9,6 +13,7 @@ export type TAuthContextDataProps = {
   setNewUser(value: TUserDTO): void;
   signIn(email: string, password: string): Promise<void>;
   loadUserData(): Promise<void>;
+  signOut(): Promise<void>;
 };
 
 export const AuthContext = createContext<TAuthContextDataProps>(
@@ -62,6 +67,18 @@ export function AuthContextProvider({ children }: TAuthContextProviderProps) {
     }
   }
 
+  async function signOut() {
+    try {
+      setIsLoadingUserStorageData(true);
+      setUser({} as TUserDTO);
+      await storageUserRemove();
+    } catch (error) {
+      throw error;
+    } finally {
+      setIsLoadingUserStorageData(false);
+    }
+  }
+
   useEffect(() => {
     loadUserData();
   }, []);
@@ -73,6 +90,7 @@ export function AuthContextProvider({ children }: TAuthContextProviderProps) {
         isLoadingUserStorageData,
         setNewUser,
         signIn,
+        signOut,
         loadUserData,
       }}
     >
