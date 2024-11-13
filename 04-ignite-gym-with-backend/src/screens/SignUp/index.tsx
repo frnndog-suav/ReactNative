@@ -13,10 +13,12 @@ import {
   VStack,
 } from "@gluestack-ui/themed";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useAuth } from "@hooks/useAuth";
 import { useNavigation } from "@react-navigation/native";
 import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
 import { api } from "@services/api";
 import { AppError } from "@utils/appError";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 
@@ -41,8 +43,10 @@ type TFormDataProps = {
 };
 
 export function SignUp() {
+  const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const navigator = useNavigation<AuthNavigatorRoutesProps>();
+  const { signIn } = useAuth();
 
   const {
     control,
@@ -68,15 +72,20 @@ export function SignUp() {
     password,
   }: TFormDataProps) {
     try {
+      setIsLoading(true);
+
       await api.post("/users", { name, email, password });
+      await signIn(email, password);
+
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       const isAppError = error instanceof AppError;
       const title = isAppError
         ? error.message
         : "Não foi possível criar a conta";
 
       toast.show({
-        id: "eteste",
         placement: "top",
         render: ({ id }) => (
           <ToastMessage
@@ -177,6 +186,7 @@ export function SignUp() {
 
             <Button
               title="Criar e acessar"
+              isLoading={isLoading}
               onPress={handleSubmit(handleCreateAccount)}
             />
             <Button
