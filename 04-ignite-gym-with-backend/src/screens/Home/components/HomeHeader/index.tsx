@@ -1,8 +1,11 @@
 import { Heading, HStack, Icon, Text, VStack } from "@gluestack-ui/themed";
 import { LogOut } from "lucide-react-native";
 import { UserPhoto } from "../UserPhoto";
+import { useAuth } from "@hooks/useAuth";
 
 export function HomeHeader() {
+  const { user } = useAuth();
+
   return (
     <HStack
       display="flex"
@@ -25,7 +28,7 @@ export function HomeHeader() {
           Olá,
         </Text>
         <Heading color="#E1E1E6" marginTop={0} marginBottom={0}>
-          Fernando Goia
+          {user.name}
         </Heading>
       </VStack>
       <Icon as={LogOut} color="#C4C4CC" />
