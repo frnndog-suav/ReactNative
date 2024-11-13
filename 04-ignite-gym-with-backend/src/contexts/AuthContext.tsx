@@ -5,6 +5,7 @@ import { createContext, useEffect, useState } from "react";
 
 export type TAuthContextDataProps = {
   user: TUserDTO;
+  isLoadingUserStorageData: boolean;
   setNewUser(value: TUserDTO): void;
   signIn(email: string, password: string): Promise<void>;
   loadUserData(): Promise<void>;
@@ -20,6 +21,8 @@ type TAuthContextProviderProps = {
 
 export function AuthContextProvider({ children }: TAuthContextProviderProps) {
   const [user, setUser] = useState<TUserDTO>({} as TUserDTO);
+  const [isLoadingUserStorageData, setIsLoadingUserStorageData] =
+    useState(true);
 
   function setNewUser(value: TUserDTO) {
     setUser(value);
@@ -46,10 +49,16 @@ export function AuthContextProvider({ children }: TAuthContextProviderProps) {
   }
 
   async function loadUserData() {
-    const userLogged = await storageUserGet();
+    try {
+      const userLogged = await storageUserGet();
 
-    if (userLogged) {
-      setUser(userLogged);
+      if (userLogged) {
+        setUser(userLogged);
+      }
+    } catch (error) {
+      throw error;
+    } finally {
+      setIsLoadingUserStorageData(false);
     }
   }
 
@@ -61,6 +70,7 @@ export function AuthContextProvider({ children }: TAuthContextProviderProps) {
     <AuthContext.Provider
       value={{
         user,
+        isLoadingUserStorageData,
         setNewUser,
         signIn,
         loadUserData,
