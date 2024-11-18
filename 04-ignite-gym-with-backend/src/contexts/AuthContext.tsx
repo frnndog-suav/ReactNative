@@ -1,6 +1,9 @@
 import { TUserDTO } from "@dtos/UserDTO";
 import { api } from "@services/api";
-import { storageAuthTokenSave } from "@storage/storageAuthToken";
+import {
+  storageAuthTokenGet,
+  storageAuthTokenSave,
+} from "@storage/storageAuthToken";
 import {
   storageUserGet,
   storageUserRemove,
@@ -30,7 +33,18 @@ export function AuthContextProvider({ children }: TAuthContextProviderProps) {
   const [isLoadingUserStorageData, setIsLoadingUserStorageData] =
     useState(true);
 
-  async function storageUserAndToken({
+  async function userAndTokenUpdate({
+    token,
+    userData,
+  }: {
+    userData: TUserDTO;
+    token: string;
+  }) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    setUser(userData);
+  }
+
+  async function storageUserAndTokenSave({
     token,
     userData,
   }: {
@@ -41,10 +55,6 @@ export function AuthContextProvider({ children }: TAuthContextProviderProps) {
       setIsLoadingUserStorageData(true);
       await storageUserSave(userData);
       await storageAuthTokenSave(token);
-
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-      setUser(userData);
     } catch (error) {
       throw error;
     } finally {
@@ -61,7 +71,11 @@ export function AuthContextProvider({ children }: TAuthContextProviderProps) {
       const { data } = await api.post("/sessions", { email, password });
 
       if (data.user && data.token) {
-        storageUserAndToken({ token: data.token, userData: data.user });
+        await storageUserAndTokenSave({
+          token: data.token,
+          userData: data.user,
+        });
+        userAndTokenUpdate({ token: data.token, userData: data.user });
       }
     } catch (error) {
       throw error;
@@ -77,10 +91,12 @@ export function AuthContextProvider({ children }: TAuthContextProviderProps) {
 
   async function loadUserData() {
     try {
+      setIsLoadingUserStorageData(true);
       const userLogged = await storageUserGet();
+      const token = await storageAuthTokenGet();
 
-      if (userLogged) {
-        setUser(userLogged);
+      if (token && userLogged) {
+        userAndTokenUpdate({ token, userData: userLogged });
       }
     } catch (error) {
       throw error;
