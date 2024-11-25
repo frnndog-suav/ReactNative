@@ -20,8 +20,8 @@ export function Home() {
   const [groups, setGroups] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  function handleOpenExerciseDetails() {
-    navigation.navigate("exercise");
+  function handleOpenExerciseDetails(exerciseId: string) {
+    navigation.navigate("exercise", { exerciseId });
   }
 
   async function fetchGroups() {
@@ -139,7 +139,10 @@ export function Home() {
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: 550 }}
             renderItem={({ item }) => (
-              <ExerciseCard onPress={handleOpenExerciseDetails} data={item} />
+              <ExerciseCard
+                onPress={() => handleOpenExerciseDetails(item.id)}
+                data={item}
+              />
             )}
           />
         </VStack>
