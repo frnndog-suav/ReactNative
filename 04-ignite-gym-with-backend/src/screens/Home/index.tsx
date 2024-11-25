@@ -1,19 +1,20 @@
 import { ExerciseCard } from "@components/ExerciseCard";
 import { Group } from "@components/Group";
+import { ToastMessage } from "@components/ToastMessage";
+import { TExerciseDTO } from "@dtos/ExerciseDTO";
 import { Heading, HStack, Text, useToast, VStack } from "@gluestack-ui/themed";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { AppNavigatorRoutesProps } from "@routes/app.routes";
+import { api } from "@services/api";
+import { AppError } from "@utils/appError";
 import { useCallback, useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import { HomeHeader } from "./components/HomeHeader";
-import { AppError } from "@utils/appError";
-import { ToastMessage } from "@components/ToastMessage";
-import { api } from "@services/api";
 
 export function Home() {
   const navigation = useNavigation<AppNavigatorRoutesProps>();
   const toast = useToast();
-  const [exercises, setExercises] = useState([]);
+  const [exercises, setExercises] = useState<TExerciseDTO[]>([]);
   const [groupSelected, setGroupSelected] = useState("Costas");
   const [groups, setGroups] = useState<string[]>([]);
 
@@ -48,7 +49,7 @@ export function Home() {
   async function fetchExercisesByGroup() {
     try {
       const response = await api.get(`/exercises/bygroup/${groupSelected}`);
-      console.log("response", response.data);
+      setExercises(response.data);
     } catch (error) {
       const isAppError = error instanceof AppError;
       const title = isAppError
@@ -121,7 +122,7 @@ export function Home() {
 
         <FlatList
           data={exercises}
-          keyExtractor={(item) => item}
+          keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 550 }}
           renderItem={({ item }) => (
