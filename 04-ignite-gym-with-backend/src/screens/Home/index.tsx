@@ -1,9 +1,9 @@
 import { ExerciseCard } from "@components/ExerciseCard";
 import { Group } from "@components/Group";
 import { Heading, HStack, Text, useToast, VStack } from "@gluestack-ui/themed";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { AppNavigatorRoutesProps } from "@routes/app.routes";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import { HomeHeader } from "./components/HomeHeader";
 import { AppError } from "@utils/appError";
@@ -13,19 +13,9 @@ import { api } from "@services/api";
 export function Home() {
   const navigation = useNavigation<AppNavigatorRoutesProps>();
   const toast = useToast();
-  const [exercises, setExercises] = useState([
-    "Puxada frontal",
-    "Remada curvada",
-    "Remada unilateral",
-    "Levantamento terra",
-  ]);
+  const [exercises, setExercises] = useState([]);
   const [groupSelected, setGroupSelected] = useState("Costas");
-  const [groups, setGroups] = useState<string[]>([
-    "Costas",
-    "Bíceps",
-    "Tríceps",
-    "Ombro",
-  ]);
+  const [groups, setGroups] = useState<string[]>([]);
 
   function handleOpenExerciseDetails() {
     navigation.navigate("exercise");
@@ -47,7 +37,30 @@ export function Home() {
           <ToastMessage
             id={id}
             title={title}
-            description="Escolha uma de até 5MB."
+            action="error"
+            onClose={() => toast.close(id)}
+          />
+        ),
+      });
+    }
+  }
+
+  async function fetchExercisesByGroup() {
+    try {
+      const response = await api.get(`/exercises/bygroup/${groupSelected}`);
+      console.log("response", response.data);
+    } catch (error) {
+      const isAppError = error instanceof AppError;
+      const title = isAppError
+        ? error.message
+        : "Não foi possível carregar os exercícios.";
+
+      toast.show({
+        placement: "top",
+        render: ({ id }) => (
+          <ToastMessage
+            id={id}
+            title={title}
             action="error"
             onClose={() => toast.close(id)}
           />
@@ -59,6 +72,12 @@ export function Home() {
   useEffect(() => {
     fetchGroups();
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchExercisesByGroup();
+    }, [groupSelected])
+  );
 
   return (
     <VStack>
