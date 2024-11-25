@@ -1,5 +1,5 @@
 import { Loading } from "@components/Loading";
-import { AuthContext, AuthContextProvider } from "@contexts/AuthContext";
+import { AuthContextProvider } from "@contexts/AuthContext";
 import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import { Center, GluestackUIProvider } from "@gluestack-ui/themed";
 import { Routes } from "@routes/index";
