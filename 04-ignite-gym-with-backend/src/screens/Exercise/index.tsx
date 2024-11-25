@@ -2,6 +2,7 @@ import BodySvg from "@assets/body.svg";
 import RepetitionSvg from "@assets/repetitions.svg";
 import SeriesSvg from "@assets/series.svg";
 import { Button } from "@components/Button";
+import { ToastMessage } from "@components/ToastMessage";
 import {
   Box,
   Heading,
@@ -9,13 +10,18 @@ import {
   Icon,
   Image,
   Text,
+  useToast,
   VStack,
 } from "@gluestack-ui/themed";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { AppNavigatorRoutesProps } from "@routes/app.routes";
+import { api } from "@services/api";
+import { AppError } from "@utils/appError";
 import { ArrowLeft } from "lucide-react-native";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { MY_THEME_CONTROLLER } from "../../theme";
+import { TExerciseDTO } from "@dtos/ExerciseDTO";
+import { useEffect, useState } from "react";
 
 type TRouteParamProps = {
   exerciseId: string;
@@ -24,13 +30,41 @@ type TRouteParamProps = {
 export function Exercise() {
   const navigation = useNavigation<AppNavigatorRoutesProps>();
   const route = useRoute();
-
   const { exerciseId } = route.params as TRouteParamProps;
-  console.log("exerciseId", exerciseId);
+  const toast = useToast();
+  const [exercise, setExercise] = useState<TExerciseDTO>({} as TExerciseDTO);
 
   function handleGoBack() {
     navigation.goBack();
   }
+
+  async function fetchExerciseDetails() {
+    try {
+      const response = await api.get(`/exercises/${exerciseId}`);
+      setExercise(response.data);
+    } catch (error) {
+      const isAppError = error instanceof AppError;
+      const title = isAppError
+        ? error.message
+        : "Não foi possível carregar os detalhes do exercício.";
+
+      toast.show({
+        placement: "top",
+        render: ({ id }) => (
+          <ToastMessage
+            id={id}
+            title={title}
+            action="error"
+            onClose={() => toast.close(id)}
+          />
+        ),
+      });
+    }
+  }
+
+  useEffect(() => {
+    fetchExerciseDetails();
+  }, [exerciseId]);
 
   return (
     <VStack flex={1}>
@@ -62,7 +96,7 @@ export function Exercise() {
             fontSize={MY_THEME_CONTROLLER.FONT_SIZE.LG}
             flexShrink={1}
           >
-            Puxada frontal
+            {exercise.name}
           </Heading>
           <HStack display="flex" flexDirection="row" alignItems="center">
             <BodySvg />
@@ -71,7 +105,7 @@ export function Exercise() {
               marginLeft={4}
               textTransform="capitalize"
             >
-              Costas
+              {exercise.group}
             </Text>
           </HStack>
         </HStack>
@@ -92,7 +126,7 @@ export function Exercise() {
               height: 320,
             }}
             source={{
-              uri: "https://static.wixstatic.com/media/2edbed_eacddcd1f6384878a3c11ec40d478509~mv2.webp/v1/fill/w_584,h_676,al_c,lg_1,q_85,enc_auto/2edbed_eacddcd1f6384878a3c11ec40d478509~mv2.webp",
+              uri: `${api.defaults.baseURL}/exercise/demo/${exercise.demo}`,
             }}
           />
 
@@ -116,7 +150,7 @@ export function Exercise() {
                   color={MY_THEME_CONTROLLER.COLORS.GRAY_200}
                   marginLeft={8}
                 >
-                  3 séries
+                  {exercise.series} séries
                 </Text>
               </HStack>
               <HStack display="flex" flexDirection="row" alignItems="center">
@@ -125,7 +159,7 @@ export function Exercise() {
                   color={MY_THEME_CONTROLLER.COLORS.GRAY_200}
                   marginLeft={8}
                 >
-                  12 repetições
+                  {exercise.repetitions} repetições
                 </Text>
               </HStack>
             </HStack>
