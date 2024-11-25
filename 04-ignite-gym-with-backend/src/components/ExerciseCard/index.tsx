@@ -1,3 +1,4 @@
+import { TExerciseDTO } from "@dtos/ExerciseDTO";
 import {
   Heading,
   HStack,
@@ -6,12 +7,15 @@ import {
   Text,
   VStack,
 } from "@gluestack-ui/themed";
+import { api } from "@services/api";
 import { ChevronRight } from "lucide-react-native";
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 
-type Props = TouchableOpacityProps;
+type Props = TouchableOpacityProps & {
+  data: TExerciseDTO;
+};
 
-export function ExerciseCard({ ...rest }: Props) {
+export function ExerciseCard({ data, ...rest }: Props) {
   return (
     <TouchableOpacity {...rest}>
       <HStack
@@ -33,15 +37,15 @@ export function ExerciseCard({ ...rest }: Props) {
           marginRight={8}
           resizeMode="cover"
           source={{
-            uri: "https://static.wixstatic.com/media/2edbed_eacddcd1f6384878a3c11ec40d478509~mv2.webp/v1/fill/w_584,h_676,al_c,lg_1,q_85,enc_auto/2edbed_eacddcd1f6384878a3c11ec40d478509~mv2.webp",
+            uri: `${api.defaults.baseURL}/exercise/thumb/${data.thumb}`,
           }}
         />
         <VStack flex={1}>
           <Heading marginBottom={0} marginTop={0} fontSize={16} color="white">
-            Puxada frontal
+            {data.name}
           </Heading>
           <Text fontSize={12} color="#C4C4CC" marginTop={4} numberOfLines={2}>
-            3 séries x 12 repetições
+            {data.series} séries x {data.repetitions} repetições
           </Text>
         </VStack>
 

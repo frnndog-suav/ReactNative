@@ -126,7 +126,7 @@ export function Home() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 550 }}
           renderItem={({ item }) => (
-            <ExerciseCard onPress={handleOpenExerciseDetails} />
+            <ExerciseCard onPress={handleOpenExerciseDetails} data={item} />
           )}
         />
       </VStack>
