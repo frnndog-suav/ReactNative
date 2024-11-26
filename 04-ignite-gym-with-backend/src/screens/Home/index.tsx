@@ -1,5 +1,6 @@
 import { ExerciseCard } from "@components/ExerciseCard";
 import { Group } from "@components/Group";
+import { Loading } from "@components/Loading";
 import { ToastMessage } from "@components/ToastMessage";
 import { TExerciseDTO } from "@dtos/ExerciseDTO";
 import { Heading, HStack, Text, useToast, VStack } from "@gluestack-ui/themed";
@@ -10,7 +11,6 @@ import { AppError } from "@utils/appError";
 import { useCallback, useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import { HomeHeader } from "./components/HomeHeader";
-import { Loading } from "@components/Loading";
 
 export function Home() {
   const navigation = useNavigation<AppNavigatorRoutesProps>();
