@@ -1,7 +1,12 @@
 import { Heading, HStack, Text, VStack } from "@gluestack-ui/themed";
 import { MY_THEME_CONTROLLER } from "../../theme";
+import { THistoryDTO } from "@dtos/HistoryDTO";
 
-export function HistoryCard() {
+type Props = {
+  data: THistoryDTO;
+};
+
+export function HistoryCard({ data }: Props) {
   return (
     <HStack
       display="flex"
@@ -25,21 +30,21 @@ export function HistoryCard() {
           fontFamily={MY_THEME_CONTROLLER.FONTS.HEADING}
           numberOfLines={1}
         >
-          Costas
+          {data.group}
         </Heading>
         <Text
           color={MY_THEME_CONTROLLER.COLORS.GRAY_100}
           fontSize={MY_THEME_CONTROLLER.FONT_SIZE.LG}
           numberOfLines={1}
         >
-          Puxada frontal
+          {data.name}
         </Text>
       </VStack>
       <Text
         color={MY_THEME_CONTROLLER.COLORS.GRAY_300}
         fontSize={MY_THEME_CONTROLLER.FONT_SIZE.MD}
       >
-        08:56
+        {data.hour}
       </Text>
     </HStack>
   );

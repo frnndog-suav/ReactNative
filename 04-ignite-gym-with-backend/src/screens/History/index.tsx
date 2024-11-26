@@ -1,17 +1,18 @@
 import { HistoryCard } from "@components/HistoryCard";
 import { ScreenHeader } from "@components/ScreenHeader";
 import { ToastMessage } from "@components/ToastMessage";
+import { THistoryByDayDTO } from "@dtos/HistoryByDayDTO";
 import { Heading, Text, useToast, VStack } from "@gluestack-ui/themed";
+import { useFocusEffect } from "@react-navigation/native";
+import { api } from "@services/api";
 import { AppError } from "@utils/appError";
 import { useCallback, useState } from "react";
 import { SectionList } from "react-native";
 import { MY_THEME_CONTROLLER } from "../../theme";
-import { api } from "@services/api";
-import { useFocusEffect } from "@react-navigation/native";
 
 export function History() {
   const toast = useToast();
-  const [exercises, setExercises] = useState([]);
+  const [exercises, setExercises] = useState<THistoryByDayDTO[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   async function fetchHistory() {
@@ -19,8 +20,7 @@ export function History() {
       setIsLoading(true);
 
       const response = await api.get("/history");
-
-      console.log("response", response.data);
+      setExercises(response.data);
     } catch (error) {
       const isAppError = error instanceof AppError;
       const title = isAppError
@@ -55,8 +55,8 @@ export function History() {
 
       <SectionList
         sections={exercises}
-        keyExtractor={(item) => item}
-        renderItem={({ item }) => <HistoryCard />}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <HistoryCard data={item} />}
         renderSectionHeader={({ section }) => (
           <Heading
             marginBottom={12}
