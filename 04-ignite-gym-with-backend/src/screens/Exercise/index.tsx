@@ -2,7 +2,9 @@ import BodySvg from "@assets/body.svg";
 import RepetitionSvg from "@assets/repetitions.svg";
 import SeriesSvg from "@assets/series.svg";
 import { Button } from "@components/Button";
+import { Loading } from "@components/Loading";
 import { ToastMessage } from "@components/ToastMessage";
+import { TExerciseDTO } from "@dtos/ExerciseDTO";
 import {
   Box,
   Heading,
@@ -18,10 +20,9 @@ import { AppNavigatorRoutesProps } from "@routes/app.routes";
 import { api } from "@services/api";
 import { AppError } from "@utils/appError";
 import { ArrowLeft } from "lucide-react-native";
+import { useEffect, useState } from "react";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { MY_THEME_CONTROLLER } from "../../theme";
-import { TExerciseDTO } from "@dtos/ExerciseDTO";
-import { useEffect, useState } from "react";
 
 type TRouteParamProps = {
   exerciseId: string;
@@ -29,9 +30,12 @@ type TRouteParamProps = {
 
 export function Exercise() {
   const navigation = useNavigation<AppNavigatorRoutesProps>();
-  const route = useRoute();
-  const { exerciseId } = route.params as TRouteParamProps;
   const toast = useToast();
+  const route = useRoute();
+
+  const { exerciseId } = route.params as TRouteParamProps;
+
+  const [isLoading, setIsLoading] = useState(true);
   const [exercise, setExercise] = useState<TExerciseDTO>({} as TExerciseDTO);
 
   function handleGoBack() {
@@ -40,6 +44,7 @@ export function Exercise() {
 
   async function fetchExerciseDetails() {
     try {
+      setIsLoading(true);
       const response = await api.get(`/exercises/${exerciseId}`);
       setExercise(response.data);
     } catch (error) {
@@ -59,6 +64,8 @@ export function Exercise() {
           />
         ),
       });
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -111,63 +118,67 @@ export function Exercise() {
         </HStack>
       </VStack>
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 32 }}
-      >
-        <VStack padding={32}>
-          <Image
-            marginBottom={12}
-            borderRadius={8}
-            resizeMode="cover"
-            alt="Exercício"
-            sx={{
-              width: "100%",
-              height: 320,
-            }}
-            source={{
-              uri: `${api.defaults.baseURL}/exercise/demo/${exercise.demo}`,
-            }}
-          />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 32 }}
+        >
+          <VStack padding={32}>
+            <Image
+              marginBottom={12}
+              borderRadius={8}
+              resizeMode="cover"
+              alt="Exercício"
+              sx={{
+                width: "100%",
+                height: 320,
+              }}
+              source={{
+                uri: `${api.defaults.baseURL}/exercise/demo/${exercise.demo}`,
+              }}
+            />
 
-          <Box
-            backgroundColor={MY_THEME_CONTROLLER.COLORS.GRAY_600}
-            borderRadius={8}
-            paddingBottom={32}
-            paddingHorizontal={32}
-          >
-            <HStack
-              display="flex"
-              flexDirection="row"
-              alignItems="center"
-              justifyContent="space-around"
-              marginBottom={24}
-              marginTop={20}
+            <Box
+              backgroundColor={MY_THEME_CONTROLLER.COLORS.GRAY_600}
+              borderRadius={8}
+              paddingBottom={32}
+              paddingHorizontal={32}
             >
-              <HStack display="flex" flexDirection="row" alignItems="center">
-                <SeriesSvg />
-                <Text
-                  color={MY_THEME_CONTROLLER.COLORS.GRAY_200}
-                  marginLeft={8}
-                >
-                  {exercise.series} séries
-                </Text>
+              <HStack
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="space-around"
+                marginBottom={24}
+                marginTop={20}
+              >
+                <HStack display="flex" flexDirection="row" alignItems="center">
+                  <SeriesSvg />
+                  <Text
+                    color={MY_THEME_CONTROLLER.COLORS.GRAY_200}
+                    marginLeft={8}
+                  >
+                    {exercise.series} séries
+                  </Text>
+                </HStack>
+                <HStack display="flex" flexDirection="row" alignItems="center">
+                  <RepetitionSvg />
+                  <Text
+                    color={MY_THEME_CONTROLLER.COLORS.GRAY_200}
+                    marginLeft={8}
+                  >
+                    {exercise.repetitions} repetições
+                  </Text>
+                </HStack>
               </HStack>
-              <HStack display="flex" flexDirection="row" alignItems="center">
-                <RepetitionSvg />
-                <Text
-                  color={MY_THEME_CONTROLLER.COLORS.GRAY_200}
-                  marginLeft={8}
-                >
-                  {exercise.repetitions} repetições
-                </Text>
-              </HStack>
-            </HStack>
 
-            <Button title="Marcar como realizado" />
-          </Box>
-        </VStack>
-      </ScrollView>
+              <Button title="Marcar como realizado" />
+            </Box>
+          </VStack>
+        </ScrollView>
+      )}
     </VStack>
   );
 }
