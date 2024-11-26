@@ -40,7 +40,12 @@ const profileSchema = yup.object({
     .string()
     .nullable()
     .transform((value) => (!!value ? value : null))
-    .oneOf([yup.ref("password"), ""], "Senhas não conferem"),
+    .oneOf([yup.ref("password"), ""], "Senhas não conferem")
+    .when("password", {
+      is: (Field: any) => Field,
+      then: () =>
+        yup.string().nullable().required("Informe a confirmação da senha"),
+    }),
 });
 
 export function Profile() {
