@@ -3,6 +3,7 @@ import { Input } from "@components/Input";
 import { ScreenHeader } from "@components/ScreenHeader";
 import { ToastMessage } from "@components/ToastMessage";
 import { Center, Heading, Text, useToast, VStack } from "@gluestack-ui/themed";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "@hooks/useAuth";
 import { UserPhoto } from "@screens/Home/components/UserPhoto";
 import * as FileSystem from "expo-file-system";
@@ -15,23 +16,48 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
+import * as yup from "yup";
 import { MY_THEME_CONTROLLER } from "../../theme";
 
 type FormDataProps = {
   name: string;
-  email: string;
-  password: string;
-  old_password: string;
-  confirm_password: string;
+  password?: string | null;
+  email?: string | null;
+  old_password?: string | null;
+  confirm_password?: string | null;
 };
+
+const profileSchema = yup.object({
+  name: yup.string().required("Informe o nome"),
+  email: yup.string().nullable(),
+  old_password: yup.string().nullable(),
+  password: yup
+    .string()
+    .min(6, "Senha deve ter pelo menos 6 caracteres.")
+    .nullable()
+    .transform((value) => (!!value ? value : null)),
+  confirm_password: yup
+    .string()
+    .nullable()
+    .transform((value) => (!!value ? value : null))
+    .oneOf([yup.ref("password"), ""], "Senhas não conferem"),
+});
 
 export function Profile() {
   const toast = useToast();
   const { user } = useAuth();
-  const { control, handleSubmit } = useForm<FormDataProps>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormDataProps>({
+    resolver: yupResolver(profileSchema),
     defaultValues: {
       name: user.name,
       email: user.email,
+      confirm_password: "",
+      old_password: "",
+      password: "",
     },
   });
   const [userPhoto, setUserPhoto] = useState(
@@ -120,6 +146,7 @@ export function Profile() {
                     placeholder="Nome"
                     value={value}
                     onChangeText={onChange}
+                    errorMessage={errors.name?.message}
                     style={{
                       backgroundColor: MY_THEME_CONTROLLER.COLORS.GRAY_600,
                     }}
@@ -132,7 +159,7 @@ export function Profile() {
                 name="email"
                 render={({ field: { value, onChange } }) => (
                   <Input
-                    value={value}
+                    value={value ?? ""}
                     onChangeText={onChange}
                     isReadOnly
                     style={{
@@ -176,6 +203,7 @@ export function Profile() {
                     placeholder="Nova senha"
                     onChangeText={onChange}
                     secureTextEntry
+                    errorMessage={errors.password?.message}
                     style={{
                       backgroundColor: MY_THEME_CONTROLLER.COLORS.GRAY_600,
                     }}
@@ -191,6 +219,7 @@ export function Profile() {
                     placeholder="Confirme nova senha"
                     onChangeText={onChange}
                     secureTextEntry
+                    errorMessage={errors.confirm_password?.message}
                     style={{
                       backgroundColor: MY_THEME_CONTROLLER.COLORS.GRAY_600,
                     }}
