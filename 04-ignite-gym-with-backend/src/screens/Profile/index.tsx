@@ -28,7 +28,7 @@ type FormDataProps = {
 export function Profile() {
   const toast = useToast();
   const { user } = useAuth();
-  const { control } = useForm<FormDataProps>({
+  const { control, handleSubmit } = useForm<FormDataProps>({
     defaultValues: {
       name: user.name,
       email: user.email,
@@ -80,6 +80,10 @@ export function Profile() {
     }
   }
 
+  async function handleProfileUpdate(data: FormDataProps) {
+    console.log("data", data);
+  }
+
   return (
     <VStack flex={1}>
       <ScreenHeader title="Perfil" />
@@ -125,7 +129,7 @@ export function Profile() {
 
               <Controller
                 control={control}
-                name="name"
+                name="email"
                 render={({ field: { value, onChange } }) => (
                   <Input
                     value={value}
@@ -149,23 +153,55 @@ export function Profile() {
               Alterar senha
             </Heading>
             <Center width="100%" gap={16}>
-              <Input
-                placeholder="Senha antiga"
-                secureTextEntry
-                style={{ backgroundColor: MY_THEME_CONTROLLER.COLORS.GRAY_600 }}
-              />
-              <Input
-                placeholder="Nova senha"
-                secureTextEntry
-                style={{ backgroundColor: MY_THEME_CONTROLLER.COLORS.GRAY_600 }}
-              />
-              <Input
-                placeholder="Confirme nova senha"
-                secureTextEntry
-                style={{ backgroundColor: MY_THEME_CONTROLLER.COLORS.GRAY_600 }}
+              <Controller
+                control={control}
+                name="old_password"
+                render={({ field: { onChange } }) => (
+                  <Input
+                    placeholder="Senha antiga"
+                    onChangeText={onChange}
+                    secureTextEntry
+                    style={{
+                      backgroundColor: MY_THEME_CONTROLLER.COLORS.GRAY_600,
+                    }}
+                  />
+                )}
               />
 
-              <Button title="Atualizar" />
+              <Controller
+                control={control}
+                name="password"
+                render={({ field: { onChange } }) => (
+                  <Input
+                    placeholder="Nova senha"
+                    onChangeText={onChange}
+                    secureTextEntry
+                    style={{
+                      backgroundColor: MY_THEME_CONTROLLER.COLORS.GRAY_600,
+                    }}
+                  />
+                )}
+              />
+
+              <Controller
+                control={control}
+                name="confirm_password"
+                render={({ field: { onChange } }) => (
+                  <Input
+                    placeholder="Confirme nova senha"
+                    onChangeText={onChange}
+                    secureTextEntry
+                    style={{
+                      backgroundColor: MY_THEME_CONTROLLER.COLORS.GRAY_600,
+                    }}
+                  />
+                )}
+              />
+
+              <Button
+                title="Atualizar"
+                onPress={handleSubmit(handleProfileUpdate)}
+              />
             </Center>
           </Center>
         </ScrollView>
