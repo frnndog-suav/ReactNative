@@ -3,10 +3,12 @@ import { Input } from "@components/Input";
 import { ScreenHeader } from "@components/ScreenHeader";
 import { ToastMessage } from "@components/ToastMessage";
 import { Center, Heading, Text, useToast, VStack } from "@gluestack-ui/themed";
+import { useAuth } from "@hooks/useAuth";
 import { UserPhoto } from "@screens/Home/components/UserPhoto";
 import * as FileSystem from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -15,8 +17,23 @@ import {
 } from "react-native";
 import { MY_THEME_CONTROLLER } from "../../theme";
 
+type FormDataProps = {
+  name: string;
+  email: string;
+  password: string;
+  old_password: string;
+  confirm_password: string;
+};
+
 export function Profile() {
   const toast = useToast();
+  const { user } = useAuth();
+  const { control } = useForm<FormDataProps>({
+    defaultValues: {
+      name: user.name,
+      email: user.email,
+    },
+  });
   const [userPhoto, setUserPhoto] = useState(
     "https://github.com/frnndog-suav.png"
   );
@@ -91,14 +108,34 @@ export function Profile() {
               </Text>
             </TouchableOpacity>
             <Center width="100%" gap={16}>
-              <Input
-                placeholder="Nome"
-                style={{ backgroundColor: MY_THEME_CONTROLLER.COLORS.GRAY_600 }}
+              <Controller
+                control={control}
+                name="name"
+                render={({ field: { value, onChange } }) => (
+                  <Input
+                    placeholder="Nome"
+                    value={value}
+                    onChangeText={onChange}
+                    style={{
+                      backgroundColor: MY_THEME_CONTROLLER.COLORS.GRAY_600,
+                    }}
+                  />
+                )}
               />
-              <Input
-                value="test.teste@gmail.com"
-                isReadOnly
-                style={{ backgroundColor: MY_THEME_CONTROLLER.COLORS.GRAY_600 }}
+
+              <Controller
+                control={control}
+                name="name"
+                render={({ field: { value, onChange } }) => (
+                  <Input
+                    value={value}
+                    onChangeText={onChange}
+                    isReadOnly
+                    style={{
+                      backgroundColor: MY_THEME_CONTROLLER.COLORS.GRAY_600,
+                    }}
+                  />
+                )}
               />
             </Center>
             <Heading
