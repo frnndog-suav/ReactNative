@@ -19,6 +19,7 @@ export type TAuthContextDataProps = {
   signIn(email: string, password: string): Promise<void>;
   loadUserData(): Promise<void>;
   signOut(): Promise<void>;
+  updateUserProfile(userUpdated: TUserDTO): Promise<void>;
 };
 
 export const AuthContext = createContext<TAuthContextDataProps>(
@@ -119,6 +120,16 @@ export function AuthContextProvider({ children }: TAuthContextProviderProps) {
     }
   }
 
+  async function updateUserProfile(userUpdated: TUserDTO) {
+    try {
+      setUser(userUpdated);
+
+      await storageUserSave(userUpdated);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   useEffect(() => {
     loadUserData();
   }, []);
@@ -132,6 +143,7 @@ export function AuthContextProvider({ children }: TAuthContextProviderProps) {
         signIn,
         signOut,
         loadUserData,
+        updateUserProfile,
       }}
     >
       {children}
