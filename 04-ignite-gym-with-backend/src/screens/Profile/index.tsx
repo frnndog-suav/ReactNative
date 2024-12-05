@@ -92,22 +92,30 @@ export function Profile() {
           size: number;
         };
 
-        if (photoInfo.size && photoInfo.size / 1024 / 1024 > 0.01) {
-          return toast.show({
-            placement: "top",
-            render: ({ id }) => (
-              <ToastMessage
-                id={id}
-                title="Imagem muito grande."
-                description="Escolha uma de até 5MB."
-                action="error"
-                onClose={() => toast.close(id)}
-              />
-            ),
-          });
-        }
+        // if (photoInfo.size && photoInfo.size / 1024 / 1024 > 0.01) {
+        //   return toast.show({
+        //     placement: "top",
+        //     render: ({ id }) => (
+        //       <ToastMessage
+        //         id={id}
+        //         title="Imagem muito grande."
+        //         description="Escolha uma de até 5MB."
+        //         action="error"
+        //         onClose={() => toast.close(id)}
+        //       />
+        //     ),
+        //   });
+        // }
 
-        setUserPhoto(photoUri);
+        const fileExtension = photoUri.split(".").pop();
+
+        const photoFile = {
+          name: `${user.name}.${fileExtension}`.toLowerCase(),
+          uri: photoUri,
+          type: `${photoSelected.assets[0].type}/${fileExtension}`,
+        };
+
+        console.log("photoFile", photoFile)
       }
     } catch (error) {
       console.log("Error in image picker", error);
