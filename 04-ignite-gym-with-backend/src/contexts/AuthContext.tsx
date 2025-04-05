@@ -49,14 +49,16 @@ export function AuthContextProvider({ children }: TAuthContextProviderProps) {
   async function storageUserAndTokenSave({
     token,
     userData,
+    refresh_token,
   }: {
     userData: TUserDTO;
     token: string;
+    refresh_token: string;
   }) {
     try {
       setIsLoadingUserStorageData(true);
       await storageUserSave(userData);
-      await storageAuthTokenSave(token);
+      await storageAuthTokenSave({ refresh_token, token });
     } catch (error) {
       throw error;
     } finally {
@@ -72,10 +74,11 @@ export function AuthContextProvider({ children }: TAuthContextProviderProps) {
     try {
       const { data } = await api.post("/sessions", { email, password });
 
-      if (data.user && data.token) {
+      if (data.user && data.token && data.refresh_token) {
         await storageUserAndTokenSave({
           token: data.token,
           userData: data.user,
+          refresh_token: data.refresh_token,
         });
         userAndTokenUpdate({ token: data.token, userData: data.user });
       }
@@ -95,7 +98,7 @@ export function AuthContextProvider({ children }: TAuthContextProviderProps) {
     try {
       setIsLoadingUserStorageData(true);
       const userLogged = await storageUserGet();
-      const token = await storageAuthTokenGet();
+      const { token } = await storageAuthTokenGet();
 
       if (token && userLogged) {
         userAndTokenUpdate({ token, userData: userLogged });
