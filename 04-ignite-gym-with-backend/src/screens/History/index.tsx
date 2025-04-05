@@ -9,6 +9,7 @@ import { AppError } from "@utils/appError";
 import { useCallback, useState } from "react";
 import { SectionList } from "react-native";
 import { MY_THEME_CONTROLLER } from "../../theme";
+import { Loading } from "@components/Loading";
 
 export function History() {
   const toast = useToast();
@@ -53,34 +54,41 @@ export function History() {
     <VStack flex={1}>
       <ScreenHeader title="Histórico" />
 
-      <SectionList
-        sections={exercises}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <HistoryCard data={item} />}
-        renderSectionHeader={({ section }) => (
-          <Heading
-            marginBottom={12}
-            marginTop={40}
-            color={MY_THEME_CONTROLLER.COLORS.GRAY_200}
-            fontSize={MY_THEME_CONTROLLER.FONT_SIZE.MD}
-            fontFamily={MY_THEME_CONTROLLER.FONTS.HEADING}
-          >
-            {section.title}
-          </Heading>
-        )}
-        style={{ paddingHorizontal: 32 }}
-        contentContainerStyle={
-          exercises.length === 0 && { flex: 1, justifyContent: "center" }
-        }
-        ListEmptyComponent={() => (
-          <Text textAlign="center" color={MY_THEME_CONTROLLER.COLORS.GRAY_100}>
-            {
-              "Não há exercícios registrados ainda.\nVamos fazer alguma coisa seu vagabundo?"
-            }
-          </Text>
-        )}
-        showsVerticalScrollIndicator={false}
-      />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <SectionList
+          sections={exercises}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => <HistoryCard data={item} />}
+          renderSectionHeader={({ section }) => (
+            <Heading
+              marginBottom={12}
+              marginTop={40}
+              color={MY_THEME_CONTROLLER.COLORS.GRAY_200}
+              fontSize={MY_THEME_CONTROLLER.FONT_SIZE.MD}
+              fontFamily={MY_THEME_CONTROLLER.FONTS.HEADING}
+            >
+              {section.title}
+            </Heading>
+          )}
+          style={{ paddingHorizontal: 32 }}
+          contentContainerStyle={
+            exercises.length === 0 && { flex: 1, justifyContent: "center" }
+          }
+          ListEmptyComponent={() => (
+            <Text
+              textAlign="center"
+              color={MY_THEME_CONTROLLER.COLORS.GRAY_100}
+            >
+              {
+                "Não há exercícios registrados ainda.\nVamos fazer alguma coisa seu vagabundo?"
+              }
+            </Text>
+          )}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
     </VStack>
   );
 }
