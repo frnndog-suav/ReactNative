@@ -1,3 +1,4 @@
+import defaultUserPhotoImg from "@assets/userPhotoDefault.png";
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import { ScreenHeader } from "@components/ScreenHeader";
@@ -68,9 +69,6 @@ export function Profile() {
       password: "",
     },
   });
-  const [userPhoto, setUserPhoto] = useState(
-    "https://github.com/frnndog-suav.png"
-  );
 
   async function handleUserPhotoSelect() {
     try {
@@ -118,11 +116,19 @@ export function Profile() {
         const userPhotoUploadForm = new FormData();
         userPhotoUploadForm.append("avatar", photoFile);
 
-        await api.patch("/users/avatar", userPhotoUploadForm, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        const avatarUpdatedResponse = await api.patch(
+          "/users/avatar",
+          userPhotoUploadForm,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        const userUpdated = user;
+        userUpdated.avatar = avatarUpdatedResponse.data.avatar;
+        updateUserProfile(userUpdated);
 
         toast.show({
           placement: "top",
@@ -196,7 +202,11 @@ export function Profile() {
         <ScrollView contentContainerStyle={{ paddingBottom: 50 }}>
           <Center marginTop={24} paddingHorizontal={40} alignItems="center">
             <UserPhoto
-              source={{ uri: userPhoto }}
+              source={
+                user.avatar
+                  ? { uri: `${api.defaults.baseURL}/avatar/${user.avatar}` }
+                  : defaultUserPhotoImg
+              }
               alt="Foto do usuário"
               width={108}
               height={108}

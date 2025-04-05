@@ -1,6 +1,7 @@
 import defaultUserPhotoImg from "@assets/userPhotoDefault.png";
 import { Heading, HStack, Icon, Text, VStack } from "@gluestack-ui/themed";
 import { useAuth } from "@hooks/useAuth";
+import { api } from "@services/api";
 import { LogOut } from "lucide-react-native";
 import { TouchableOpacity } from "react-native";
 import { UserPhoto } from "../UserPhoto";
@@ -20,7 +21,11 @@ export function HomeHeader() {
       gap={8}
     >
       <UserPhoto
-        source={user.avatar ? { uri: user.avatar } : defaultUserPhotoImg}
+        source={
+          user.avatar
+            ? { uri: `${api.defaults.baseURL}/avatar/${user.avatar}` }
+            : defaultUserPhotoImg
+        }
         alt="Imagem do usuário"
         width={64}
         height={64}
