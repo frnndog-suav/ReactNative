@@ -9,6 +9,8 @@ import Animated, {
 import { THEME } from "../../styles/theme";
 import { styles } from "./styles";
 
+const PressableAnimated = Animated.createAnimatedComponent(Pressable);
+
 const TYPE_COLORS = {
   EASY: THEME.COLORS.BRAND_LIGHT,
   HARD: THEME.COLORS.DANGER_LIGHT,
@@ -66,20 +68,21 @@ export function Level({
   }, [isChecked]);
 
   return (
-    <Pressable {...rest} onPressIn={onPressIn} onPressOut={onPressOut}>
-      <Animated.View
-        style={[
-          styles.container,
-          animatedContainerStyle,
-          {
-            borderColor: COLOR,
-          },
-        ]}
-      >
-        <Animated.Text style={[styles.title, animatedTextStyle]}>
-          {title}
-        </Animated.Text>
-      </Animated.View>
-    </Pressable>
+    <PressableAnimated
+      {...rest}
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
+      style={[
+        styles.container,
+        animatedContainerStyle,
+        {
+          borderColor: COLOR,
+        },
+      ]}
+    >
+      <Animated.Text style={[styles.title, animatedTextStyle]}>
+        {title}
+      </Animated.Text>
+    </PressableAnimated>
   );
 }
