@@ -1,0 +1,1 @@
+1 - Será utilizado build de desenvolvimento. Será necessário criar as pastas do SO usando `npx expo run:android`
