@@ -5,7 +5,7 @@ export default function App() {
   return (
     <View>
       <Text>Hello Expo Router</Text>
-      <TouchableOpacity onPress={() => router.push('login')}>
+      <TouchableOpacity onPress={() => router.push("login")}>
         <Text>Ir para login</Text>
       </TouchableOpacity>
     </View>
