@@ -5,7 +5,7 @@ export type TRegisterHttpParams = {
   email: string;
   phone: string;
   password: string;
-  avatarUrl: string;
+  avatarUrl?: string;
 };
 
 export type TRegisterHttpResponse = {
