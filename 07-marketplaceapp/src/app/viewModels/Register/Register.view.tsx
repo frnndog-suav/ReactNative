@@ -2,10 +2,9 @@ import { FC } from "react";
 import { Text, View } from "react-native";
 import { useRegisterViewModel } from "./useRegister.viewModel";
 
-export const RegisterView: FC<ReturnType<typeof useRegisterViewModel>> = ({
-  isLoading,
-  setIsLoading,
-}) => {
+export const RegisterView: FC<
+  ReturnType<typeof useRegisterViewModel>
+> = ({}) => {
   return (
     <View className="flex-1 items-center justify-center">
       <Text>Registro</Text>

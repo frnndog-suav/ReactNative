@@ -1,10 +1,30 @@
-import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { registerSchema, TRegisterFormData } from "./register.schema";
 
 export function useRegisterViewModel() {
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TRegisterFormData>({
+    resolver: yupResolver(registerSchema),
+    defaultValues: {
+      name: "",
+      phone: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
+
+  function onSubmit() {
+    handleSubmit(() => {});
+  }
 
   return {
-    isLoading,
-    setIsLoading,
+    errors,
+    control,
+    onSubmit,
   };
 }
