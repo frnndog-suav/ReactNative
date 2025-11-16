@@ -10,11 +10,12 @@ const getBaseURL = () => {
 
 const baseURL = getBaseURL();
 
-export class MarketPlaceApuClient {
+export class MarketPlaceApiClient {
   private instance: AxiosInstance;
   private isRefreshing = false;
 
   constructor() {
+    console.log("============================b")
     this.instance = axios.create({
       baseURL,
     });
@@ -25,4 +26,4 @@ export class MarketPlaceApuClient {
   }
 }
 
-export const marketplaceApiClient = new MarketPlaceApuClient().getInstance();
+export const marketplaceApiClient = new MarketPlaceApiClient().getInstance();
