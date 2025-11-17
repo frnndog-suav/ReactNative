@@ -5,7 +5,6 @@ import {
 } from "../types/http/register";
 
 export async function register(params: TRegisterHttpParams) {
-  console.log("============================A")
   const { data } = await marketplaceApiClient.post<TRegisterHttpResponse>(
     "/auth/register",
     params

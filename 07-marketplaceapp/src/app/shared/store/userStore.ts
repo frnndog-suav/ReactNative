@@ -1,4 +1,6 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 import { TUser } from "../types/user";
 
 type TSetSessionParams = {
@@ -22,11 +24,24 @@ export type TUserStore = {
   updateTokens: (data: TUpdateTokensParams) => void;
 };
 
-export const useUserStore = create<TUserStore>((set) => ({
-  user: null,
-  token: null,
-  refreshToken: null,
-  logout: () => {},
-  setSession: (data) => set({ ...data }),
-  updateTokens: (data) => set({ ...data }),
-}));
+export const useUserStore = create<TUserStore>()(
+  persist(
+    (set) => ({
+      user: null,
+      token: null,
+      refreshToken: null,
+
+      logout: () => set({ user: null, token: null, refreshToken: null }),
+      setSession: (sessionData) => {
+        set({ ...sessionData });
+      },
+      updateTokens: (updateTokensParams) => {
+        set({ ...updateTokensParams });
+      },
+    }),
+    {
+      name: "marketplace-auth",
+      storage: createJSONStorage(() => AsyncStorage),
+    }
+  )
+);

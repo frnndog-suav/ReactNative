@@ -15,9 +15,9 @@ export function useRegisterViewModel() {
   } = useForm<TRegisterFormData>({
     resolver: yupResolver(registerSchema),
     defaultValues: {
-      name: "yyyyyyyyyyyyyyyy",
+      name: "babilonia",
       phone: "11111111111",
-      email: "kikikikikikik@gmail.com",
+      email: "babilonia@gmail.com",
       password: "777777777777777777",
       confirmPassword: "777777777777777777",
     },
@@ -41,8 +41,6 @@ export function useRegisterViewModel() {
       });
     })();
   }
-
-  console.log("user", user);
 
   return {
     errors,

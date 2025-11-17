@@ -5,7 +5,6 @@ import { TRegisterHttpParams } from "../../types/http/register";
 export function useRegisterMutation() {
   const mutation = useMutation({
     mutationFn: async (params: TRegisterHttpParams) => {
-      console.log("============================C")
       return await register(params);
     },
     onSuccess: (data) => {
