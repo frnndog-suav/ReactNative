@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import { AppInput } from "../../shared/components/AppInput";
 import { useRegisterViewModel } from "./useRegister.viewModel";
 
 export const RegisterView: FC<ReturnType<typeof useRegisterViewModel>> = ({
@@ -8,6 +9,7 @@ export const RegisterView: FC<ReturnType<typeof useRegisterViewModel>> = ({
   return (
     <View className="flex-1 items-center justify-center">
       <Text>Registro</Text>
+      <AppInput />
       <TouchableOpacity onPress={onSubmit}>
         <Text>Registrar</Text>
       </TouchableOpacity>
