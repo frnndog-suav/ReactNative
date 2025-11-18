@@ -54,11 +54,21 @@ export const useAppInputViewModel = (props: TProps) => {
     return colors.grays[200];
   };
 
+  const handleTextChange = (text: string) => {
+    if (props.mask) {
+      props.onChangeText?.(props.mask(text) || "");
+    } else {
+      props.onChangeText?.(text);
+    }
+  };
+
   return {
+    isFocused,
     showPassword,
     handleBlur,
     handleFocus,
     getIconColor,
+    handleTextChange,
     handleWrapperPress,
     handlePasswordToggle,
   };
