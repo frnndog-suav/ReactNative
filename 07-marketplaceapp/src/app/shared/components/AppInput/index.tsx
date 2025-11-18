@@ -9,25 +9,54 @@ import {
   View,
 } from "react-native";
 import { appInputVariants, TAppInputVariantsProps } from "./index.variants";
+import { useAppInputViewModel } from "./useAppInputViewModel";
 
 type TProps = TextInputProps &
   TAppInputVariantsProps & {
+    error?: string;
     label?: string;
     containerClassName?: string;
-    mask?: (value: string) => void | string;
     leftIcon?: keyof typeof Ionicons.glyphMap;
     rightIcon?: keyof typeof Ionicons.glyphMap;
+    mask?: (value: string) => null | string;
   };
 
 export const AppInput: FC<TProps> = ({
-  mask,
+  value,
+  error,
   label,
+  isError,
   leftIcon,
   rightIcon,
   className,
   containerClassName,
+  secureTextEntry = false,
+  mask,
+  isDisabled,
+  onBlur,
+  onFocus,
+  onChangeText,
   ...textInputProps
 }) => {
+  const {
+    showPassword,
+    handleBlur,
+    handleFocus,
+    getIconColor,
+    handleWrapperPress,
+    handlePasswordToggle,
+  } = useAppInputViewModel({
+    error,
+    value,
+    isDisabled,
+    secureTextEntry,
+    isError: !!error,
+    mask,
+    onBlur,
+    onFocus,
+    onChangeText,
+  });
+
   const styles = appInputVariants({});
 
   return (
