@@ -18,7 +18,7 @@ export const useAppInputViewModel = (props: TProps) => {
   const inputRef = useRef<TextInput>(null);
 
   const [isFocused, setIsFocused] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(props.secureTextEntry);
 
   const handlePasswordToggle = () => {
     setShowPassword((prev) => !prev);
