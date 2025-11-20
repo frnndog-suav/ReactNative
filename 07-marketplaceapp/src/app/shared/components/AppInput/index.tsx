@@ -48,7 +48,6 @@ export const AppInput: FC<TProps> = ({
     handleWrapperPress,
     handlePasswordToggle,
   } = useAppInputViewModel({
-    error,
     value,
     isDisabled,
     secureTextEntry,
@@ -61,6 +60,8 @@ export const AppInput: FC<TProps> = ({
 
   const styles = appInputVariants({
     isFocused,
+    isDisabled,
+    isError: !!error,
   });
 
   return (

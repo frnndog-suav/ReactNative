@@ -4,7 +4,6 @@ import { colors } from "../../../../styles/colors";
 
 type TProps = {
   value?: string;
-  error?: string;
   isError?: boolean;
   isDisabled?: boolean;
   secureTextEntry?: boolean;
@@ -39,12 +38,12 @@ export const useAppInputViewModel = (props: TProps) => {
   };
 
   const getIconColor = () => {
-    if (isFocused) {
-      return colors["purple-base"];
-    }
-
     if (props.isError) {
       return colors.danger;
+    }
+
+    if (isFocused) {
+      return colors["purple-base"];
     }
 
     if (props.value) {
