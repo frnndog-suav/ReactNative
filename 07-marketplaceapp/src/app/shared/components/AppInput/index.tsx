@@ -21,6 +21,8 @@ type TProps = TextInputProps &
     mask?: (value: string) => null | string;
   };
 
+export type { TProps as TAppInputProps };
+
 export const AppInput: FC<TProps> = ({
   value,
   error,
