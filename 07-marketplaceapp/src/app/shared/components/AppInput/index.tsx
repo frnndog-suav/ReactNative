@@ -89,6 +89,12 @@ export const AppInput: FC<TProps> = ({
           <Ionicons size={22} name="eye-off-outline" />
         </TouchableOpacity>
       </Pressable>
+
+      {error && (
+        <Text className={styles.error()}>
+          <Ionicons name="alert-circle-outline" /> {error}
+        </Text>
+      )}
     </View>
   );
 };
