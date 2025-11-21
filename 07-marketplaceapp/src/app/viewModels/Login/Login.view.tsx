@@ -1,11 +1,14 @@
 import { router } from "expo-router";
-import React from "react";
+import React, { FC } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { AppInput } from "../../shared/components/AppInput";
+import { AppInputController } from "../../shared/components/AppInputController";
 import { AuthFormHeader } from "../../shared/components/AuthFormHeader";
 import { KeyboardContainer } from "../../shared/components/KeyboardContainer";
+import { useLoginViewModel } from "./useLogin.viewModel";
 
-export function LoginView() {
+export const LoginView: FC<ReturnType<typeof useLoginViewModel>> = ({
+  control,
+}) => {
   return (
     <KeyboardContainer>
       <View className="flex-1 items-center justify-center px-[40px]">
@@ -14,7 +17,21 @@ export function LoginView() {
           title="Acesse sua conta"
         />
 
-        <AppInput />
+        <AppInputController
+          control={control}
+          name="email"
+          leftIcon="mail-outline"
+          label="E-MAIL"
+          placeholder="mail@example.com.br"
+        />
+
+        <AppInputController
+          control={control}
+          name="password"
+          leftIcon="lock-closed-outline"
+          label="SENHA"
+          placeholder="Sua senha"
+        />
 
         <TouchableOpacity onPress={() => router.push("/register")}>
           <Text>Registro</Text>
@@ -22,4 +39,4 @@ export function LoginView() {
       </View>
     </KeyboardContainer>
   );
-}
+};

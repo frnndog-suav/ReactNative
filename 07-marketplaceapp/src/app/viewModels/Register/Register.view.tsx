@@ -24,13 +24,7 @@ export const RegisterView: FC<ReturnType<typeof useRegisterViewModel>> = ({
           name="name"
           leftIcon="person-outline"
           label="NOME"
-        />
-
-        <AppInputController
-          control={control}
-          name="email"
-          leftIcon="mail-outline"
-          label="E-MAIL"
+          placeholder="Seu nome"
         />
 
         <AppInputController
@@ -38,6 +32,17 @@ export const RegisterView: FC<ReturnType<typeof useRegisterViewModel>> = ({
           name="phone"
           leftIcon="call-outline"
           label="TELEFONE"
+          placeholder="Seu telefone"
+        />
+
+        <Text className="text-base mt-6 font-bold text-gray-500">Acesso</Text>
+
+        <AppInputController
+          control={control}
+          name="email"
+          leftIcon="mail-outline"
+          label="E-MAIL"
+          placeholder="example@email.com.br"
         />
 
         <AppInputController
@@ -46,6 +51,7 @@ export const RegisterView: FC<ReturnType<typeof useRegisterViewModel>> = ({
           leftIcon="lock-closed-outline"
           label="SENHA"
           secureTextEntry
+          placeholder="Sua senha"
         />
 
         <AppInputController
@@ -54,6 +60,7 @@ export const RegisterView: FC<ReturnType<typeof useRegisterViewModel>> = ({
           label="CONFIRMAR SENHA"
           leftIcon="lock-closed-outline"
           secureTextEntry
+          placeholder="Confirme sua senha"
         />
 
         <TouchableOpacity onPress={onSubmit}>
