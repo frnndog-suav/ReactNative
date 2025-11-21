@@ -22,6 +22,7 @@ export function AppButton({
   rightIcon,
   isDisabled,
   isLoading,
+  className,
   ...rest
 }: TProps) {
   const contentColor =
@@ -51,7 +52,7 @@ export function AppButton({
   };
 
   return (
-    <TouchableOpacity {...rest} className={styles.base()}>
+    <TouchableOpacity {...rest} className={styles.base({ className })}>
       {renderContent()}
     </TouchableOpacity>
   );
