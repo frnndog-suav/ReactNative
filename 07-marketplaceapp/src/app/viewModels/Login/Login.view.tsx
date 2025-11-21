@@ -32,6 +32,7 @@ export const LoginView: FC<ReturnType<typeof useLoginViewModel>> = ({
           leftIcon="lock-closed-outline"
           label="SENHA"
           placeholder="Sua senha"
+          secureTextEntry
         />
         <TouchableOpacity onPress={onSubmit}>
           <Text>Login</Text>
