@@ -24,6 +24,7 @@ export const useModalStore = create<TModalStore>((set, get) => ({
   },
   open: (content: React.ReactNode, config: TConfig) =>
     set({
+      isOpen: true,
       content,
       config: {
         ...get().config,
