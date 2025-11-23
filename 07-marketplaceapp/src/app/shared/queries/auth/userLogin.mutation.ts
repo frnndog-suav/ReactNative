@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../../services/auth.service";
-import { useUserStore } from "../../store/userStore";
+import { useUserStore } from "../../store/user-store";
 import { TLoginHttpParams } from "../../types/http/login";
 
 export function useLoginMutation() {
