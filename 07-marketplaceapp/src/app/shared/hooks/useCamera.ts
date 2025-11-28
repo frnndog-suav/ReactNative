@@ -1,15 +1,9 @@
 import * as ImagePicker from "expo-image-picker";
+import { ImagePickerOptions } from "expo-image-picker";
 import { useCallback, useState } from "react";
 import { Toast } from "toastify-react-native";
 
-type TProps = {
-  exif?: boolean;
-  quality?: number;
-  allowsEditing?: boolean;
-  aspect?: [number, number];
-};
-
-export const useCamera = (props: TProps) => {
+export const useCamera = (props: ImagePickerOptions) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const requestCameraPermission = useCallback(async () => {
