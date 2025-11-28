@@ -8,14 +8,13 @@ const getBaseURL = () => {
   });
 };
 
-const baseURL = getBaseURL();
+export const baseURL = getBaseURL();
 
 export class MarketPlaceApiClient {
   private instance: AxiosInstance;
   private isRefreshing = false;
 
   constructor() {
-    console.log("============================b")
     this.instance = axios.create({
       baseURL,
     });
