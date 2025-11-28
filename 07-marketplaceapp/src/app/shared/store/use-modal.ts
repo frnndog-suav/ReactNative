@@ -10,7 +10,7 @@ type TModalStore = {
   isOpen: boolean;
   content: React.ReactNode | null;
   config: TConfig;
-  open: (content: React.ReactNode, config: TConfig) => void;
+  open: (content: React.ReactNode, config?: TConfig) => void;
   close: () => void;
 };
 
@@ -22,7 +22,7 @@ export const useModalStore = create<TModalStore>((set, get) => ({
     transparent: true,
     statusBarTranslucent: false,
   },
-  open: (content: React.ReactNode, config: TConfig) =>
+  open: (content: React.ReactNode, config?: TConfig) =>
     set({
       isOpen: true,
       content,
