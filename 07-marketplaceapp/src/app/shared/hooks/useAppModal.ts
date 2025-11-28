@@ -1,11 +1,14 @@
 import { Ionicons } from "@expo/vector-icons";
 import { createElement } from "react";
-import { SelectionModal } from "../components/AppModal/SelectionModal";
+import {
+  SelectionModal,
+  TSelectionModalProps,
+} from "../components/AppModal/SelectionModal";
 import { useModalStore } from "../store/use-modal";
 
-type TSelectionOptions = {
+export type TSelectionOptions = {
   text: string;
-  onPres: () => void;
+  onPress: () => void;
   icon?: keyof typeof Ionicons.glyphMap;
   variant?: "primary" | "secondary" | "danger";
 };
@@ -13,12 +16,22 @@ type TSelectionOptions = {
 export function useAppModal() {
   const { open, close } = useModalStore();
 
-  const shownSelection = (config: {
+  const shownSelection = ({
+    options,
+    title,
+    message,
+  }: {
     title: string;
     message?: string;
     options: TSelectionOptions[];
   }) => {
-    open(createElement(SelectionModal));
+    open(
+      createElement(SelectionModal, {
+        title,
+        options,
+        message,
+      } satisfies TSelectionModalProps)
+    );
   };
 
   return {
