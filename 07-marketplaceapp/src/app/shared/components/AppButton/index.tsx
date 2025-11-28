@@ -26,7 +26,7 @@ export function AppButton({
   ...rest
 }: TProps) {
   const contentColor =
-    variant === "filled" ? colors["purple-base"] : colors.white;
+    variant === "filled" ? colors.white : colors["purple-base"];
 
   const styles = buttonVariants({
     hasIcon: !!leftIcon || !!rightIcon,

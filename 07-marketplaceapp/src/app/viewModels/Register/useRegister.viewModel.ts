@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { CameraType } from "expo-image-picker";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useImage } from "../../shared/hooks/useImage";
@@ -13,6 +14,7 @@ export function useRegisterViewModel() {
   const mutation = useRegisterMutation();
   const { handleSelectImage } = useImage({
     callback: setAvatarUri,
+    cameraType: CameraType.front,
   });
 
   const handleSelectAvatar = async () => {
@@ -56,6 +58,7 @@ export function useRegisterViewModel() {
   return {
     errors,
     control,
+    avatarUri,
     onSubmit,
     handleSelectAvatar,
   };

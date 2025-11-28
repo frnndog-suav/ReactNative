@@ -15,7 +15,7 @@ export function AuthFormHeader({ subtitle, title }: TProps) {
       />
 
       <Text className="text-3xl font-bold mb-3 text-gray-500">{title}</Text>
-      <Text className="text-base text-gray-300">{subtitle}</Text>
+      <Text className="text-base text-gray-300 text-center">{subtitle}</Text>
     </View>
   );
 }
