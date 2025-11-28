@@ -24,6 +24,7 @@ export type TUserStore = {
   logout: () => void;
   setSession: (data: TSetSessionParams) => void;
   updateTokens: (data: TUpdateTokensParams) => void;
+  updateUser: (updatedUserData: Partial<TUser>) => void;
 };
 
 export const useUserStore = create<TUserStore>()(
@@ -39,6 +40,11 @@ export const useUserStore = create<TUserStore>()(
       },
       updateTokens: (updateTokensParams) => {
         set({ ...updateTokensParams });
+      },
+      updateUser: (updatedUserData) => {
+        set((state) => ({
+          user: state.user ? { ...state.user, ...updatedUserData } : null,
+        }));
       },
     }),
     {

@@ -4,14 +4,24 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useImage } from "../../shared/hooks/useImage";
 import { useRegisterMutation } from "../../shared/queries/auth/userRegister.mutation";
+import { useUploadAvatarMutation } from "../../shared/queries/auth/useUploadAvatar.mutation";
 import { useUserStore } from "../../shared/store/user-store";
 import { registerSchema, TRegisterFormData } from "./register.schema";
 
 export function useRegisterViewModel() {
   const [avatarUri, setAvatarUri] = useState<string | null>(null);
 
-  const { setSession } = useUserStore();
-  const mutation = useRegisterMutation();
+  const { mutateAsync: uploadAvatar } = useUploadAvatarMutation();
+  const { updateUser } = useUserStore();
+  const mutation = useRegisterMutation({
+    onSuccess: async () => {
+      if (avatarUri) {
+        const { url } = await uploadAvatar(avatarUri);
+
+        updateUser({ avatarUrl: url });
+      }
+    },
+  });
   const { handleSelectImage } = useImage({
     callback: setAvatarUri,
     cameraType: CameraType.front,
@@ -40,17 +50,11 @@ export function useRegisterViewModel() {
     handleSubmit(async (data) => {
       const { confirmPassword, ...registerData } = data;
 
-      const response = await mutation.mutateAsync({
+      await mutation.mutateAsync({
         name: registerData.name,
         phone: registerData.phone,
         email: registerData.email,
         password: registerData.password,
-      });
-
-      setSession({
-        user: response.user,
-        token: response.token,
-        refreshToken: response.refreshToken,
       });
     })();
   }
