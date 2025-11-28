@@ -9,7 +9,7 @@ type TProps = {
   aspect?: [number, number];
 };
 
-export const useCamera = ({ allowsEditing, exif, aspect, quality }: TProps) => {
+export const useCamera = (props: TProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const requestCameraPermission = useCallback(async () => {
@@ -39,12 +39,7 @@ export const useCamera = ({ allowsEditing, exif, aspect, quality }: TProps) => {
         return null;
       }
 
-      const result = await ImagePicker.launchCameraAsync({
-        allowsEditing,
-        exif,
-        aspect,
-        quality,
-      });
+      const result = await ImagePicker.launchCameraAsync(props);
 
       if (!result.canceled && result.assets && result.assets.length > 0) {
         Toast.success("Foto capturada com sucesso.", "top");

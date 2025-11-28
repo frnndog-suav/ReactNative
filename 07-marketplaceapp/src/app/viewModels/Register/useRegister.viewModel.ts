@@ -2,6 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useAppModal } from "../../shared/hooks/useAppModal";
 import { useCamera } from "../../shared/hooks/useCamera";
+import { useGallery } from "../../shared/hooks/useGallery";
 import { useRegisterMutation } from "../../shared/queries/auth/userRegister.mutation";
 import { useUserStore } from "../../shared/store/user-store";
 import { registerSchema, TRegisterFormData } from "./register.schema";
@@ -11,6 +12,7 @@ export function useRegisterViewModel() {
   const mutation = useRegisterMutation();
   const modals = useAppModal();
   const { openCamera } = useCamera({});
+  const { openGallery } = useGallery({});
 
   const handleSelectAvatar = () => {
     modals.shownSelection({
@@ -21,9 +23,7 @@ export function useRegisterViewModel() {
           text: "Galeria",
           icon: "image",
           variant: "primary",
-          onPress: () => {
-            console.log("teste");
-          },
+          onPress: openGallery,
         },
         {
           text: "Câmera",
