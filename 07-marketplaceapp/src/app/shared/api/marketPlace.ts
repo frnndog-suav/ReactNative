@@ -1,5 +1,7 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios, { AxiosInstance } from "axios";
 import { Platform } from "react-native";
+import { USER_DATA_KEY } from "../store/user-store";
 
 const getBaseURL = () => {
   return Platform.select({
@@ -18,10 +20,35 @@ export class MarketPlaceApiClient {
     this.instance = axios.create({
       baseURL,
     });
+
+    this.setupInterceptors();
   }
 
   getInstance() {
     return this.instance;
+  }
+
+  private setupInterceptors() {
+    this.instance.interceptors.request.use(
+      async (config) => {
+        const userData = await AsyncStorage.getItem(USER_DATA_KEY);
+
+        if (userData) {
+          const {
+            state: { token },
+          } = JSON.parse(userData);
+
+          if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+          }
+        }
+
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
   }
 }
 

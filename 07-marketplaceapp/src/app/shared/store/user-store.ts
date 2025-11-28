@@ -3,6 +3,8 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { TUser } from "../types/user";
 
+export const USER_DATA_KEY = "marketplace-auth";
+
 type TSetSessionParams = {
   user: TUser | null;
   token: string | null;
@@ -40,7 +42,7 @@ export const useUserStore = create<TUserStore>()(
       },
     }),
     {
-      name: "marketplace-auth",
+      name: USER_DATA_KEY,
       storage: createJSONStorage(() => AsyncStorage),
     }
   )
