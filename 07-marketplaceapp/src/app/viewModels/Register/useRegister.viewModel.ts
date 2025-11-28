@@ -1,14 +1,16 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useAppModal } from "../../shared/hooks/useAppModal";
+import { useCamera } from "../../shared/hooks/useCamera";
 import { useRegisterMutation } from "../../shared/queries/auth/userRegister.mutation";
 import { useUserStore } from "../../shared/store/user-store";
 import { registerSchema, TRegisterFormData } from "./register.schema";
 
 export function useRegisterViewModel() {
-  const { setSession, user } = useUserStore();
+  const { setSession } = useUserStore();
   const mutation = useRegisterMutation();
   const modals = useAppModal();
+  const { openCamera } = useCamera({});
 
   const handleSelectAvatar = () => {
     modals.shownSelection({
@@ -22,6 +24,12 @@ export function useRegisterViewModel() {
           onPress: () => {
             console.log("teste");
           },
+        },
+        {
+          text: "Câmera",
+          icon: "camera",
+          variant: "primary",
+          onPress: openCamera,
         },
       ],
     });

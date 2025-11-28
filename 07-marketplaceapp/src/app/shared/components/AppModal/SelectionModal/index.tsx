@@ -42,6 +42,7 @@ export const SelectionModal: FC<TProps> = ({ title, options, message }) => {
       <View className="gap-3">
         {options.map((option) => (
           <TouchableOpacity
+            key={option.text}
             onPress={option.onPress}
             className={getButtonClass(option.variant ?? "primary")}
           >
