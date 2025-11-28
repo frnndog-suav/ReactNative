@@ -6,11 +6,13 @@ import {
 } from "../components/AppModal/SelectionModal";
 import { useModalStore } from "../store/use-modal";
 
+export type TSelectionVariant = "primary" | "secondary" | "danger";
+
 export type TSelectionOptions = {
   text: string;
   onPress: () => void;
   icon?: keyof typeof Ionicons.glyphMap;
-  variant?: "primary" | "secondary" | "danger";
+  variant?: TSelectionVariant
 };
 
 export function useAppModal() {
