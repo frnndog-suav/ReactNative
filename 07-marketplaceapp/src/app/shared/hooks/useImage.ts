@@ -1,20 +1,26 @@
+import { ImagePickerOptions } from "expo-image-picker";
+import { useModalStore } from "../store/use-modal";
 import { useAppModal } from "./useAppModal";
 import { useCamera } from "./useCamera";
 import { useGallery } from "./useGallery";
 
-type TProps = {
-  exif?: boolean;
-  quality?: number;
-  allowsEditing?: boolean;
-  aspect?: [number, number];
+type TProps = ImagePickerOptions & {
+  callback: (uri: string | null) => void;
 };
 
-export const useImage = (props: TProps) => {
+export const useImage = ({ callback, ...rest }: TProps) => {
   const modals = useAppModal();
-  const { openCamera, isLoading: isCameraLoading } = useCamera(props);
-  const { openGallery, isLoading: isGalleryLoading } = useGallery(props);
+  const { openCamera, isLoading: isCameraLoading } = useCamera(rest);
+  const { openGallery, isLoading: isGalleryLoading } = useGallery(rest);
 
   const isLoading = isCameraLoading || isGalleryLoading;
+
+  const { close } = useModalStore();
+
+  const handleCallback = (uri: string | null) => {
+    close();
+    callback(uri);
+  };
 
   const handleSelectImage = () => {
     modals.shownSelection({
@@ -25,13 +31,19 @@ export const useImage = (props: TProps) => {
           text: "Galeria",
           icon: "image",
           variant: "primary",
-          onPress: openGallery,
+          onPress: async () => {
+            const imageUri = await openGallery();
+            handleCallback(imageUri);
+          },
         },
         {
           text: "Câmera",
           icon: "camera",
           variant: "primary",
-          onPress: openCamera,
+          onPress: async () => {
+            const imageUri = await openCamera();
+            handleCallback(imageUri);
+          },
         },
       ],
     });

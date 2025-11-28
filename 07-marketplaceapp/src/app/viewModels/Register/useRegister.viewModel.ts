@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useImage } from "../../shared/hooks/useImage";
 import { useRegisterMutation } from "../../shared/queries/auth/userRegister.mutation";
@@ -6,9 +7,13 @@ import { useUserStore } from "../../shared/store/user-store";
 import { registerSchema, TRegisterFormData } from "./register.schema";
 
 export function useRegisterViewModel() {
+  const [avatarUri, setAvatarUri] = useState<string | null>(null);
+
   const { setSession } = useUserStore();
   const mutation = useRegisterMutation();
-  const { handleSelectImage } = useImage({});
+  const { handleSelectImage } = useImage({
+    callback: setAvatarUri,
+  });
 
   const handleSelectAvatar = async () => {
     await handleSelectImage();
