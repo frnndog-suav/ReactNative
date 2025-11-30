@@ -44,7 +44,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="cart"
         options={{
-          title: "PRODUTOS",
+          title: "CARRINHO",
           tabBarActiveTintColor: colors["purple-base"],
           tabBarIcon: ({ color }) => (
             <Ionicons color={color} name="cart-outline" size={25} />

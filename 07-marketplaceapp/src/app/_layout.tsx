@@ -3,10 +3,13 @@ import { Stack } from "expo-router";
 import ToastManager from "toastify-react-native";
 import "../styles/global.css";
 import { AppModal } from "./shared/components/AppModal";
+import { useUserStore } from "./shared/store/user-store";
 
 const queryClient = new QueryClient();
 
 export default function RootLayout() {
+  const { token } = useUserStore();
+
   return (
     <QueryClientProvider client={queryClient}>
       <Stack screenOptions={{ headerShown: false }}>

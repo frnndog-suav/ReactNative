@@ -49,6 +49,68 @@ export class MarketPlaceApiClient {
         return Promise.reject(error);
       }
     );
+
+    this.instance.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        const originalRequest = error.config;
+
+        if (
+          error.response?.status === 401 &&
+          error.response?.data?.message === "Token Expirado" &&
+          !this.isRefreshing
+        ) {
+          this.isRefreshing = true;
+
+          try {
+            const userData = await AsyncStorage.getItem(USER_DATA_KEY);
+
+            if (!userData) {
+              throw new Error("Usuário não autenticado");
+            }
+
+            const {
+              state: { refreshToken },
+            } = JSON.parse(userData);
+
+            if (!refreshToken) {
+              throw new Error("Refresh Token não encontrado.");
+            }
+
+            const { data: response } = await this.instance.post(
+              "/auth/refresh",
+              {
+                refreshToken,
+              }
+            );
+
+            const currentUserData = JSON.parse(userData);
+
+            currentUserData.state.token = response.token;
+            currentUserData.state.refreshToken = response.refreshToken;
+
+            await AsyncStorage.setItem(
+              USER_DATA_KEY,
+              JSON.stringify(currentUserData)
+            );
+
+            originalRequest.headers.Authorization = `Bearer ${response.token}`;
+
+            return this.instance(originalRequest);
+          } catch (error) {
+            return Promise.reject(new Error("Sessão expirada"));
+          } finally {
+            this.isRefreshing = false;
+          }
+        }
+
+        if (error.response && error.response.data) {
+          return Promise.reject(new Error(error.data.message));
+        } else {
+          return Promise.reject("Falha na requisição");
+        }
+      }
+    );
   }
 }
 
