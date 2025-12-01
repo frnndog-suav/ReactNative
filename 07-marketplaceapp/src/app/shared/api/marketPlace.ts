@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios, { AxiosInstance } from "axios";
 import { Platform } from "react-native";
-import { USER_DATA_KEY } from "../store/user-store";
+import { USER_DATA_KEY, useUserStore } from "../store/user-store";
 
 const getBaseURL = () => {
   return Platform.select({
@@ -26,6 +26,13 @@ export class MarketPlaceApiClient {
 
   getInstance() {
     return this.instance;
+  }
+
+  private async handleUnauthorized() {
+    const { logout } = useUserStore.getState();
+
+    delete this.instance.defaults.headers.common.Authorization;
+    logout();
   }
 
   private setupInterceptors() {
@@ -98,6 +105,8 @@ export class MarketPlaceApiClient {
 
             return this.instance(originalRequest);
           } catch (error) {
+            this.handleUnauthorized();
+
             return Promise.reject(new Error("Sessão expirada"));
           } finally {
             this.isRefreshing = false;
