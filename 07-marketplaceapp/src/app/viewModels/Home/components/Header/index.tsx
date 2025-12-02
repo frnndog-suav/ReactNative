@@ -23,7 +23,7 @@ export const HomeHeader = () => {
         </View>
 
         <View>
-          <Text>{`Olá, ${user?.name}`}</Text>
+          <Text className="font-bold text-base">{`Olá, ${user?.name}`}</Text>
           <View className="flex-row items-center gap-2">
             <Text className="color-purple-base font-bold text-sm">
               Ver perfil
