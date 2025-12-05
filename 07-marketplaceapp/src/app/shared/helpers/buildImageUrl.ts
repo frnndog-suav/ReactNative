@@ -6,8 +6,10 @@ export const buildImageUrl = (originalUrl: string) => {
     return originalUrl;
   }
 
-  return Platform.select({
-    ios: originalUrl,
-    android: originalUrl.replace("localhost", "10.0.2.2"),
-  });
+  return (
+    Platform.select({
+      ios: originalUrl,
+      android: originalUrl.replace("localhost", "10.0.2.2"),
+    }) ?? ""
+  );
 };

@@ -22,9 +22,14 @@ export const useHomeViewModel = () => {
     await refetch();
   };
 
+  const handleEndReached = () => {
+    handleLoadMore();
+  };
+
   return {
     products,
     handleRefresh,
     handleLoadMore,
+    handleEndReached,
   };
 };
