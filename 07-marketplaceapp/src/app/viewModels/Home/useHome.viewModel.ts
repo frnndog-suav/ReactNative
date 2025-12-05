@@ -2,11 +2,9 @@ import { useProductInfiniteQuery } from "../../shared/queries/product/useProduct
 
 export const useHomeViewModel = () => {
   const {
-    error,
     products,
     isLoading,
     hasNextPage,
-    isRefetching,
     isFetchingNextPage,
     refetch,
     fetchNextPage,
@@ -28,6 +26,9 @@ export const useHomeViewModel = () => {
 
   return {
     products,
+    isLoading,
+    hasNextPage,
+    isFetchingNextPage,
     handleRefresh,
     handleLoadMore,
     handleEndReached,
