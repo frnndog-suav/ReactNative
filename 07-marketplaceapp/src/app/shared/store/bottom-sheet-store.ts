@@ -12,7 +12,7 @@ type TBottomSheetStore = {
 
   open: (params: {
     content: React.ReactNode;
-    config: TBottomSheetConfig;
+    config?: TBottomSheetConfig;
   }) => void;
 
   close: () => void;
