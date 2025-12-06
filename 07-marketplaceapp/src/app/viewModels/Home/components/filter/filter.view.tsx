@@ -7,7 +7,7 @@ import { useFilterViewModel } from "./use-filter.viewModel";
 
 type TProps = ReturnType<typeof useFilterViewModel>;
 
-export const FilterView = (props: TProps) => {
+export const FilterView = ({ isLoading, productsCategories }: TProps) => {
   return (
     <View>
       <View className="flex-row items-center justify-between p-4 px-6">
