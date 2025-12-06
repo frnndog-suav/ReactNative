@@ -1,5 +1,5 @@
 import { ImagePickerOptions } from "expo-image-picker";
-import { useModalStore } from "../store/use-modal";
+import { useModalStore } from "../store/modal-store";
 import { useAppModal } from "./use-app-modal";
 import { useCamera } from "./use-camera";
 import { useGallery } from "./use-gallery";

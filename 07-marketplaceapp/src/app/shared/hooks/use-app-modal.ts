@@ -4,7 +4,7 @@ import {
   SelectionModal,
   TSelectionModalProps,
 } from "../components/app-modal/selection-modal";
-import { useModalStore } from "../store/use-modal";
+import { useModalStore } from "../store/modal-store";
 
 export type TSelectionVariant = "primary" | "secondary" | "danger";
 
