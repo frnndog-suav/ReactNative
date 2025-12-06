@@ -17,6 +17,7 @@
     "axios": "^1.13.2",
     "clsx": "^2.1.1",
     "expo": "~54.0.23",
+    "expo-checkbox": "~5.0.8",
     "expo-constants": "~18.0.10",
     "expo-dev-client": "~6.0.17",
     "expo-image-picker": "~17.0.8",

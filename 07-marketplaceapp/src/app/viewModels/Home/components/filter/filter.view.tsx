@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { Checkbox } from "expo-checkbox";
 import { Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../../../../../styles/colors";
 import { AppButton } from "../../../../shared/components/app-button";
@@ -40,6 +41,25 @@ export const FilterView = ({ isLoading, productsCategories }: TProps) => {
         </View>
 
         <Text className="font-semibold text-base text-gray-300">CATEGORIA</Text>
+
+        {isLoading ? (
+          <Text>Carregando categorias...</Text>
+        ) : (
+          <View className="mb-6 gap-3">
+            {productsCategories?.map((product) => (
+              <TouchableOpacity
+                className="flex-row items-center py-2"
+                key={`product-category-${product.id}`}
+              >
+                <Checkbox
+                  color={colors["purple-base"]}
+                  className="mr-3 rounded-full"
+                />
+                <Text className="text-base text-gray-400">{product.name}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
 
         <View className="flex-row gap-3 mt-4 mb-6">
           <View className="flex-1">
