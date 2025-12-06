@@ -2,7 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import ToastManager from "toastify-react-native";
 import "../styles/global.css";
-import { AppModal } from "./shared/components/AppModal";
+import { AppModal } from "./shared/components/app-modal";
 import { useUserStore } from "./shared/store/user-store";
 
 const queryClient = new QueryClient();

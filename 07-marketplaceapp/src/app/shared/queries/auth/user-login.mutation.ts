@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../../services/auth.service";
 import { useUserStore } from "../../store/user-store";
-import { TLoginHttpParams } from "../../types/http/login";
+import { TLoginHttpParams } from "../../types/http/login-request-params";
 
 export function useLoginMutation() {
   const { setSession } = useUserStore();

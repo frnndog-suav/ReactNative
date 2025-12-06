@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { buildImageUrl } from "../../helpers/buildImageUrl";
+import { buildImageUrl } from "../../helpers/build-image-url";
 import { getProducts } from "../../services/product.service";
 
 export const useProductInfiniteQuery = () => {

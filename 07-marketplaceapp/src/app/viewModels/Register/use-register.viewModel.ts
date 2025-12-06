@@ -2,9 +2,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { CameraType } from "expo-image-picker";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useImage } from "../../shared/hooks/useImage";
-import { useRegisterMutation } from "../../shared/queries/auth/userRegister.mutation";
-import { useUploadAvatarMutation } from "../../shared/queries/auth/useUploadAvatar.mutation";
+import { useImage } from "../../shared/hooks/use-image";
+import { useRegisterMutation } from "../../shared/queries/auth/user-register.mutation";
+import { useUploadAvatarMutation } from "../../shared/queries/auth/user-uploade-avatar.mutation";
 import { useUserStore } from "../../shared/store/user-store";
 import { registerSchema, TRegisterFormData } from "./register.schema";
 

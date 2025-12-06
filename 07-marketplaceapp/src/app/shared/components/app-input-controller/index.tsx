@@ -5,7 +5,7 @@ import {
   FieldValues,
   Path,
 } from "react-hook-form";
-import { AppInput, TAppInputProps } from "../AppInput";
+import { AppInput, TAppInputProps } from "../app-input";
 
 type TProps<T extends FieldValues> = Omit<
   TAppInputProps,

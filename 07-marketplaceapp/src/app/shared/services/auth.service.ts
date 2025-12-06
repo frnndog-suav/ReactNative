@@ -1,8 +1,8 @@
-import { baseURL, marketplaceApiClient } from "../api/marketPlace";
-import { TAuthResponse } from "../types/http/authResponse";
-import { TLoginHttpParams } from "../types/http/login";
-import { TRegisterHttpParams } from "../types/http/register";
-import { TUploadAvatarResponse } from "../types/http/uploadAvatar";
+import { baseURL, marketplaceApiClient } from "../api/market-place";
+import { TAuthResponse } from "../types/http/auth-response";
+import { TLoginHttpParams } from "../types/http/login-request-params";
+import { TRegisterHttpParams } from "../types/http/register-request-params";
+import { TUploadAvatarResponse } from "../types/http/upload-avatar-response";
 
 export async function register(params: TRegisterHttpParams) {
   const { data } = await marketplaceApiClient.post<TAuthResponse>(

@@ -3,7 +3,7 @@ import { createElement } from "react";
 import {
   SelectionModal,
   TSelectionModalProps,
-} from "../components/AppModal/SelectionModal";
+} from "../components/app-modal/selection-modal";
 import { useModalStore } from "../store/use-modal";
 
 export type TSelectionVariant = "primary" | "secondary" | "danger";

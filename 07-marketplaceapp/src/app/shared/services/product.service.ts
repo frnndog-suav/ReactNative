@@ -1,6 +1,6 @@
-import { marketplaceApiClient } from "../api/marketPlace";
-import { TGetProductRequestParams } from "../types/http/product";
-import { TProductResponse } from "../types/http/productResponse";
+import { marketplaceApiClient } from "../api/market-place";
+import { TGetProductRequestParams } from "../types/http/get-product-request-params";
+import { TProductResponse } from "../types/http/product-response";
 
 export const getProducts = async (params: TGetProductRequestParams) => {
   const { data } = await marketplaceApiClient.post<TProductResponse>(

@@ -1,10 +1,11 @@
-import { FlatList } from "react-native";
+import { FlatList, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Footer } from "./components/Footer";
-import { HomeHeader } from "./components/Header";
-import { ProductCard } from "./components/ProductCard";
-import { SearchInput } from "./components/SearchInput";
-import { useHomeViewModel } from "./useHome.viewModel";
+import { colors } from "../../../styles/colors";
+import { Footer } from "./components/footer";
+import { HomeHeader } from "./components/header";
+import { ProductCard } from "./components/product-card";
+import { SearchInput } from "./components/search-input";
+import { useHomeViewModel } from "./use-home.viewModel";
 
 type TProps = ReturnType<typeof useHomeViewModel>;
 
@@ -12,7 +13,9 @@ export const HomeView = ({
   products,
   isLoading,
   hasNextPage,
+  isRefetching,
   isFetchingNextPage,
+  handleRefresh,
   handleEndReached,
 }: TProps) => {
   return (
@@ -38,6 +41,14 @@ export const HomeView = ({
             <SearchInput />
           </>
         )}
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefetching}
+            onRefresh={handleRefresh}
+            colors={[colors["purple-base"]]}
+            tintColor={colors["purple-base"]}
+          />
+        }
       />
     </SafeAreaView>
   );

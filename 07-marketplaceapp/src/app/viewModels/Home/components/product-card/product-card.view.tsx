@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../../../../../styles/colors";
-import { useProductCardViewModel } from "./useProductCard.viewModel";
+import { useProductCardViewModel } from "./use-product-card.viewModel";
 
 type TProps = ReturnType<typeof useProductCardViewModel>;
 

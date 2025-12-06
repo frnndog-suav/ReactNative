@@ -6,7 +6,7 @@ import { colors } from "../../../../../styles/colors";
 import {
   TSelectionOptions,
   TSelectionVariant,
-} from "../../../hooks/useAppModal";
+} from "../../../hooks/use-app-modal";
 
 type TProps = {
   title: string;

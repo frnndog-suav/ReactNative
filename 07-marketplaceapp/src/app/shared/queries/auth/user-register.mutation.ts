@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { register } from "../../services/auth.service";
 import { useUserStore } from "../../store/user-store";
-import { TRegisterHttpParams } from "../../types/http/register";
+import { TRegisterHttpParams } from "../../types/http/register-request-params";
 
 type TProps = {
   onSuccess?: () => void;

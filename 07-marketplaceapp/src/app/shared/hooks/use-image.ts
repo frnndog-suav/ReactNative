@@ -1,8 +1,8 @@
 import { ImagePickerOptions } from "expo-image-picker";
 import { useModalStore } from "../store/use-modal";
-import { useAppModal } from "./useAppModal";
-import { useCamera } from "./useCamera";
-import { useGallery } from "./useGallery";
+import { useAppModal } from "./use-app-modal";
+import { useCamera } from "./use-camera";
+import { useGallery } from "./use-gallery";
 
 type TProps = ImagePickerOptions & {
   callback: (uri: string | null) => void;

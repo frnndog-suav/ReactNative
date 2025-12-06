@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 import { appInputVariants, TAppInputVariantsProps } from "./index.variants";
-import { useAppInputViewModel } from "./useAppInputViewModel";
+import { useAppInputViewModel } from "./use-app-input-view-model";
 
 type TProps = TextInputProps &
   TAppInputVariantsProps & {
