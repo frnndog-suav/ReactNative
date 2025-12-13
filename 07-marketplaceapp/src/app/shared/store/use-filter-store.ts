@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type TFilterState = {
+export type TFilterState = {
   valueMin: number | null;
   valueMax: number | null;
   selectedCategories: number[];

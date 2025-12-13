@@ -13,7 +13,11 @@ export const SearchInput = () => {
       <Text className="text-2xl font-bold mt-6 mb-4">Explore produtos</Text>
       <View className="flex-row ">
         <View className="flex-1">
-          <AppInput leftIcon="search" className="text-lg flex-1" />
+          <AppInput
+            placeholder="Pesquisar"
+            leftIcon="search"
+            className="text-lg flex-1"
+          />
         </View>
         <TouchableOpacity
           onPress={() => {

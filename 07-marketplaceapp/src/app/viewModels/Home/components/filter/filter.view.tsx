@@ -12,6 +12,8 @@ export const FilterView = ({
   isLoading,
   productsCategories,
   selectedCategories,
+  handleResetFilter,
+  handleApplyFilters,
   handleCategoryToggle,
   handleValueMaxChange,
   handleValueMinChange,
@@ -75,10 +77,12 @@ export const FilterView = ({
 
         <View className="flex-row gap-3 mt-4 mb-6">
           <View className="flex-1">
-            <AppButton variant="outlined">Limpar filtro</AppButton>
+            <AppButton variant="outlined" onPress={handleResetFilter}>
+              Limpar filtro
+            </AppButton>
           </View>
           <View className="flex-1">
-            <AppButton>Filtrar</AppButton>
+            <AppButton onPress={handleApplyFilters}>Filtrar</AppButton>
           </View>
         </View>
       </View>
