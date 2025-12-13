@@ -9,6 +9,7 @@ type TFilterState = {
 
 type TFilterStore = {
   appliedFilterState: TFilterState;
+  filterState: TFilterState;
 
   updateFilter: (params: {
     key: keyof TFilterState;
@@ -16,6 +17,8 @@ type TFilterStore = {
   }) => void;
 
   resetFilter: () => void;
+
+  applyFilters: () => void;
 };
 
 const DEFAULT_FILTER_VALUES = {
@@ -25,12 +28,22 @@ const DEFAULT_FILTER_VALUES = {
   valueMin: null,
 };
 
-export const useUserFilterStore = create<TFilterStore>((set) => ({
+export const useFilterStore = create<TFilterStore>((set) => ({
   appliedFilterState: DEFAULT_FILTER_VALUES,
+  filterState: DEFAULT_FILTER_VALUES,
   updateFilter: ({ key, value }) => {
     set((state) => ({
-      appliedFilterState: { ...state.appliedFilterState, [key]: value },
+      filterState: { ...state.filterState, [key]: value },
     }));
   },
-  resetFilter: () => set({ appliedFilterState: DEFAULT_FILTER_VALUES }),
+  resetFilter: () =>
+    set({
+      appliedFilterState: DEFAULT_FILTER_VALUES,
+      filterState: DEFAULT_FILTER_VALUES,
+    }),
+
+  applyFilters: () =>
+    set((state) => ({
+      appliedFilterState: state.filterState,
+    })),
 }));

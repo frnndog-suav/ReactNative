@@ -8,7 +8,14 @@ import { useFilterViewModel } from "./use-filter.viewModel";
 
 type TProps = ReturnType<typeof useFilterViewModel>;
 
-export const FilterView = ({ isLoading, productsCategories }: TProps) => {
+export const FilterView = ({
+  isLoading,
+  productsCategories,
+  selectedCategories,
+  handleCategoryToggle,
+  handleValueMaxChange,
+  handleValueMinChange,
+}: TProps) => {
   return (
     <View>
       <View className="flex-row items-center justify-between p-4 px-6">
@@ -29,13 +36,15 @@ export const FilterView = ({ isLoading, productsCategories }: TProps) => {
               placeholder="De"
               keyboardType="numeric"
               containerClassName="w-[90%]"
+              onChangeText={(text) => handleValueMinChange(Number(text))}
             />
           </View>
           <View className="flex-1">
             <AppInput
-              placeholder="De"
+              placeholder="Até"
               keyboardType="numeric"
               containerClassName="w-[90%]"
+              onChangeText={(text) => handleValueMaxChange(Number(text))}
             />
           </View>
         </View>
@@ -48,12 +57,15 @@ export const FilterView = ({ isLoading, productsCategories }: TProps) => {
           <View className="mb-6 gap-3">
             {productsCategories?.map((product) => (
               <TouchableOpacity
+                onPress={() => handleCategoryToggle(product.id)}
                 className="flex-row items-center py-2"
                 key={`product-category-${product.id}`}
               >
                 <Checkbox
                   color={colors["purple-base"]}
                   className="mr-3 rounded-full"
+                  value={selectedCategories.includes(product.id)}
+                  onValueChange={() => handleCategoryToggle(product.id)}
                 />
                 <Text className="text-base text-gray-400">{product.name}</Text>
               </TouchableOpacity>
@@ -66,7 +78,7 @@ export const FilterView = ({ isLoading, productsCategories }: TProps) => {
             <AppButton variant="outlined">Limpar filtro</AppButton>
           </View>
           <View className="flex-1">
-            <AppButton>Limpar filtro</AppButton>
+            <AppButton>Filtrar</AppButton>
           </View>
         </View>
       </View>
