@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../../../../../styles/colors";
+import { AppPriceText } from "../../../../shared/components/app-price-text";
 import { useProductCardViewModel } from "./use-product-card.viewModel";
 
 type TProps = ReturnType<typeof useProductCardViewModel>;
@@ -54,9 +55,11 @@ export const ProductCardView = ({
           {displayName}
         </Text>
         <View>
-          <Text className="flex-row items-center justify-between">
-            R$ {product.value}
-          </Text>
+          <AppPriceText
+            classNameCurrency="text-small"
+            classNameValue="text-lg font-bold flex-1"
+            value={Number(product.value)}
+          />
         </View>
       </View>
 
