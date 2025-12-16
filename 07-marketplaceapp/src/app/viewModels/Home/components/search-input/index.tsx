@@ -5,7 +5,12 @@ import { AppInput } from "../../../../shared/components/app-input";
 import { useBottomSheetStore } from "../../../../shared/store/bottom-sheet-store";
 import { Filter } from "../filter";
 
-export const SearchInput = () => {
+type TProps = {
+  inputValue: string;
+  setSearchInputText: (text: string) => void;
+};
+
+export const SearchInput = ({ inputValue, setSearchInputText }: TProps) => {
   const { open } = useBottomSheetStore();
 
   return (
@@ -14,9 +19,11 @@ export const SearchInput = () => {
       <View className="flex-row ">
         <View className="flex-1">
           <AppInput
-            placeholder="Pesquisar"
+            value={inputValue}
             leftIcon="search"
+            placeholder="Pesquisar"
             className="text-lg flex-1"
+            onChangeText={setSearchInputText}
           />
         </View>
         <TouchableOpacity

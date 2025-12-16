@@ -2,9 +2,8 @@ import { FlatList, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "../../../styles/colors";
 import { Footer } from "./components/footer";
-import { HomeHeader } from "./components/header";
 import { ProductCard } from "./components/product-card";
-import { SearchInput } from "./components/search-input";
+import { RenderHeader } from "./components/render-header";
 import { useHomeViewModel } from "./use-home.viewModel";
 
 type TProps = ReturnType<typeof useHomeViewModel>;
@@ -14,9 +13,11 @@ export const HomeView = ({
   isLoading,
   hasNextPage,
   isRefetching,
+  searchInputText,
   isFetchingNextPage,
   handleRefresh,
   handleEndReached,
+  setSearchInputText,
 }: TProps) => {
   return (
     <SafeAreaView edges={["top"]}>
@@ -35,12 +36,12 @@ export const HomeView = ({
         columnWrapperStyle={{
           justifyContent: "space-between",
         }}
-        ListHeaderComponent={() => (
-          <>
-            <HomeHeader />
-            <SearchInput />
-          </>
-        )}
+        ListHeaderComponent={
+          <RenderHeader
+            searchInputText={searchInputText}
+            setSearchInputText={setSearchInputText}
+          />
+        }
         refreshControl={
           <RefreshControl
             refreshing={isRefetching}

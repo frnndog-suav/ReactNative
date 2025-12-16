@@ -5,7 +5,6 @@ import { useFilterStore } from "../../../../shared/store/use-filter-store";
 export const useFilterViewModel = () => {
   const { isLoading, data: productsCategories } =
     useGetProductCategoriesQuery();
-
   const { close } = useBottomSheetStore();
   const { updateFilter, filterState, applyFilters, resetFilter } =
     useFilterStore();
