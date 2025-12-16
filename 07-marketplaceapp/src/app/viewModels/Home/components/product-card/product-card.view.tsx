@@ -5,7 +5,11 @@ import { useProductCardViewModel } from "./use-product-card.viewModel";
 
 type TProps = ReturnType<typeof useProductCardViewModel>;
 
-export const ProductCardView = (props: TProps) => {
+export const ProductCardView = ({
+  displayName,
+  product,
+  formatRating,
+}: TProps) => {
   return (
     <TouchableOpacity
       className="
@@ -22,7 +26,7 @@ export const ProductCardView = (props: TProps) => {
     >
       <View>
         <Image
-          source={{ uri: props.product.photo }}
+          source={{ uri: product.photo }}
           className="w-full h-[96px] rounded-[6px]"
           resizeMode="cover"
         />
@@ -41,24 +45,22 @@ export const ProductCardView = (props: TProps) => {
           "
         >
           <Ionicons name="star" size={12} color={colors["blue-base"]} />
-          <Text className="text-sm font-semibold ml-1">
-            {props.product.ratingCount}
-          </Text>
+          <Text className="text-sm font-semibold ml-1">{formatRating}</Text>
         </View>
       </View>
 
       <View className="p-3">
         <Text className="text-xs font-semibold mb-1" numberOfLines={2}>
-          {props.product.name}
+          {displayName}
         </Text>
         <View>
           <Text className="flex-row items-center justify-between">
-            R$ {props.product.value}
+            R$ {product.value}
           </Text>
         </View>
       </View>
 
-      <Text>{props.product.name}</Text>
+      <Text>{product.name}</Text>
     </TouchableOpacity>
   );
 };
