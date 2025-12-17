@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../../../../../styles/colors";
 import { AppPriceText } from "../../../../shared/components/app-price-text";
@@ -13,6 +14,7 @@ export const ProductCardView = ({
 }: TProps) => {
   return (
     <TouchableOpacity
+      onPress={() => router.push(`/product/${product.id}`)}
       className="
       w-[48%] 
       my-1 
