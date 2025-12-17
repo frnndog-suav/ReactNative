@@ -1,4 +1,4 @@
-export type TGetProductDetailsInterface = {
+export type TGetProductDetails = {
   id: number;
   value: string;
   name: string;

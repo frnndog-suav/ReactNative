@@ -1,5 +1,5 @@
 import { marketplaceApiClient } from "../api/market-place";
-import { TGetProductDetailsInterface } from "../types/http/get-product-details";
+import { TGetProductDetails } from "../types/http/get-product-details";
 import { TGetProductRequestParams } from "../types/http/get-product-request-params";
 import { TProductResponse } from "../types/http/product-response";
 import { TProductCategory } from "../types/product";
@@ -22,7 +22,7 @@ export const getProductsCategories = async () => {
 };
 
 export const getProductDetail = async (id: number) => {
-  const { data } = await marketplaceApiClient.get<TGetProductDetailsInterface>(
+  const { data } = await marketplaceApiClient.get<TGetProductDetails>(
     `/products/${id}`
   );
 
