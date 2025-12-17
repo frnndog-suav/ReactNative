@@ -1,12 +1,10 @@
 import { useLocalSearchParams } from "expo-router";
-import { Text, View } from "react-native";
+import { ProductView } from "../../viewModels/Product/product-view";
+import { useProductViewModel } from "../../viewModels/Product/use-product-view-model";
 
 export default function Product() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const viewModel = useProductViewModel(Number(id));
 
-  return (
-    <View>
-      <Text>Detalhes do produto: {id}</Text>
-    </View>
-  );
+  return <ProductView {...viewModel} />;
 }
