@@ -31,12 +31,9 @@ export const getProductDetail = async (id: number) => {
 };
 
 export const getProductComments = async (params: TGetProductComments) => {
-  const {
-    data: { data },
-  } = await marketplaceApiClient.post<TPaginatedResponse<TProductComment>>(
-    "/products/comments",
-    params
-  );
+  const { data } = await marketplaceApiClient.post<
+    TPaginatedResponse<TProductComment>
+  >("/products/comments", params);
 
   return data;
 };
