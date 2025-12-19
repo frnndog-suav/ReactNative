@@ -1,9 +1,4 @@
 import { TProduct } from "../product";
+import { TPaginatedResponse } from "./paginated-response";
 
-export type TProductResponse = {
-  page: number;
-  perPage: number;
-  total: number;
-  totalPages: number;
-  data: TProduct[];
-};
+export type TProductResponse = TPaginatedResponse<TProduct>;
