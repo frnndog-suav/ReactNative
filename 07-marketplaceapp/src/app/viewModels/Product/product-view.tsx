@@ -15,7 +15,7 @@ export const ProductView = ({ isError, isLoading, productDetails }: TProps) => {
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView className="flex-1 bg-background">
       <FlatList
         data={[]}
         renderItem={() => <></>}

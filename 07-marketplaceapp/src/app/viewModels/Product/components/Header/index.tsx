@@ -1,6 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../../../../../styles/colors";
+import { AppPriceText } from "../../../../shared/components/app-price-text";
 import { buildImageUrl } from "../../../../shared/helpers/build-image-url";
 import { TGetProductDetails } from "../../../../shared/types/http/get-product-details";
 
@@ -12,13 +14,16 @@ export function Header({ productDetails }: TProps) {
   return (
     <>
       <View className="pb-5 items-start">
-        <TouchableOpacity className="w-full justify-start flex-row items-center gap-3">
+        <TouchableOpacity
+          onPress={() => router.back()}
+          className="w-full justify-start flex-row items-center gap-3"
+        >
           <Ionicons name="arrow-back" size={24} color={colors["purple-base"]} />
           <Text className="text-base text-purple-base">Voltar</Text>
         </TouchableOpacity>
       </View>
 
-      <View className="items-center w-full rounded-lg shadow-xl shadow-gray-500/30 bg-white">
+      <View className="items-center w-full rounded-lg shadow-gray-500/30 bg-white">
         <Image
           className="w-full rounded-lg h-[192px]"
           source={{
@@ -33,6 +38,72 @@ export function Header({ productDetails }: TProps) {
           <Text className="text-[10px] font-semibold ml-1 text-gray-800">
             / 5
           </Text>
+        </View>
+      </View>
+
+      <View className="bg-background py-8">
+        <View className="flex-row justify-between items-baseline mb-4">
+          <Text className="text-xl font-bold text-gray-800 max-w-[70%]">
+            {productDetails.name}
+          </Text>
+          <View>
+            <AppPriceText
+              value={Number(productDetails.value)}
+              classNameValue="text-xl font-bold text-gray-800 ml-1"
+            />
+          </View>
+        </View>
+
+        <View className="flex-row items-center bg-blue-light p-3 rounded-lg mb-4">
+          <View className="bg-blue-base w-[36px] h-[36px] rounded-[6px] items-center justify-center">
+            <Ionicons name="trending-up" color={colors["white"]} size={20} />
+          </View>
+
+          <Text className="text-sm text-gray-600 flex-1 ml-5">
+            <Text className="font-bold">{productDetails.views} pessoas</Text>
+            visualizaram este produto nos últimos 7 dias
+          </Text>
+        </View>
+
+        <View className="mb-4">
+          <Text className="text-base leading--6 text-gray-500">
+            {productDetails.description}
+          </Text>
+        </View>
+
+        {(productDetails.width || productDetails.height) && (
+          <View className="mb-4">
+            {productDetails.width && (
+              <Text className="text-base text-gray-500 mb-1">
+                <Text className="text-gray-800">Largura: </Text>{" "}
+                {productDetails.width}
+              </Text>
+            )}
+
+            {productDetails.height && (
+              <Text className="text-base text-gray-500 mb-1">
+                <Text className="text-gray-800">Altura: </Text>{" "}
+                {productDetails.width}
+              </Text>
+            )}
+          </View>
+        )}
+
+        <View className="mb-6">
+          <Text className="text-base font-bold text-gray-800">Categoria</Text>
+          <Text className="text-base text-gray-600">
+            {productDetails.category.name}
+          </Text>
+        </View>
+
+        <View className="flex-row justify-between items-center py-4 border-t border-gray-200">
+          <Text className="text-lg font-bold text-gray-800">Avaliações</Text>
+
+          <TouchableOpacity>
+            <Text className="text-purple-base text-base font-medium">
+              Avaliar
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </>
