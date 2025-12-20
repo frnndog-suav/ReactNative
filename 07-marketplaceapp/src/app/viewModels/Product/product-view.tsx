@@ -5,7 +5,20 @@ import { useProductViewModel } from "./use-product-view-model";
 
 type TProps = ReturnType<typeof useProductViewModel>;
 
-export const ProductView = ({ isError, isLoading, productDetails }: TProps) => {
+export const ProductView = ({
+  isError,
+  isLoading,
+  productDetails,
+  comments,
+  fetchNextPage,
+  getCommentsError,
+  getCommentsLoading,
+  handleEndReached,
+  handleRefetch,
+  hasNextPage,
+  isFetchingNextPage,
+  isRefetching,
+}: TProps) => {
   if (isError) {
     return <Text>Houve um erro ao carregar os detalhes do produto</Text>;
   }
@@ -17,7 +30,7 @@ export const ProductView = ({ isError, isLoading, productDetails }: TProps) => {
   return (
     <SafeAreaView className="flex-1 bg-background">
       <FlatList
-        data={[]}
+        data={comments}
         renderItem={() => <></>}
         ListHeaderComponent={<Header productDetails={productDetails} />}
         className="px-6"
