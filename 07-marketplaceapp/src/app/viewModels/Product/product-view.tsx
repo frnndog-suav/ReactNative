@@ -1,5 +1,6 @@
 import { FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { AddToCardFooter } from "./components/AddToCartFooter";
 import { CommentItem } from "./components/CommentItem";
 import { EmptyList } from "./components/EmptyList";
 import { ErrorMessage } from "./components/ErrorMessage";
@@ -33,7 +34,7 @@ export const ProductView = ({
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-background">
+    <SafeAreaView className="flex-1 bg-background" edges={["top"]}>
       <FlatList
         data={comments}
         className="px-6"
@@ -44,7 +45,9 @@ export const ProductView = ({
         ListEmptyComponent={<EmptyList isLoadingComments={isLoading} />}
         ListHeaderComponent={<Header productDetails={productDetails} />}
         ListFooterComponent={<ListFooter isLoadingMore={getCommentsLoading} />}
+        contentContainerClassName="pb-6"
       />
+      <AddToCardFooter product={productDetails} />
     </SafeAreaView>
   );
 };
