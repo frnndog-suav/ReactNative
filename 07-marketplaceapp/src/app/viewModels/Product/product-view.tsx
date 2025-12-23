@@ -1,7 +1,10 @@
 import { FlatList, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CommentItem } from "./components/CommentItem";
+import { EmptyList } from "./components/EmptyList";
 import { Header } from "./components/Header";
+import { ListFooter } from "./components/ListFooter";
+import { Loading } from "./components/Loading";
 import { useProductViewModel } from "./use-product-view-model";
 
 type TProps = ReturnType<typeof useProductViewModel>;
@@ -28,13 +31,22 @@ export const ProductView = ({
     return null;
   }
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <SafeAreaView className="flex-1 bg-background">
       <FlatList
         data={comments}
-        renderItem={({ item }) => <CommentItem comment={item} />}
-        ListHeaderComponent={<Header productDetails={productDetails} />}
         className="px-6"
+        onRefresh={handleRefetch}
+        refreshing={isRefetching}
+        onEndReached={handleEndReached}
+        renderItem={({ item }) => <CommentItem comment={item} />}
+        ListEmptyComponent={<EmptyList isLoadingComments={isLoading} />}
+        ListHeaderComponent={<Header productDetails={productDetails} />}
+        ListFooterComponent={<ListFooter isLoadingMore={getCommentsLoading} />}
       />
     </SafeAreaView>
   );

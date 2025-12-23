@@ -13,7 +13,7 @@ export const useProductViewModel = (productId: number) => {
     isLoading: getCommentsLoading,
     hasNextPage,
     fetchNextPage,
-    refetch,
+    refetch,    
     error: getCommentsError,
     isRefetching,
     isFetchingNextPage,

@@ -44,8 +44,8 @@ export const CommentItem = ({ comment }: IParams) => {
         <View className="flex flex-row items-end">
           <Ionicons name="star" size={16} color={colors["purple-base"]} />
           <Text className="text-sm font-bold text-gray-600">
-            {comment.user.rating.value} /{" "}
-            <Text className="text-[10px] text-gray-600">5</Text>
+            {comment.user.rating.value} /
+            <Text className="text-[10px] text-gray-600">{' 5'}</Text>
           </Text>
         </View>
       </View>
