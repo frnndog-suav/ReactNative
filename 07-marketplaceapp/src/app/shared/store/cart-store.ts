@@ -1,12 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+import { cartService } from "../services/cart.service";
 
 export interface ICartProduct {
   id: number;
   name: string;
   price: string;
-  quantity: string;
+  quantity: number;
   image?: string;
 }
 
@@ -25,7 +26,18 @@ export const useCartStore = create<ICartStore>()(
     (set, get) => ({
       products: [],
       total: 0,
-      addItem: () => set({}),
+      addItem: (newProduct) =>
+        set((state) => {
+          const newItems = cartService.addProductToCart(
+            state.products,
+            newProduct
+          );
+
+          return {
+            products: newItems,
+            total: 1,
+          };
+        }),
       clearCart: () => set({ products: [], total: 0 }),
       getItemCount: () => 0,
       removeProduct: () => set({}),
