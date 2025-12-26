@@ -31,4 +31,9 @@ export const cartService = {
 
     return [...productList, formattedNewProduct];
   },
+  calculateTotal: (productList: ICartProduct[]) => {
+    return productList.reduce((acc, curr) => {
+      return acc + Number(curr.price) * curr.quantity;
+    }, 0);
+  },
 };
