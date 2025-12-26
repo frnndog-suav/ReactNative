@@ -13,7 +13,7 @@ export const cartService = {
     );
 
     if (existingProduct) {
-      return productList.map((product) => {
+      const products = productList.map((product) => {
         if (product.id === newProduct.id) {
           const formatted: ICartProduct = {
             ...product,
@@ -25,15 +25,31 @@ export const cartService = {
           return product;
         }
       });
+
+      const total = cartService.calculateTotal(products);
+
+      return {
+        products,
+        total,
+      };
     }
 
     const formattedNewProduct: ICartProduct = { ...newProduct, quantity: 1 };
 
-    return [...productList, formattedNewProduct];
+    const products = [...productList, formattedNewProduct];
+    const total = cartService.calculateTotal(products);
+
+    return { products, total };
   },
   calculateTotal: (productList: ICartProduct[]) => {
     return productList.reduce((acc, curr) => {
       return acc + Number(curr.price) * curr.quantity;
     }, 0);
+  },
+  removeProductFromLost: (productList: ICartProduct[], idToRemove: number) => {
+    const products = productList.filter((product) => product.id !== idToRemove);
+    const total = cartService.calculateTotal(products);
+
+    return { products, total };
   },
 };

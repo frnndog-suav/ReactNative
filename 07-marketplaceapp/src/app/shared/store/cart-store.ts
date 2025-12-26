@@ -28,19 +28,19 @@ export const useCartStore = create<ICartStore>()(
       total: 0,
       addItem: (newProduct) =>
         set((state) => {
-          const newItems = cartService.addProductToCart(
-            state.products,
-            newProduct
-          );
-
-          return {
-            products: newItems,
-            total: 1,
-          };
+          return cartService.addProductToCart(state.products, newProduct);
         }),
       clearCart: () => set({ products: [], total: 0 }),
       getItemCount: () => 0,
-      removeProduct: () => set({}),
+      removeProduct: (productId) =>
+        set((state) => {
+          const newProductList = cartService.removeProductFromLost(
+            state.products,
+            productId
+          );
+
+          return newProductList;
+        }),
       updateQuantity: () => set({}),
     }),
     {
