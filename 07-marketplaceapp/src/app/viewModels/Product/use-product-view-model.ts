@@ -44,6 +44,16 @@ export const useProductViewModel = (productId: number) => {
     handleLoadMore();
   };
 
+  const handleGoToCart = () => {
+    router.push("/(private)/(tabs)/cart");
+    close();
+  };
+
+  const handleContinueShopping = () => {
+    router.push("/(private)/(tabs)/home");
+    close();
+  };
+
   const handleAddToCart = () => {
     if (!productDetails) {
       return;
@@ -60,8 +70,8 @@ export const useProductViewModel = (productId: number) => {
       createElement(AddToCartSuccessModal, {
         productName: productDetails.name,
         onClose: close,
-        onGoToCart: () => router.push("/(private)/(tabs)/cart"),
-        onContinueShopping: () => router.push("/(private)/(tabs)/home"),
+        onGoToCart: handleGoToCart,
+        onContinueShopping: handleContinueShopping,
       }),
     );
   };
