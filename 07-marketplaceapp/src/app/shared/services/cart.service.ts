@@ -5,11 +5,11 @@ export const cartService = {
     productList.some(({ id }) => id === productId),
   addProductToCart: (
     productList: ICartProduct[],
-    newProduct: Omit<ICartProduct, "quantity">
+    newProduct: Omit<ICartProduct, "quantity">,
   ) => {
     const existingProduct = cartService.findExistingProduct(
       productList,
-      newProduct.id
+      newProduct.id,
     );
 
     if (existingProduct) {
@@ -51,5 +51,33 @@ export const cartService = {
     const total = cartService.calculateTotal(products);
 
     return { products, total };
+  },
+  updateProductQuantity: ({
+    productId,
+    productList,
+    quantity,
+  }: {
+    productList: ICartProduct[];
+    productId: number;
+    quantity: number;
+  }) => {
+    if (quantity <= 0) {
+      return cartService.removeProductFromLost(productList, productId);
+    }
+
+    const updatedProducts = productList.map((product) => {
+      if (product.id === productId) {
+        return { ...product, quantity };
+      }
+
+      return product;
+    });
+
+    const total = cartService.calculateTotal(updatedProducts);
+
+    return { products: updatedProducts, total };
+  },
+  getItemCount: (productList: ICartProduct[]) => {
+    return productList.reduce((acc, curr) => acc + curr.quantity, 0);
   },
 };

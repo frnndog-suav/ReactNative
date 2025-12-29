@@ -31,21 +31,28 @@ export const useCartStore = create<ICartStore>()(
           return cartService.addProductToCart(state.products, newProduct);
         }),
       clearCart: () => set({ products: [], total: 0 }),
-      getItemCount: () => 0,
+      getItemCount: () => cartService.getItemCount(get().products),
       removeProduct: (productId) =>
         set((state) => {
           const newProductList = cartService.removeProductFromLost(
             state.products,
-            productId
+            productId,
           );
 
           return newProductList;
         }),
-      updateQuantity: () => set({}),
+      updateQuantity: ({ productId, quantity }) =>
+        set((state) =>
+          cartService.updateProductQuantity({
+            productId,
+            productList: state.products,
+            quantity,
+          }),
+        ),
     }),
     {
       name: "marketplace-cart",
       storage: createJSONStorage(() => AsyncStorage),
-    }
-  )
+    },
+  ),
 );
