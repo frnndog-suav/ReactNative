@@ -57,8 +57,16 @@ export const createComment = async (params: ICreateCommentRequest) => {
 
 export const getUserComment = async (productId: number) => {
   const { data } = await marketplaceApiClient.get<{
-    content: string;
-    rating: number;
+    comment: {
+      id: number;
+      content: string;
+      createdAt: Date;
+      user: {
+        id: number;
+        name: string;
+      };
+    };
+    rating: number
   }>(`/products/${productId}/user-comment`);
 
   return data;
