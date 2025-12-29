@@ -5,14 +5,19 @@ import { TProduct } from "../../../../shared/types/product";
 
 interface IProps {
   product: TProduct;
+  handleAddToCart: () => void;
 }
 
-export const AddToCardFooter = ({ product }: IProps) => {
+export const AddToCardFooter = ({ product, handleAddToCart }: IProps) => {
   return (
     <View className="fixed justify-between bg-white bottom-0 right-0 left-0 p-7 h-[126px] flex-row items-center">
       <AppPriceText value={Number(product.value)} />
 
-      <AppButton leftIcon="cart" className="w-[120px] h-[40px] rounded-[10px]">
+      <AppButton
+        onPress={handleAddToCart}
+        leftIcon="cart"
+        className="w-[120px] h-[40px] rounded-[10px]"
+      >
         Adicionar
       </AppButton>
     </View>

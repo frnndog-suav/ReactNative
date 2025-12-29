@@ -23,6 +23,7 @@ export const ProductView = ({
   handleRefetch,
   hasNextPage,
   isFetchingNextPage,
+  handleAddToCart,
   isRefetching,
 }: TProps) => {
   if (isError) {
@@ -47,7 +48,10 @@ export const ProductView = ({
         ListFooterComponent={<ListFooter isLoadingMore={getCommentsLoading} />}
         contentContainerClassName="pb-6"
       />
-      <AddToCardFooter product={productDetails} />
+      <AddToCardFooter
+        product={productDetails}
+        handleAddToCart={handleAddToCart}
+      />
     </SafeAreaView>
   );
 };

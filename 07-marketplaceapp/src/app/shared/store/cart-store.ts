@@ -14,7 +14,7 @@ export interface ICartProduct {
 interface ICartStore {
   products: ICartProduct[];
   total: number;
-  addItem: (product: Omit<ICartProduct, "quantity">) => void;
+  addProduct: (product: Omit<ICartProduct, "quantity">) => void;
   removeProduct: (productId: number) => void;
   updateQuantity: (params: { productId: number; quantity: number }) => void;
   clearCart: () => void;
@@ -26,7 +26,7 @@ export const useCartStore = create<ICartStore>()(
     (set, get) => ({
       products: [],
       total: 0,
-      addItem: (newProduct) =>
+      addProduct: (newProduct) =>
         set((state) => {
           return cartService.addProductToCart(state.products, newProduct);
         }),
