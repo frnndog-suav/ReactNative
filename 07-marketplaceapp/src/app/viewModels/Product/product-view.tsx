@@ -25,6 +25,7 @@ export const ProductView = ({
   isFetchingNextPage,
   handleAddToCart,
   isRefetching,
+  handleOpenReview,
 }: TProps) => {
   if (isError) {
     return <ErrorMessage />;
@@ -44,7 +45,12 @@ export const ProductView = ({
         onEndReached={handleEndReached}
         renderItem={({ item }) => <CommentItem comment={item} />}
         ListEmptyComponent={<EmptyList isLoadingComments={isLoading} />}
-        ListHeaderComponent={<Header productDetails={productDetails} />}
+        ListHeaderComponent={
+          <Header
+            handleOpenReview={handleOpenReview}
+            productDetails={productDetails}
+          />
+        }
         ListFooterComponent={<ListFooter isLoadingMore={getCommentsLoading} />}
         contentContainerClassName="pb-6"
       />

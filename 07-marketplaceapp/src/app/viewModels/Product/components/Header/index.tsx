@@ -8,9 +8,10 @@ import { TGetProductDetails } from "../../../../shared/types/http/get-product-de
 
 type TProps = {
   productDetails: TGetProductDetails;
+  handleOpenReview: () => void;
 };
 
-export function Header({ productDetails }: TProps) {
+export function Header({ productDetails, handleOpenReview }: TProps) {
   return (
     <>
       <View className="pb-5 items-start">
@@ -99,7 +100,7 @@ export function Header({ productDetails }: TProps) {
         <View className="flex-row justify-between items-center pt-4 border-t border-gray-200">
           <Text className="text-lg font-bold text-gray-800">Avaliações</Text>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleOpenReview}>
             <Text className="text-purple-base text-base font-medium">
               Avaliar
             </Text>
