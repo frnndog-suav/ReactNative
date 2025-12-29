@@ -3,6 +3,7 @@ import { Toast } from "toastify-react-native";
 import { useCreateCommentMutation } from "../../../../shared/queries/comments/use-create-comment-mutation";
 import { useGetUserCommentQuery } from "../../../../shared/queries/comments/use-get-user-comment-query";
 import { useUpdateCommentMutation } from "../../../../shared/queries/comments/use-update-comment-mutation";
+import { useBottomSheetStore } from "../../../../shared/store/bottom-sheet-store";
 
 interface IRatingForm {
   content: string;
@@ -21,6 +22,7 @@ const initialFomValue: IRatingForm = {
 export const useReviewBottomSheetViewModel = (productId: number) => {
   const [ratingForm, setRatingForm] = useState<IRatingForm>(initialFomValue);
 
+  const { close: closeBottomSheet } = useBottomSheetStore();
   const { data: userComment, isLoading: loadingUserComment } =
     useGetUserCommentQuery(productId);
 
@@ -66,6 +68,8 @@ export const useReviewBottomSheetViewModel = (productId: number) => {
         productId,
       });
     }
+
+    closeBottomSheet();
   };
 
   useEffect(() => {

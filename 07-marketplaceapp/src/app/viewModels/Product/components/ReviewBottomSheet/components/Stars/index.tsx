@@ -14,7 +14,7 @@ export const Stars = ({ rating, handleRatingChange }: IProps) => {
 
     return (
       <TouchableOpacity
-        key={starNumber}
+        key={`rating-start-${starNumber}`}
         onPress={() => handleRatingChange(starNumber)}
       >
         <Ionicons
