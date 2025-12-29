@@ -4,15 +4,19 @@ import { colors } from "../../../../../../../styles/colors";
 
 interface IProps {
   rating: number;
+  handleRatingChange: (rating: number) => void;
 }
 
-export const Stars = ({ rating }: IProps) => {
+export const Stars = ({ rating, handleRatingChange }: IProps) => {
   return Array.from({ length: 5 }).map((_, index) => {
     const starNumber = index + 1;
     const isSelected = starNumber <= rating;
 
     return (
-      <TouchableOpacity key={starNumber}>
+      <TouchableOpacity
+        key={starNumber}
+        onPress={() => handleRatingChange(starNumber)}
+      >
         <Ionicons
           size={32}
           name={isSelected ? "star" : "star-outline"}
