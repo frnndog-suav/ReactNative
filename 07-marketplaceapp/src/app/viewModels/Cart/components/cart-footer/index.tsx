@@ -5,7 +5,11 @@ import { AppButton } from "../../../../shared/components/app-button";
 import { AppPriceText } from "../../../../shared/components/app-price-text";
 import { useCartStore } from "../../../../shared/store/cart-store";
 
-export const CartFooter = () => {
+interface IProps {
+  openCartBottomSheet: () => void;
+}
+
+export const CartFooter = ({ openCartBottomSheet }: IProps) => {
   const { total } = useCartStore();
 
   return (
@@ -25,7 +29,10 @@ export const CartFooter = () => {
             CARTÕES DE CRÉDITO
           </Text>
 
-          <TouchableOpacity className="flex-row items-center">
+          <TouchableOpacity
+            onPress={openCartBottomSheet}
+            className="flex-row items-center"
+          >
             <Ionicons
               name="cart-outline"
               size={20}
