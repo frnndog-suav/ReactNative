@@ -1,9 +1,8 @@
-import { Text, View } from "react-native";
+import { CartView } from "../../viewModels/Cart/cart-view";
+import { useCartViewModel } from "../../viewModels/Cart/use-cart-view-model";
 
 export default function Cart() {
-  return (
-    <View>
-      <Text>Cart</Text>
-    </View>
-  );
+  const viewModal = useCartViewModel();
+
+  return <CartView {...viewModal} />;
 }

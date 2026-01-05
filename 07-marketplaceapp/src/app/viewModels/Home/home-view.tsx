@@ -1,7 +1,7 @@
 import { FlatList, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "../../../styles/colors";
-import { Footer } from "./components/footer";
+import { Footer } from "./components/Footer";
 import { ProductCard } from "./components/product-card";
 import { RenderHeader } from "./components/render-header";
 import { useHomeViewModel } from "./use-home.viewModel";
