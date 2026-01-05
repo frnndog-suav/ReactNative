@@ -1,4 +1,4 @@
-export type TGetCreditCardsResponse = {
+export type TCreditCard = {
   id: number;
   userId: number;
   titularName: string;
