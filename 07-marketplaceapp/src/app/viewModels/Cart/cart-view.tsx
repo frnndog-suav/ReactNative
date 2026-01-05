@@ -7,7 +7,12 @@ import { useCartViewModel } from "./use-cart-view-model";
 
 interface IProps extends ReturnType<typeof useCartViewModel> {}
 
-export const CartView = ({ products, openCartBottomSheet }: IProps) => {
+export const CartView = ({
+  products,
+  creditCards,
+  loadingCreditCards,
+  openCartBottomSheet,
+}: IProps) => {
   return (
     <SafeAreaViewBase>
       <FlatList
@@ -19,7 +24,11 @@ export const CartView = ({ products, openCartBottomSheet }: IProps) => {
         ListHeaderComponent={CartHeader}
         ListFooterComponent={
           products.length > 0 ? (
-            <CartFooter openCartBottomSheet={openCartBottomSheet} />
+            <CartFooter
+              creditCards={creditCards}
+              loadingCreditCards={loadingCreditCards}
+              openCartBottomSheet={openCartBottomSheet}
+            />
           ) : undefined
         }
       />

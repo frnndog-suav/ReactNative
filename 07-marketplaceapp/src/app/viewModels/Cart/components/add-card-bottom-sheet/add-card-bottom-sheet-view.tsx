@@ -7,7 +7,7 @@ import { useAddCardBottomSheetViewModel } from "./use-card-bottom-sheet-view-mod
 
 interface IProps extends ReturnType<typeof useAddCardBottomSheetViewModel> {}
 
-export const AddCardBottomSheetView = ({}: IProps) => {
+export const AddCardBottomSheetView = ({ handleCreateCreditCard }: IProps) => {
   return (
     <ScrollView className="flex-1">
       <View className="p-8">
