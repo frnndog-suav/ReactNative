@@ -17,7 +17,7 @@ export const CartView = ({ products }: IProps) => {
         keyExtractor={({ id }) => `product-cart-id-${id}`}
         ListEmptyComponent={<EmptyList />}
         ListHeaderComponent={CartHeader}
-        ListFooterComponent={CartFooter}
+        ListFooterComponent={products.length > 0 ? CartFooter : undefined}
       />
     </SafeAreaViewBase>
   );

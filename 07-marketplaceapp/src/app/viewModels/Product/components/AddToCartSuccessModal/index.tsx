@@ -34,9 +34,7 @@ export const AddToCartSuccessModal = ({
       </Text>
 
       <View className="gap-6">
-        <AppButton leftIcon="cart" onPress={onGoToCart}>
-          Ver carrinho
-        </AppButton>
+        <AppButton onPress={onGoToCart}>Ver carrinho</AppButton>
         <AppButton variant="outlined" onPress={onContinueShopping}>
           Continuar comprando
         </AppButton>
