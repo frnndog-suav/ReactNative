@@ -1,5 +1,5 @@
 import { FlatList, SafeAreaViewBase } from "react-native";
-
+import { CartFooter } from "./components/cart-footer";
 import { CartHeader } from "./components/cart-header";
 import { EmptyList } from "./components/empty-list";
 import { ProductCartCard } from "./components/product-cart-card";
@@ -17,6 +17,7 @@ export const CartView = ({ products }: IProps) => {
         keyExtractor={({ id }) => `product-cart-id-${id}`}
         ListEmptyComponent={<EmptyList />}
         ListHeaderComponent={CartHeader}
+        ListFooterComponent={CartFooter}
       />
     </SafeAreaViewBase>
   );
