@@ -14,7 +14,7 @@ export const CartView = ({
   openCartBottomSheet,
 }: IProps) => {
   return (
-    <SafeAreaViewBase>
+    <SafeAreaViewBase className="flex-1">
       <FlatList
         data={products}
         contentContainerClassName="px-6"
