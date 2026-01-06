@@ -6,6 +6,7 @@ import { AppButton } from "../../../../shared/components/app-button";
 import { AppPriceText } from "../../../../shared/components/app-price-text";
 import { useCartStore } from "../../../../shared/store/cart-store";
 import { TCreditCard } from "../../../../shared/types/credit-card";
+import { CreditCardItem } from "../credit-card-item";
 
 interface IProps {
   creditCards: TCreditCard[];
@@ -60,7 +61,11 @@ export const CartFooter = ({
             </Text>
           </View>
         ) : (
-          <FlatList data={creditCards} renderItem={() => <></>} />
+          <FlatList
+            data={creditCards}
+            renderItem={({ item }) => <CreditCardItem creditCard={item} />}
+            className="gap-2"
+          />
         )}
 
         <AppButton className="mt-4">Confirmar compra</AppButton>
