@@ -75,7 +75,9 @@ export const AddCardBottomSheetView = ({
             <AppButton variant="outlined">Cancelar</AppButton>
           </View>
           <View className="flex-1">
-            <AppButton variant="outlined">Salvar</AppButton>
+            <AppButton onPress={handleCreateCreditCard} variant="outlined">
+              Salvar
+            </AppButton>
           </View>
         </View>
       </View>
