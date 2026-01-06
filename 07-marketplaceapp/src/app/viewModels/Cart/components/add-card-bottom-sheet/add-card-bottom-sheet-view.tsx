@@ -2,12 +2,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../../../../../styles/colors";
 import { AppButton } from "../../../../shared/components/app-button";
-import { AppInput } from "../../../../shared/components/app-input";
+import { AppInputController } from "../../../../shared/components/app-input-controller";
 import { useAddCardBottomSheetViewModel } from "./use-card-bottom-sheet-view-model";
 
 interface IProps extends ReturnType<typeof useAddCardBottomSheetViewModel> {}
 
-export const AddCardBottomSheetView = ({ handleCreateCreditCard }: IProps) => {
+export const AddCardBottomSheetView = ({
+  control,
+  handleCreateCreditCard,
+}: IProps) => {
   return (
     <ScrollView className="flex-1">
       <View className="p-8">
@@ -21,14 +24,27 @@ export const AddCardBottomSheetView = ({ handleCreateCreditCard }: IProps) => {
         </View>
 
         <View className="mt-6 gap-4">
-          <AppInput
+          <AppInputController
+            control={control}
+            name="titularName"
             leftIcon="person-outline"
             label="NOME DO TITULAR"
             placeholder="Nome completo"
           />
+
+          <AppInputController
+            control={control}
+            name="number"
+            leftIcon="card-outline"
+            label="NÚMERO"
+            placeholder="Número do cartão"
+          />
+
           <View className="flex-row gap-2">
             <View className="flex-1">
-              <AppInput
+              <AppInputController
+                control={control}
+                name="expirationDate"
                 leftIcon="calendar-outline"
                 label="VENCIMENTO"
                 placeholder="MM/AA"
@@ -37,7 +53,9 @@ export const AddCardBottomSheetView = ({ handleCreateCreditCard }: IProps) => {
               />
             </View>
             <View className="flex-1">
-              <AppInput
+              <AppInputController
+                control={control}
+                name="CVV"
                 leftIcon="lock-closed-outline"
                 label="CVV"
                 placeholder="000"
