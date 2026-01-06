@@ -9,6 +9,8 @@ interface IProps extends ReturnType<typeof useAddCardBottomSheetViewModel> {}
 
 export const AddCardBottomSheetView = ({
   control,
+  cardNumberMask,
+  expirationDateMask,
   handleCreateCreditCard,
 }: IProps) => {
   return (
@@ -38,6 +40,8 @@ export const AddCardBottomSheetView = ({
             leftIcon="card-outline"
             label="NÚMERO"
             placeholder="Número do cartão"
+            mask={cardNumberMask}
+            maxLength={19}
           />
 
           <View className="flex-row gap-2">
@@ -50,6 +54,7 @@ export const AddCardBottomSheetView = ({
                 placeholder="MM/AA"
                 keyboardType="numeric"
                 maxLength={5}
+                mask={expirationDateMask}
               />
             </View>
             <View className="flex-1">
