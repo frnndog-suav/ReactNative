@@ -1,5 +1,6 @@
 import { FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { EmptyList } from "./components/EmptyList";
 import { OrderItem } from "./components/OrderItem";
 import { useOrderViewModel } from "./use-orders-view-model";
 
@@ -13,6 +14,7 @@ export const OrdersView = ({ orders }: IProps) => {
         data={orders}
         renderItem={({ item: order }) => <OrderItem order={order} />}
         keyExtractor={({ id }) => `order-${id}`}
+        ListEmptyComponent={EmptyList}
       />
     </SafeAreaView>
   );
