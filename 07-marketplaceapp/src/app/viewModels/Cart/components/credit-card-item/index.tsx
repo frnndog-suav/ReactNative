@@ -4,10 +4,22 @@ import { useCreditCardViewModel } from "./use-credit-card-item-view-model";
 
 interface IProps {
   creditCard: TCreditCard;
+  isSelected: boolean;
+  setSelectedCreditCard: (card: TCreditCard) => void;
 }
 
-export const CreditCardItem = ({ creditCard }: IProps) => {
+export const CreditCardItem = ({
+  creditCard,
+  isSelected,
+  setSelectedCreditCard,
+}: IProps) => {
   const viewModel = useCreditCardViewModel(creditCard);
 
-  return <CreditCardItemView {...viewModel} />;
+  return (
+    <CreditCardItemView
+      {...viewModel}
+      isSelected={isSelected}
+      setSelectedCreditCard={setSelectedCreditCard}
+    />
+  );
 };

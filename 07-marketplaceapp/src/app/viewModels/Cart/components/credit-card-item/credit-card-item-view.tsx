@@ -1,17 +1,26 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../../../../../styles/colors";
+import { TCreditCard } from "../../../../shared/types/credit-card";
 import { useCreditCardViewModel } from "./use-credit-card-item-view-model";
 
-interface IProps extends ReturnType<typeof useCreditCardViewModel> {}
+interface IProps extends ReturnType<typeof useCreditCardViewModel> {
+  isSelected: boolean;
+  setSelectedCreditCard: (card: TCreditCard) => void;
+}
 
 export const CreditCardItemView = ({
+  isSelected,
   creditCard,
   formattedCardNumber,
   formattedExpirationDate,
+  setSelectedCreditCard,
 }: IProps) => {
   return (
-    <TouchableOpacity className="p-4 rounded-lg border-1 bg-white border-gray-100">
+    <TouchableOpacity
+      onPress={() => setSelectedCreditCard(creditCard)}
+      className={`p-4 rounded-lg border-1 bg-white ${isSelected ? "border-purple-base" : "border-gray-100"}`}
+    >
       <View className="flex-row justify-between">
         <View className="mr-4">
           <Ionicons
