@@ -1,4 +1,6 @@
+import { format } from "date-fns";
 import { Image, Text, View } from "react-native";
+import { AppPriceText } from "../../../../shared/components/app-price-text";
 import { buildImageUrl } from "../../../../shared/helpers/build-image-url";
 import { TOrder } from "../../../../shared/types/order";
 
@@ -28,17 +30,26 @@ export const OrderItem = ({ order }: IProps) => {
             {order.productName}
           </Text>
 
-          <Text>{order.createdAt.toString()}</Text>
+          <Text className="text-sm text-gray-600">
+            {format(order.createdAt, "dd/MM/yyyy")}
+          </Text>
         </View>
 
-        <Text>
-          {order.quantity} - {order.totalPrice}
+        <View className="flex-row mb-2">
+          <Text className="text-sm text-gray-600 mr-1">
+            {order.quantity} unidade(s) -{" "}
+          </Text>
+          <AppPriceText
+            value={order.totalPrice}
+            classNameCurrency="text-sm text-gray-600"
+            classNameValue="text-sm text-gray-600"
+          />
+        </View>
+
+        <Text className="text-sm text-gray-600">
+          Cartão final {order.creditCard.maskedNumber.slice(-4)}
         </Text>
-
-        <Text>{order.creditCard.maskedNumber}</Text>
       </View>
-
-      <Text>{order.productName}</Text>
     </View>
   );
 };
