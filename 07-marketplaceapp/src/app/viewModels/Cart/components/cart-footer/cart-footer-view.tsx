@@ -1,10 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
 import {
-    ActivityIndicator,
-    FlatList,
-    Text,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  FlatList,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { ICartFooterProps } from ".";
 import { colors } from "../../../../../styles/colors";
@@ -21,6 +21,8 @@ export const CartFooterView = ({
   creditCards,
   loadingCreditCards,
   selectedCreditCard,
+  isOrderLoading,
+  submitOrderMutation,
   openCartBottomSheet,
   setSelectedCreditCard,
 }: IProps) => {
@@ -77,7 +79,13 @@ export const CartFooterView = ({
           />
         )}
 
-        <AppButton className="mt-4">Confirmar compra</AppButton>
+        <AppButton
+          className="mt-4"
+          isLoading={isOrderLoading}
+          onPress={submitOrderMutation}
+        >
+          Confirmar compra
+        </AppButton>
       </View>
     </View>
   );
