@@ -13,6 +13,7 @@ export const ProfileView = ({
   control,
   errors,
   onSubmit,
+  isSubmitting,
 }: IProps) => {
   return (
     <KeyboardContainer>
@@ -78,7 +79,7 @@ export const ProfileView = ({
           placeholder="Confirme sua senha"
         />
 
-        <AppButton className="mt-6" onPress={onSubmit}>
+        <AppButton className="mt-6" onPress={onSubmit} isLoading={isSubmitting}>
           Atualizar cadastro
         </AppButton>
       </ScrollView>
