@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useImage } from "../../shared/hooks/use-image";
 import { useRegisterMutation } from "../../shared/queries/auth/user-register.mutation";
-import { useUploadAvatarMutation } from "../../shared/queries/auth/user-uploade-avatar.mutation";
+import { useUploadAvatarMutation } from "../../shared/queries/auth/user-upload-avatar.mutation";
 import { useUserStore } from "../../shared/store/user-store";
 import { registerSchema, TRegisterFormData } from "./register.schema";
 

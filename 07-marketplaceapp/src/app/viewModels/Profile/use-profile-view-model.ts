@@ -1,7 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { CameraType } from "expo-image-picker";
 import { useForm } from "react-hook-form";
 import { useAppModal } from "../../shared/hooks/use-app-modal";
+import { useImage } from "../../shared/hooks/use-image";
+import { useUploadAvatarMutation } from "../../shared/queries/auth/user-upload-avatar.mutation";
 import { useUpdateProfileMutation } from "../../shared/queries/profile/use-update-profile-mutation";
 import { useCartStore } from "../../shared/store/cart-store";
 import { useModalStore } from "../../shared/store/modal-store";
@@ -13,12 +15,17 @@ export const useProfileViewModel = () => {
   const { close } = useModalStore();
   const { clearCart } = useCartStore();
 
-  const [avatarUri, setAvatarUri] = useState<string | null>(
-    user?.avatarUrl ?? null
-  );
-
+  const uploadAvatarMutation = useUploadAvatarMutation();
   const updateProfileMutation = useUpdateProfileMutation();
   const { shownSelection } = useAppModal();
+  const { handleSelectImage } = useImage({
+    callback: async (uri) => {
+      if (!uri) return;
+
+      await uploadAvatarMutation.mutateAsync(uri);
+    },
+    cameraType: CameraType.front,
+  });
 
   const {
     control,
@@ -73,6 +80,7 @@ export const useProfileViewModel = () => {
           onPress: () => {
             logout();
             clearCart();
+            close();
           },
           text: "Sair",
         },
@@ -80,11 +88,12 @@ export const useProfileViewModel = () => {
     });
 
   return {
-    avatarUri,
+    avatarUri: user?.avatarUrl,
     control,
     errors,
     onSubmit,
     isSubmitting,
+    handleSelectImage,
     handleLogout,
   };
 };

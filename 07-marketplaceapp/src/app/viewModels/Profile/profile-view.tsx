@@ -15,12 +15,16 @@ export const ProfileView = ({
   onSubmit,
   handleLogout,
   isSubmitting,
+  handleSelectImage,
 }: IProps) => {
   return (
     <KeyboardContainer>
       <ScrollView className="flex-1 px-[40px]">
         <Header handleLogout={handleLogout} />
-        <TouchableOpacity className="w-[120px] h-[120px] rounded-[12px] items-center justify-center bg-shape self-center mb-8 mt-6">
+        <TouchableOpacity
+          onPress={handleSelectImage}
+          className="w-[120px] h-[120px] rounded-[12px] items-center justify-center bg-shape self-center mb-8 mt-6"
+        >
           {avatarUri ? (
             <Image
               className="w-full h-full rounded-[12px]"
@@ -66,18 +70,18 @@ export const ProfileView = ({
           control={control}
           name="password"
           leftIcon="lock-closed-outline"
-          label="SENHA"
+          label="SENHA ATUAL"
           secureTextEntry
           placeholder="Sua senha"
         />
 
         <AppInputController
           control={control}
-          name="confirmPassword"
-          label="CONFIRMAR SENHA"
+          name="newPassword"
+          label="NOVA SENHA"
           leftIcon="lock-closed-outline"
           secureTextEntry
-          placeholder="Confirme sua senha"
+          placeholder="Sua nova senha"
         />
 
         <AppButton className="mt-6" onPress={onSubmit} isLoading={isSubmitting}>
