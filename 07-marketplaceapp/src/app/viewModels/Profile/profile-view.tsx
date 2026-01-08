@@ -3,6 +3,7 @@ import { Image, ScrollView, Text, TouchableOpacity } from "react-native";
 import { AppButton } from "../../shared/components/app-button";
 import { AppInputController } from "../../shared/components/app-input-controller";
 import { KeyboardContainer } from "../../shared/components/keyboard-container";
+import { Header } from "./components/header";
 import { useProfileViewModel } from "./use-profile-view-model";
 
 interface IProps extends ReturnType<typeof useProfileViewModel> {}
@@ -16,7 +17,8 @@ export const ProfileView = ({
   return (
     <KeyboardContainer>
       <ScrollView className="flex-1 px-[40px]">
-        <TouchableOpacity className="w-[120px] h-[120px] rounded-[12px] items-center justify-center bg-shape self-center mb-8">
+        <Header />
+        <TouchableOpacity className="w-[120px] h-[120px] rounded-[12px] items-center justify-center bg-shape self-center mb-8 mt-6">
           {avatarUri ? (
             <Image
               className="w-full h-full rounded-[12px]"
@@ -27,6 +29,10 @@ export const ProfileView = ({
             <Ionicons name="cloud-upload-outline" size={32} />
           )}
         </TouchableOpacity>
+
+        <Text className="text-base mt-6 font-bold text-gray-500">
+          Dados pessoais
+        </Text>
 
         <AppInputController
           control={control}

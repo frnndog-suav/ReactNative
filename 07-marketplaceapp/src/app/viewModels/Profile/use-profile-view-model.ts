@@ -18,9 +18,9 @@ export const useProfileViewModel = () => {
   } = useForm<TProfileFormData>({
     resolver: yupResolver(profileSchema),
     defaultValues: {
-      name: "babilonia",
-      phone: "11111111111",
-      email: "babilonia@gmail.com",
+      name: user?.name ?? "",
+      phone: user?.phone ?? "11111111111",
+      email: user?.email ?? "babilonia@gmail.com",
       password: undefined,
       confirmPassword: undefined,
     },
