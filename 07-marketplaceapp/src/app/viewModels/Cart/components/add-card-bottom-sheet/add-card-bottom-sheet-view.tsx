@@ -17,6 +17,7 @@ export const AddCardBottomSheetView = ({
   handleFieldFocus,
   isFlipped,
   focusedField,
+  cardData,
 }: IProps) => {
   return (
     <ScrollView className="flex-1">
@@ -30,7 +31,11 @@ export const AddCardBottomSheetView = ({
           </TouchableOpacity>
         </View>
 
-        <CreditCard focusedField={focusedField} isFlipped={isFlipped} />
+        <CreditCard
+          cardData={cardData}
+          isFlipped={isFlipped}
+          focusedField={focusedField}
+        />
 
         <View className="mt-6 gap-4">
           <AppInputController
@@ -78,6 +83,7 @@ export const AddCardBottomSheetView = ({
                 label="CVV"
                 placeholder="000"
                 keyboardType="numeric"
+                maxLength={3}
                 onFocus={() => handleFieldFocus("cvv")}
                 onBlur={handleFieldBlur}
               />

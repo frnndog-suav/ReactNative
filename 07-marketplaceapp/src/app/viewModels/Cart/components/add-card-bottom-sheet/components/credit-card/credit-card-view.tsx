@@ -11,7 +11,15 @@ const PURPLE_GRADIENT: readonly [string, string, string] = [
   "#7b6cb5",
 ];
 
+export type TCardData = {
+  number: string;
+  name: string;
+  expiry: string;
+  cvv: string;
+};
+
 interface IProps extends ReturnType<typeof useCreditCardViewModel> {
+  cardData: TCardData;
   focusedField: TFocusedField | null;
 }
 
@@ -19,6 +27,8 @@ export const CreditCardView = ({
   focusedField,
   backAnimatedStyle,
   frontAnimatedStyle,
+  cardData,
+  formatCardNumber,
 }: IProps) => {
   return (
     <View className="h-[192px]">
@@ -48,7 +58,7 @@ export const CreditCardView = ({
             })}
           >
             <Text className="text-white text-lg tracking-widest text-center">
-              123
+              {formatCardNumber(cardData.number)}
             </Text>
           </View>
 
@@ -62,7 +72,7 @@ export const CreditCardView = ({
                 PORTADOR
               </Text>
               <Text className="text-white font-sm font-bold uppercase">
-                NOME DO TITULAR
+                {cardData.name.length ? cardData.name : "NOME DO TITULAR"}
               </Text>
             </View>
 
@@ -74,7 +84,9 @@ export const CreditCardView = ({
               <Text className="text-white text-xs mb-1 font-semibold">
                 VÁLIDO ATÉ
               </Text>
-              <Text className="text-white text-xs mb-1 font-bold">MM/AA</Text>
+              <Text className="text-white text-xs mb-1 font-bold">
+                {cardData.expiry.length ? cardData.expiry : "MM/AA"}
+              </Text>
             </View>
           </View>
         </LinearGradient>
@@ -105,7 +117,7 @@ export const CreditCardView = ({
                   "bg-blue-100": focusedField === "cvv",
                 })}
               >
-                <Text>...</Text>
+                <Text>{cardData.cvv || "..."}</Text>
               </View>
             </View>
           </View>

@@ -29,9 +29,17 @@ export const useCreditCardViewModel = ({ isFlipped }: IProps) => {
     };
   });
 
+  const formatCardNumber = (cardNumber: string) => {
+    const formatted = cardNumber.replace(/\s/g, "");
+
+    const padded = formatted.padEnd(16, "*");
+
+    return padded.match(/.{1,4}/g)?.join(" ") || "**** **** **** ****";
+  };
+
   useEffect(() => {
     flipValue.value = withTiming(isFlipped ? 1 : 0, { duration: 600 });
   }, [isFlipped]);
 
-  return { frontAnimatedStyle, backAnimatedStyle };
+  return { frontAnimatedStyle, backAnimatedStyle, formatCardNumber };
 };

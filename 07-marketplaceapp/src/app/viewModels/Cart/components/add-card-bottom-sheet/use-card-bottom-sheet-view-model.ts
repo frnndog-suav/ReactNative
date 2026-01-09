@@ -109,6 +109,8 @@ export const useAddCardBottomSheetViewModel = () => {
     }, 50);
   };
 
+  const watchedValue = watch();
+
   return {
     control,
     isFlipped,
@@ -118,5 +120,11 @@ export const useAddCardBottomSheetViewModel = () => {
     cardNumberMask,
     handleFieldFocus,
     handleFieldBlur,
+    cardData: {
+      number: watchedValue.number,
+      name: watchedValue.titularName,
+      expiry: watchedValue.expirationDate,
+      cvv: watchedValue.CVV,
+    },
   };
 };
