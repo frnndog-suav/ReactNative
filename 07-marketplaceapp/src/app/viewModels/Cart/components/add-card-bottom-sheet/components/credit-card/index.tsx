@@ -1,8 +1,14 @@
+import { TFocusedField } from "../../use-card-bottom-sheet-view-model";
 import { CreditCardView } from "./credit-card-view";
 import { useCreditCardViewModel } from "./use-credit-card-view-model";
 
-export const CreditCard = () => {
-  const viewModel = useCreditCardViewModel();
+interface IProps {
+  isFlipped: boolean;
+  focusedField: TFocusedField | null;
+}
 
-  return <CreditCardView {...viewModel} />;
+export const CreditCard = ({ focusedField, isFlipped }: IProps) => {
+  const viewModel = useCreditCardViewModel({ isFlipped });
+
+  return <CreditCardView focusedField={focusedField} {...viewModel} />;
 };
