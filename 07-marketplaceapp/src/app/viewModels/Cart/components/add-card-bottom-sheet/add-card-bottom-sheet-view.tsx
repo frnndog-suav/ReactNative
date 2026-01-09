@@ -3,6 +3,7 @@ import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../../../../../styles/colors";
 import { AppButton } from "../../../../shared/components/app-button";
 import { AppInputController } from "../../../../shared/components/app-input-controller";
+import { CreditCard } from "./components/credit-card";
 import { useAddCardBottomSheetViewModel } from "./use-card-bottom-sheet-view-model";
 
 interface IProps extends ReturnType<typeof useAddCardBottomSheetViewModel> {}
@@ -24,6 +25,8 @@ export const AddCardBottomSheetView = ({
             <Ionicons name="close" size={24} color={colors.grays[400]} />
           </TouchableOpacity>
         </View>
+
+        <CreditCard />
 
         <View className="mt-6 gap-4">
           <AppInputController
