@@ -39,7 +39,6 @@ export const CreditCardView = ({ focusedField }: IProps) => {
 
           <View
             className={clsx("py-2 px-1 rounded-lg mb-6", {
-              "": focusedField !== "number",
               "bg-white/20": focusedField === "number",
             })}
           >
@@ -51,7 +50,6 @@ export const CreditCardView = ({ focusedField }: IProps) => {
           <View className="flex-row justify-between items-end">
             <View
               className={clsx("flex-1 py-2 px-2 rounded-lg", {
-                "": focusedField !== "name",
                 "bg-white/20": focusedField === "name",
               })}
             >
@@ -65,7 +63,6 @@ export const CreditCardView = ({ focusedField }: IProps) => {
 
             <View
               className={clsx("ml-4 py-1 px-1 rounded-lg", {
-                "": focusedField !== "expiry",
                 "bg-white/20": focusedField === "expiry",
               })}
             >
@@ -78,7 +75,36 @@ export const CreditCardView = ({ focusedField }: IProps) => {
         </LinearGradient>
       </Animated.View>
 
-      <Animated.View></Animated.View>
+      <Animated.View
+        style={[
+          {
+            height: 192,
+            width: "100%",
+            position: "absolute",
+            backfaceVisibility: "hidden",
+          },
+        ]}
+      >
+        <LinearGradient
+          colors={PURPLE_GRADIENT}
+          start={{ x: 0, y: 0.5 }}
+          style={{ flex: 1, borderRadius: 16 }}
+        >
+          <View className="h-[40px] bg-black w-full mt-[20px]" />
+          <View className="flex-1 justify-center items-end px-5">
+            <View className="w-[24px]">
+              <Text className="text-white text-xs font-semibold mb-2">CVV</Text>
+              <View
+                className={clsx("bg-white p-2 rounded h-8 justify-center", {
+                  "bg-blue-100": focusedField === "cvv",
+                })}
+              >
+                <Text>...</Text>
+              </View>
+            </View>
+          </View>
+        </LinearGradient>
+      </Animated.View>
     </View>
   );
 };
