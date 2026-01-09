@@ -1,5 +1,5 @@
-import { FilterView } from "./filter.view";
-import { useFilterViewModel } from "./use-filter.viewModel";
+import { FilterView } from "./view";
+import { useFilterViewModel } from "./view-model";
 
 export const Filter = () => {
   const props = useFilterViewModel();

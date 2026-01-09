@@ -1,5 +1,5 @@
-import { HomeView } from "../../viewModels/Home/home-view";
-import { useHomeViewModel } from "../../viewModels/Home/use-home.viewModel";
+import { HomeView } from "../../viewModels/Home/view";
+import { useHomeViewModel } from "../../viewModels/Home/view-model";
 
 export default function Home() {
   const viewModel = useHomeViewModel();

@@ -1,11 +1,11 @@
 import { Image, Text, View } from "react-native";
 
-type TProps = {
+interface IProps {
   title: string;
   subtitle: string;
-};
+}
 
-export function AuthFormHeader({ subtitle, title }: TProps) {
+export const AuthFormHeader = ({ subtitle, title }: IProps) => {
   return (
     <View className="items-center mb-8">
       <Image
@@ -18,4 +18,4 @@ export function AuthFormHeader({ subtitle, title }: TProps) {
       <Text className="text-base text-gray-300 text-center">{subtitle}</Text>
     </View>
   );
-}
+};

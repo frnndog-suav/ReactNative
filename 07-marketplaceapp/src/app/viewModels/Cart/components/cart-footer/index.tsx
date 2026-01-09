@@ -1,9 +1,9 @@
-import { TCreditCard } from "../../../../shared/types/credit-card";
-import { CartFooterView } from "./cart-footer-view";
-import { useCartFooterViewModel } from "./use-cart-footer-view-model";
+import { ICreditCard } from "../../../../shared/interface/credit-card";
+import { CartFooterView } from "./view";
+import { useCartFooterViewModel } from "./view-model";
 
 interface IProps {
-  creditCards: TCreditCard[];
+  creditCards: ICreditCard[];
   loadingCreditCards: boolean;
   openCartBottomSheet: () => void;
 }

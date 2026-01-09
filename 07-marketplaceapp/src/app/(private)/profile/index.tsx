@@ -1,5 +1,5 @@
-import { ProfileView } from "../../viewModels/Profile/profile-view";
-import { useProfileViewModel } from "../../viewModels/Profile/use-profile-view-model";
+import { ProfileView } from "../../viewModels/Profile/view";
+import { useProfileViewModel } from "../../viewModels/Profile/view-model";
 
 export default function Profile() {
   const viewModel = useProfileViewModel();

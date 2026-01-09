@@ -1,5 +1,5 @@
-import { AddCardBottomSheetView } from "./add-card-bottom-sheet-view";
-import { useAddCardBottomSheetViewModel } from "./use-card-bottom-sheet-view-model";
+import { AddCardBottomSheetView } from "./view";
+import { useAddCardBottomSheetViewModel } from "./view-model";
 
 export const AddCardBottomSheet = () => {
   const viewModel = useAddCardBottomSheetViewModel();

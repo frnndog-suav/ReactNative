@@ -2,15 +2,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../../../../../styles/colors";
 import { AppInput } from "../../../../shared/components/app-input";
-import { useBottomSheetStore } from "../../../../shared/store/bottom-sheet-store";
+import { useBottomSheetStore } from "../../../../shared/store/use-bottom-sheet-store";
 import { Filter } from "../filter";
 
-type TProps = {
+interface IProps {
   inputValue: string;
   setSearchInputText: (text: string) => void;
-};
+}
 
-export const SearchInput = ({ inputValue, setSearchInputText }: TProps) => {
+export const SearchInput = ({ inputValue, setSearchInputText }: IProps) => {
   const { open } = useBottomSheetStore();
 
   return (

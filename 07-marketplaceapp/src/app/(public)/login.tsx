@@ -1,5 +1,5 @@
-import { LoginView } from "../viewModels/Login/login-view";
-import { useLoginViewModel } from "../viewModels/Login/use-login.viewModel";
+import { LoginView } from "../viewModels/Login/view";
+import { useLoginViewModel } from "../viewModels/Login/view-model";
 
 export default function Login() {
   const props = useLoginViewModel();

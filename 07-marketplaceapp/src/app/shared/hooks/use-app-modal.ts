@@ -2,13 +2,13 @@ import { Ionicons } from "@expo/vector-icons";
 import { createElement } from "react";
 import {
   SelectionModal,
-  TSelectionModalProps,
+  ISelectionModalProps,
 } from "../components/app-modal/selection-modal";
 import {
   ISuccessModalProps,
   SuccessModal,
 } from "../components/app-modal/success-modal";
-import { useModalStore } from "../store/modal-store";
+import { useModalStore } from "../store/use-modal-store";
 
 export type TSelectionVariant = "primary" | "secondary" | "danger";
 
@@ -26,7 +26,7 @@ export function useAppModal() {
     options,
     title,
     message,
-  }: TSelectionModalProps) => {
+  }: ISelectionModalProps) => {
     open(
       createElement(SelectionModal, {
         title,

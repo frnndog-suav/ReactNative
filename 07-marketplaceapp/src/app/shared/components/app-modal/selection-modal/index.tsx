@@ -1,6 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
 import clsx from "clsx";
-import { FC } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../../../../../styles/colors";
 import {
@@ -8,15 +7,15 @@ import {
   TSelectionVariant,
 } from "../../../hooks/use-app-modal";
 
-type TProps = {
+interface IProps {
   title: string;
   message?: string;
   options: TSelectionOptions[];
-};
+}
 
-export type { TProps as TSelectionModalProps };
+export type { IProps as ISelectionModalProps };
 
-export const SelectionModal: FC<TProps> = ({ title, options, message }) => {
+export const SelectionModal = ({ title, options, message }: IProps) => {
   const getButtonClass = (variant: TSelectionVariant) =>
     clsx(
       "w-full py-3 px-4 rounded-lg items-center flex-row justify-center mb-2",

@@ -1,14 +1,14 @@
 import { ImagePickerOptions } from "expo-image-picker";
-import { useModalStore } from "../store/modal-store";
+import { useModalStore } from "../store/use-modal-store";
 import { useAppModal } from "./use-app-modal";
 import { useCamera } from "./use-camera";
 import { useGallery } from "./use-gallery";
 
-type TProps = ImagePickerOptions & {
+interface IProps extends ImagePickerOptions {
   callback: (uri: string | null) => void;
-};
+}
 
-export const useImage = ({ callback, ...rest }: TProps) => {
+export const useImage = ({ callback, ...rest }: IProps) => {
   const modals = useAppModal();
   const { openCamera, isLoading: isCameraLoading } = useCamera(rest);
   const { openGallery, isLoading: isGalleryLoading } = useGallery(rest);

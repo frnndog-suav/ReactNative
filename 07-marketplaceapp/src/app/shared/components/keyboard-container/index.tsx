@@ -1,17 +1,17 @@
 import {
-    Keyboard,
-    KeyboardAvoidingView,
-    Platform,
-    TouchableWithoutFeedback,
-    View,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-type TProps = {
+interface IProps {
   children: React.ReactNode;
-};
+}
 
-export function KeyboardContainer(props: TProps) {
+export function KeyboardContainer(props: IProps) {
   return (
     <SafeAreaView className="flex-1">
       <KeyboardAvoidingView

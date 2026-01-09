@@ -1,11 +1,11 @@
 import { ActivityIndicator, View } from "react-native";
 import { colors } from "../../../../../styles/colors";
 
-type TProps = {
+interface IProps {
   isLoading: boolean;
-};
+}
 
-export const Footer = ({ isLoading }: TProps) => {
+export const Footer = ({ isLoading }: IProps) => {
   if (!isLoading) {
     return null;
   }

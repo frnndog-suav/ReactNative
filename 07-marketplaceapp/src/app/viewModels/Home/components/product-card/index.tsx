@@ -1,12 +1,12 @@
-import { TProduct } from "../../../../shared/types/product";
-import { ProductCardView } from "./product-card.view";
-import { useProductCardViewModel } from "./use-product-card.viewModel";
+import { IProduct } from "../../../../shared/interface/product";
+import { ProductCardView } from "./view";
+import { useProductCardViewModel } from "./view-model";
 
-type TProps = {
-  product: TProduct;
-};
+interface IProps {
+  product: IProduct;
+}
 
-export const ProductCard = (props: TProps) => {
+export const ProductCard = (props: IProps) => {
   const viewModel = useProductCardViewModel(props);
 
   return <ProductCardView {...viewModel} />;

@@ -1,5 +1,5 @@
-import { CartView } from "../../viewModels/Cart/cart-view";
-import { useCartViewModel } from "../../viewModels/Cart/use-cart-view-model";
+import { CartView } from "../../viewModels/Cart/view";
+import { useCartViewModel } from "../../viewModels/Cart/view-model";
 
 export default function Cart() {
   const viewModal = useCartViewModel();

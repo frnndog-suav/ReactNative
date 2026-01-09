@@ -1,11 +1,11 @@
-import { TCreditCard } from "../../../../shared/types/credit-card";
-import { CreditCardItemView } from "./credit-card-item-view";
-import { useCreditCardViewModel } from "./use-credit-card-item-view-model";
+import { ICreditCard } from "../../../../shared/interface/credit-card";
+import { CreditCardItemView } from "./view";
+import { useCreditCardViewModel } from "./view-model";
 
 interface IProps {
-  creditCard: TCreditCard;
+  creditCard: ICreditCard;
   isSelected: boolean;
-  setSelectedCreditCard: (card: TCreditCard) => void;
+  setSelectedCreditCard: (card: ICreditCard) => void;
 }
 
 export const CreditCardItem = ({

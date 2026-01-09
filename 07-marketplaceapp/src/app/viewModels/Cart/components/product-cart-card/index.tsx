@@ -1,9 +1,9 @@
-import { ICartProduct } from "../../../../shared/store/cart-store";
-import { ProductCardCardView } from "./product-card-view";
-import { useProductCartCardViewModel } from "./use-product-cart-card-view-model";
+import { TCartProduct } from "../../../../shared/store/use-cart-store";
+import { ProductCardCardView } from "./view";
+import { useProductCartCardViewModel } from "./view-model";
 
 interface IProps {
-  product: ICartProduct;
+  product: TCartProduct;
 }
 
 export const ProductCartCard = ({ product }: IProps) => {

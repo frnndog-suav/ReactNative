@@ -8,23 +8,22 @@ import {
 import { colors } from "../../../../styles/colors";
 import { buttonVariants, TButtonVariants } from "./button.variants";
 
-type TProps = TouchableOpacityProps &
-  TButtonVariants & {
-    leftIcon?: keyof typeof Ionicons.glyphMap;
-    rightIcon?: keyof typeof Ionicons.glyphMap;
-    children: string;
-  };
+interface IProps extends TouchableOpacityProps, TButtonVariants {
+  leftIcon?: keyof typeof Ionicons.glyphMap;
+  rightIcon?: keyof typeof Ionicons.glyphMap;
+  children: string;
+}
 
-export function AppButton({
+export const AppButton = ({
   leftIcon,
   children,
-  variant = "filled",
   rightIcon,
-  isDisabled,
   isLoading,
   className,
+  isDisabled,
+  variant = "filled",
   ...rest
-}: TProps) {
+}: IProps) => {
   const contentColor =
     variant === "filled" ? colors.white : colors["purple-base"];
 
@@ -42,7 +41,9 @@ export function AppButton({
 
     return (
       <>
-        {leftIcon && <Ionicons name={leftIcon} color={contentColor} size={20} />}
+        {leftIcon && (
+          <Ionicons name={leftIcon} color={contentColor} size={20} />
+        )}
 
         <Text className={styles.text()}>{children}</Text>
 
@@ -56,4 +57,4 @@ export function AppButton({
       {renderContent()}
     </TouchableOpacity>
   );
-}
+};

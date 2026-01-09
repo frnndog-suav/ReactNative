@@ -1,5 +1,4 @@
 import { Ionicons } from "@expo/vector-icons";
-import { FC } from "react";
 import {
   Pressable,
   Text,
@@ -9,21 +8,20 @@ import {
   View,
 } from "react-native";
 import { appInputVariants, TAppInputVariantsProps } from "./index.variants";
-import { useAppInputViewModel } from "./use-app-input-view-model";
+import { useAppInputViewModel } from "./view-model";
 
-type TProps = TextInputProps &
-  TAppInputVariantsProps & {
-    error?: string;
-    label?: string;
-    containerClassName?: string;
-    leftIcon?: keyof typeof Ionicons.glyphMap;
-    rightIcon?: keyof typeof Ionicons.glyphMap;
-    mask?: (value: string) => null | string;
-  };
+interface IProps extends TextInputProps, TAppInputVariantsProps {
+  error?: string;
+  label?: string;
+  containerClassName?: string;
+  leftIcon?: keyof typeof Ionicons.glyphMap;
+  rightIcon?: keyof typeof Ionicons.glyphMap;
+  mask?: (value: string) => null | string;
+}
 
-export type { TProps as TAppInputProps };
+export type { IProps as IAppInputProps };
 
-export const AppInput: FC<TProps> = ({
+export const AppInput = ({
   value,
   error,
   label,
@@ -31,15 +29,15 @@ export const AppInput: FC<TProps> = ({
   leftIcon,
   rightIcon,
   className,
+  isDisabled,
   containerClassName,
   secureTextEntry = false,
   mask,
-  isDisabled,
   onBlur,
   onFocus,
   onChangeText,
   ...textInputProps
-}) => {
+}: IProps) => {
   const {
     isFocused,
     showPassword,
@@ -47,7 +45,6 @@ export const AppInput: FC<TProps> = ({
     handleFocus,
     getIconColor,
     handleTextChange,
-    handleWrapperPress,
     handlePasswordToggle,
   } = useAppInputViewModel({
     value,

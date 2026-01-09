@@ -5,7 +5,7 @@ import BottomSheet, {
 } from "@gorhom/bottom-sheet";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { colors } from "../../../../styles/colors";
-import { useBottomSheetStore } from "../../store/bottom-sheet-store";
+import { useBottomSheetStore } from "../../store/use-bottom-sheet-store";
 
 export const AppBottomSheet = () => {
   const { content, config, isOpen, close } = useBottomSheetStore();

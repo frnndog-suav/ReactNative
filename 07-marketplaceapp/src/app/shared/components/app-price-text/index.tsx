@@ -1,17 +1,17 @@
-import { AppPriceTextView } from "./app-price-text-view";
-import { useAppPriceTextViewModel } from "./use-app.price-text-view-model";
+import { useAppPriceTextViewModel } from "./view-model";
+import { AppPriceTextView } from "./view";
 
-type TProps = {
-  classNameCurrency?: string;
-  classNameValue?: string;
+interface IProps {
   value: number;
-};
+  classNameValue?: string;
+  classNameCurrency?: string;
+}
 
 export const AppPriceText = ({
   value,
   classNameCurrency,
   classNameValue,
-}: TProps) => {
+}: IProps) => {
   const viewModel = useAppPriceTextViewModel(value);
 
   return (

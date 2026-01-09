@@ -1,6 +1,6 @@
-import { TFocusedField } from "../../use-card-bottom-sheet-view-model";
-import { CreditCardView, TCardData } from "./credit-card-view";
-import { useCreditCardViewModel } from "./use-credit-card-view-model";
+import { TFocusedField } from "../../view-model";
+import { CreditCardView, TCardData } from "./view";
+import { useCreditCardViewModel } from "./view-model";
 
 interface IProps {
   isFlipped: boolean;

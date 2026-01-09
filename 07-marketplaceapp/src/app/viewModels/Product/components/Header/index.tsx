@@ -4,14 +4,14 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../../../../../styles/colors";
 import { AppPriceText } from "../../../../shared/components/app-price-text";
 import { buildImageUrl } from "../../../../shared/helpers/build-image-url";
-import { TGetProductDetails } from "../../../../shared/types/http/get-product-details";
+import { IResponseGetProductDetails } from "../../../../shared/interface/response-get-product-details";
 
-type TProps = {
-  productDetails: TGetProductDetails;
+interface IProps {
+  productDetails: IResponseGetProductDetails;
   handleOpenReview: () => void;
-};
+}
 
-export function Header({ productDetails, handleOpenReview }: TProps) {
+export function Header({ productDetails, handleOpenReview }: IProps) {
   return (
     <>
       <View className="pb-5 items-start">
