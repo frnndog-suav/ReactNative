@@ -15,11 +15,16 @@ interface IProps extends ReturnType<typeof useCreditCardViewModel> {
   focusedField: TFocusedField | null;
 }
 
-export const CreditCardView = ({ focusedField }: IProps) => {
+export const CreditCardView = ({
+  focusedField,
+  backAnimatedStyle,
+  frontAnimatedStyle,
+}: IProps) => {
   return (
     <View className="h-[192px]">
       <Animated.View
         style={[
+          frontAnimatedStyle,
           {
             height: 192,
             width: "100%",
@@ -77,6 +82,7 @@ export const CreditCardView = ({ focusedField }: IProps) => {
 
       <Animated.View
         style={[
+          backAnimatedStyle,
           {
             height: 192,
             width: "100%",
